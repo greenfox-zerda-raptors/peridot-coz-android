@@ -35,7 +35,6 @@ out/*
 out
 /out
 /.idea
-*.xml
 *.iml
 *.uml
 
