@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent">
+
+    <Button
+        android:id="@+id/Button"
+        android:text="Ok"
+        android:layout_below="@id/AddPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </Button>
+
+    <EditText
+        android:id="@+id/AddName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter your login name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp">
+    </EditText>
+
+    <EditText
+        android:id="@+id/AddPassword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter your login password"
+        android:layout_below="@id/AddName"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </EditText>
+
+</RelativeLayout>
