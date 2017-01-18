@@ -1,6 +1,9 @@
 #
 # Build configuration for Circle CI
 #
+general:
+    artifacts:
+    - /home/ubuntu/peridot-coz-android/PeridotCoZAndroid/app/build/outputs/apk/
 
 machine:
     java:
