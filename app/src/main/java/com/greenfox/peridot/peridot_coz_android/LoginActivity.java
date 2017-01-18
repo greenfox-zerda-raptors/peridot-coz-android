@@ -1,4 +1,4 @@
-package com.greenfox.peridot.peridotcozandroid;
+package com.greenfox.peridot.peridot_coz_android;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

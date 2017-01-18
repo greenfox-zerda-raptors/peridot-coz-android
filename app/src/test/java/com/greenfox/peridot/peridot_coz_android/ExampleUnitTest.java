@@ -1,4 +1,4 @@
-package com.greenfox.peridot.peridotcozandroid;
+package com.greenfox.peridot.peridot_coz_android;
 
 import org.junit.Test;
 

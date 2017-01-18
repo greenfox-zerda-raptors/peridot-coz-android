@@ -1,5 +1,4 @@
-package com.greenfox.peridot.peridotcozandroid;
-
+package com.greenfox.peridot.peridot_coz_android;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;

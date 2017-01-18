@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.greenfox.peridot.peridotcozandroid">
+    package="com.greenfox.peridot.peridot_coz_android">
 
     <application
         android:allowBackup="true"
@@ -15,9 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".LoggedInActivity"></activity>
     </application>
 
 </manifest>

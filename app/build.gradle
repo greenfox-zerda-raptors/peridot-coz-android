@@ -4,8 +4,8 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "com.greenfox.peridot.peridotcozandroid"
-        minSdkVersion 15
+        applicationId "com.greenfox.peridot.peridot_coz_android"
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
