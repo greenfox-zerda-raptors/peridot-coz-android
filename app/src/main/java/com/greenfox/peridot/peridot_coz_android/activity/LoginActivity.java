@@ -1,4 +1,4 @@
-package com.greenfox.peridot.peridot_coz_android;
+package com.greenfox.peridot.peridot_coz_android.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.greenfox.peridot.peridot_coz_android.R;
 
 public class LoginActivity extends AppCompatActivity {
 

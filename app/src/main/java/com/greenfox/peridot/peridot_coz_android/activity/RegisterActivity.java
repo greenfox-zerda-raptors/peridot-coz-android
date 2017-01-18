@@ -1,8 +1,10 @@
-package com.greenfox.peridot.peridot_coz_android;
+package com.greenfox.peridot.peridot_coz_android.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.greenfox.peridot.peridot_coz_android.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
