@@ -13,6 +13,17 @@ android:layout_height="fill_parent">
         android:layout_height="wrap_content">
     </Button>
 
+    <Button
+        android:onClick="getData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Display Info"
+        android:id="@+id/displayButton"
+        android:layout_alignBottom="@+id/loginButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+    </Button>
+
     <EditText
         android:id="@+id/loginName"
         android:layout_width="fill_parent"
@@ -48,5 +59,15 @@ android:layout_height="fill_parent">
         android:layout_marginTop="28dp"
         android:layout_alignRight="@+id/loginButton"
         android:layout_alignEnd="@+id/loginButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/dataTextView"
+        android:layout_below="@+id/loginButton"
+        android:layout_toLeftOf="@+id/displayButton"
+        android:layout_toStartOf="@+id/displayButton"
+        android:layout_marginTop="61dp" />
 
 </RelativeLayout>
