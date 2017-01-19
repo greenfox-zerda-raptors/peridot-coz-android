@@ -5,12 +5,12 @@ android:layout_width="fill_parent"
 android:layout_height="fill_parent">
 
     <Button
+        android:onClick="save"
         android:id="@+id/loginButton"
         android:text="Login"
         android:layout_below="@+id/loginPassword"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="saveData">
+        android:layout_height="wrap_content">
     </Button>
 
     <EditText
