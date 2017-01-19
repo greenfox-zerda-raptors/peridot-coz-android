@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        loginUsername = (EditText) findViewById(R.id.loginName);
+        loginPassword = (EditText) findViewById(R.id.loginPassword);
     }
 
     //Save login info
@@ -31,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = loginData.edit();
         editor.putString("userName", loginUsername.getText().toString());
         editor.putString("password", loginPassword.getText().toString());
-        editor.apply();
 
+        editor.apply();
 
         Toast.makeText(this,"Saved",Toast.LENGTH_LONG).show();
 

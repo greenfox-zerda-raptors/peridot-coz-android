@@ -5,7 +5,7 @@ android:layout_width="fill_parent"
 android:layout_height="fill_parent">
 
     <Button
-        android:onClick="save"
+        android:onClick="saveData"
         android:id="@+id/loginButton"
         android:text="Login"
         android:layout_below="@+id/loginPassword"
