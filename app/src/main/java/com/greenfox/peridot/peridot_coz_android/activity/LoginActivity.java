@@ -1,4 +1,4 @@
-package com.greenfox.peridot.peridot_coz_android;
+package com.greenfox.peridot.peridot_coz_android.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.greenfox.peridot.peridot_coz_android.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +29,10 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = (EditText) findViewById(R.id.loginPassword);
         loginButton = (Button) findViewById(R.id.loginButton);
 
+        loginPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+
+
+
         registerLink = (TextView) findViewById(R.id.registerHereLink);
 
         registerLink.setOnClickListener(new View.OnClickListener() {
@@ -37,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
 
         //Save login info
     public void saveData(View view){
@@ -55,5 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 //                LoginActivity.this.startActivity(loginIntent);
 //            }
 //        });
+
     }
 }
