@@ -39,29 +39,20 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                LoginActivity.this.startActivity(registerIntent);
+                startActivity(registerIntent);
             }
         });
+
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(LoginActivity.this, LoggedInActivity.class);
+                startActivity(loginIntent);
+            }
+        });
+
+
     }
 
-
-        //Save login info
-    public void save(View view){
-//        SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-////        SharedPreferences.Editor editor = loginData.edit();
-////        editor.putString("userName", loginUsername.getText().toString());
-////        editor.putString("password", loginPassword.getText().toString());
-////        editor.apply();
-
-        Toast.makeText(this,"Saved",Toast.LENGTH_LONG).show();
-
-//        loginButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent loginIntent = new Intent(LoginActivity.this, LoggedInActivity.class);
-//                LoginActivity.this.startActivity(loginIntent);
-//            }
-//        });
-
-    }
 }
