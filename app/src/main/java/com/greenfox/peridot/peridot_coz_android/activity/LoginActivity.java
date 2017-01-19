@@ -19,6 +19,8 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText loginUsername = (EditText) findViewById(R.id.loginName);
         final EditText loginPassword = (EditText) findViewById(R.id.loginPassword);
+        loginPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+
         final Button loginButton = (Button) findViewById(R.id.loginButton);
 
         final TextView registerLink = (TextView) findViewById(R.id.registerHereLink);
@@ -30,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(registerIntent);
             }
         });
+
 
 
     }
