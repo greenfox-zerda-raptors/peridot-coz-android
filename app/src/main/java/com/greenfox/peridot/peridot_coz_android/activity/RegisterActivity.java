@@ -16,5 +16,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText regUsername = (EditText) findViewById(R.id.regUsername);
         final EditText regPassword = (EditText) findViewById(R.id.regPassword);
         final Button regButton = (Button) findViewById(R.id.regButton);
+
+
     }
 }
