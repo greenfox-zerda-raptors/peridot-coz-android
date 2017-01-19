@@ -1,7 +1,7 @@
-package com.greenfox.peridot.peridot_coz_android.activity;
+package com.greenfox.peridot.peridot_coz_android.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,8 +28,6 @@ public class LoginActivity extends AppCompatActivity {
 
         loginPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
 
-
-
         registerLink = (TextView) findViewById(R.id.registerHereLink);
 
         registerLink.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(registerIntent);
             }
         });
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,5 +48,4 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
 }

@@ -1,4 +1,4 @@
-package com.greenfox.peridot.peridot_coz_android.activity;
+package com.greenfox.peridot.peridot_coz_android.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +14,5 @@ public class LoggedInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logged_in_activity);
 
         final TextView welcomeMessage = (TextView) findViewById(R.id.welcomeMessage);
-
-
     }
 }
