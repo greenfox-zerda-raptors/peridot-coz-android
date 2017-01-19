@@ -22,19 +22,16 @@ public class AsteriskPasswordTransformationMethod implements TransformationMetho
         private CharSequence mSource;
 
         public PasswordCharSequence(CharSequence source) {
-            mSource = source; // Store char sequence
+            mSource = source;
         }
         public char charAt(int index) {
-            return '*'; // This is the important part
+            return '*';
         }
         public int length() {
-            return mSource.length(); // Return default
+            return mSource.length();
         }
         public CharSequence subSequence(int start, int end) {
-            return mSource.subSequence(start, end); // Return default
+            return mSource.subSequence(start, end);
         }
     }
 }
-
-//took it from here: http://stackoverflow.com/questions/14051962/change-edittext-password-mask-character-to-asterisk
-//should be working
