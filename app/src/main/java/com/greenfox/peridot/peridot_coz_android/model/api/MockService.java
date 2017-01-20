@@ -10,7 +10,7 @@ public class MockService implements UserInterface {
     }
 
     @Override
-    public Call<User> getUser() {
+    public User getUser() {
         return null;
     }
 }
