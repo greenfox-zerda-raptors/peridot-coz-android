@@ -31,5 +31,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'org.projectlombok:lombok:1.16.12'
     testCompile 'org.robolectric:robolectric:3.2.2'
-
 }
