@@ -3,9 +3,9 @@ package com.greenfox.peridot.peridot_coz_android;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 
 import static org.junit.Assert.*;
 
@@ -22,5 +22,11 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.greenfox.peridot.peridot_coz_android", appContext.getPackageName());
+
     }
+
+
+
+
+
 }
