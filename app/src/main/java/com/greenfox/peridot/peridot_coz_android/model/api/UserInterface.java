@@ -10,6 +10,6 @@ public interface UserInterface {
     String ENDPOINT = "http://clash-of-zerda.com";
 
     @GET("/")
-    Call<User> getUser();
+    User getUser();
 
 }
