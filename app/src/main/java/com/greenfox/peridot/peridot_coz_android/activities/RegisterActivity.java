@@ -1,4 +1,4 @@
-package com.greenfox.peridot.peridot_coz_android.activity;
+package com.greenfox.peridot.peridot_coz_android.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -16,7 +16,5 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText regUsername = (EditText) findViewById(R.id.regUsername);
         final EditText regPassword = (EditText) findViewById(R.id.regPassword);
         final Button regButton = (Button) findViewById(R.id.regButton);
-
-
     }
 }

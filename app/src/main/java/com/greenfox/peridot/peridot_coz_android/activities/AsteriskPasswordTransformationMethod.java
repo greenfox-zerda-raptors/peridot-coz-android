@@ -1,4 +1,4 @@
-package com.greenfox.peridot.peridot_coz_android.activity;
+package com.greenfox.peridot.peridot_coz_android.activities;
 
 import android.graphics.Rect;
 import android.text.method.TransformationMethod;
