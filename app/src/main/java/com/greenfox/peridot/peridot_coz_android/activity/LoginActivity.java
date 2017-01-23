@@ -25,13 +25,10 @@ public class LoginActivity extends AppCompatActivity {
         loginUsername = (EditText) findViewById(R.id.loginName);
         loginPassword = (EditText) findViewById(R.id.loginPassword);
         loginButton = (Button) findViewById(R.id.loginButton);
-
-        loginPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
-
-
-
         registerLink = (TextView) findViewById(R.id.registerHereLink);
 
+        loginPassword.setTransformationMethod(new AsteriskPasswordTransformationMethod());
+        
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,8 +44,5 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(loginIntent);
             }
         });
-
-
     }
-
 }
