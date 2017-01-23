@@ -1,9 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.model.api;
 
-import android.util.Log;
-
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

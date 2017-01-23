@@ -5,7 +5,6 @@ android:layout_width="fill_parent"
 android:layout_height="fill_parent">
 
     <Button
-        android:onClick="saveData"
         android:id="@+id/loginButton"
         android:text="Login"
         android:layout_below="@+id/loginPassword"
@@ -64,7 +63,7 @@ android:layout_height="fill_parent">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/dataTextView"
+        android:id="@+id/dataView"
         android:layout_below="@+id/loginButton"
         android:layout_toLeftOf="@+id/displayButton"
         android:layout_toStartOf="@+id/displayButton"
