@@ -30,6 +30,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:1.7.1'
     compile 'org.projectlombok:lombok:1.16.12'
     testCompile 'org.robolectric:robolectric:3.2.2'
     compile 'com.google.dagger:dagger:2.4'
