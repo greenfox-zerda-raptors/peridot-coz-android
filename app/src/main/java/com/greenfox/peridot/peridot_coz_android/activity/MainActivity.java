@@ -8,9 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.greenfox.peridot.peridot_coz_android.R;
+import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.api.MockService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
+
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,14 +23,15 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     Button logoutButton;
-    MockService mockService;
     User user;
+    @Inject
+    MockService mockService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mockService = new MockService();
+        DaggerMainActivityComponent.builder().build().inject(this);
         mockService.getUser().enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

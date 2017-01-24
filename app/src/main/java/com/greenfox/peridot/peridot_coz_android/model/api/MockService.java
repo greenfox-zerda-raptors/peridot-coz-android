@@ -2,15 +2,22 @@ package com.greenfox.peridot.peridot_coz_android.model.api;
 
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 
+import dagger.Module;
+import dagger.Provides;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@Module
 public class MockService implements UserInterface{
 
     private static final String TAG = "MockService";
-
     public MockService() {}
+
+    @Provides
+    public MockService provideMockService(){
+        return new MockService();
+    }
 
     @Override
     public Call<User> getUser() {
