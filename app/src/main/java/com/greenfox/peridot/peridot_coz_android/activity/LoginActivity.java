@@ -64,13 +64,19 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
- /*       if (id == R.id.menuItem1) {
-            Toast.makeText(this, "Menüeintrag 1 geklickt", Toast.LENGTH_SHORT).show();
+        if (id == R.id.icon) {
+            Toast.makeText(this, "Megnyomtad a csillagikont", Toast.LENGTH_SHORT).show();
             return true;
-        } else if (id == R.id.menuItem2) {
-            Toast.makeText(this, "Menüeintrag 2 geklickt", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.settings) {
+            Toast.makeText(this, "Rakattintottal a beallitasokra", Toast.LENGTH_SHORT).show();
             return true;
-        }*/
+        } else if (id == R.id.statistics) {
+            Toast.makeText(this, "Itt jonnek majd a statisztikak", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.logout) {
+            Toast.makeText(this, "Itt ki fogunk loggolni vagy nem", Toast.LENGTH_SHORT).show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

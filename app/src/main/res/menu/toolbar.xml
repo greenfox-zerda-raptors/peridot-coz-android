@@ -2,9 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:title="Item"
-        android:id="@+id/item1"
+    <item android:title="Icon"
+        android:id="@+id/icon"
         app:showAsAction="always"
+        android:visible="true"
+        android:enabled="true"
+        android:icon="@android:drawable/btn_star_big_on" />
+    <item android:title="Statistics"
+        android:id="@+id/statistics"
+        app:showAsAction="never"
+        android:visible="true"
+        android:enabled="true" />
+    <item android:title="Settings"
+        android:id="@+id/settings"
+        app:showAsAction="never"
+        android:visible="true"
+        android:enabled="true" />
+    <item android:title="Logout"
+        android:id="@+id/logout"
+        app:showAsAction="never"
         android:visible="true"
         android:enabled="true" />
 </menu>
