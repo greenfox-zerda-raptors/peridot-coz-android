@@ -53,16 +53,15 @@ public class LoginActivity extends AppCompatActivity {
     public void saveData(View view){
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = loginData.edit();
-        editor.putString("userName", loginUsername.getText().toString());
+        editor.putString("username", loginUsername.getText().toString());
         editor.putString("password", loginPassword.getText().toString());
-        editor.commit();
-        Toast.makeText(this,"Saved", Toast.LENGTH_LONG).show();
+        editor.apply();
+        Toast.makeText(this,"Saved", Toast.LENGTH_SHORT).show();
     }
 
     public void getData(View view){
-        Toast.makeText(this,"Displaying info",Toast.LENGTH_LONG).show();
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        String name = loginData.getString("userName", "");
+        String name = loginData.getString("username", "");
         String pw = loginData.getString("password","");
         String msg = "Saved User Name: " + name + "\nSaved Password: " + pw;
         dataView.setText(msg);
