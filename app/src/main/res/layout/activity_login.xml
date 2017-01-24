@@ -18,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
     <EditText
         android:id="@+id/loginName"
         android:layout_width="fill_parent"
@@ -79,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/dataTextView"
+        android:id="@+id/dataView"
         android:layout_below="@+id/loginButton"
         android:layout_toLeftOf="@+id/displayButton"
         android:layout_toStartOf="@+id/displayButton"

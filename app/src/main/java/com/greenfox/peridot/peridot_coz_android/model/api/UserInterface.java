@@ -11,5 +11,4 @@ public interface UserInterface {
 
     @GET("/")
     Call<User> getUser();
-
 }

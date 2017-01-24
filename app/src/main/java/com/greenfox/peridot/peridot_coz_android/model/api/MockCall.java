@@ -12,9 +12,7 @@ import retrofit2.Response;
 public abstract class MockCall<T> implements Call<T> {
 
     @Override
-    public Response execute() throws IOException {
-        return null;
-    }
+    public Response execute() throws IOException {return null;}
 
     @Override
     public boolean isExecuted() {
@@ -22,9 +20,7 @@ public abstract class MockCall<T> implements Call<T> {
     }
 
     @Override
-    public void cancel() {
-
-    }
+    public void cancel() {}
 
     @Override
     public boolean isCanceled() {
