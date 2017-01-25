@@ -18,10 +18,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity"></activity>
-        <activity
-            android:name=".activity.LeftNavigationActivity"
-            android:label="@string/title_activity_left_navigation"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
