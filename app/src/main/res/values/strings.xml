@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">peridot-coz-android</string>
+    <string name="app_name">Peridot Clash of Zerda</string>
     <string name="title_activity_left_navigation">LeftNavigationActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
