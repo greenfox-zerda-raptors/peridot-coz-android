@@ -63,30 +63,44 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveData(v);
-                Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(loginIntent);
+                checkIfUsernameAndPasswordAreCorrectsAndLoginIfTheyAre(v);
             }
         });
     }
 
-    public void saveData(View view){
-        if(loginUsername.getText().toString().equals("") || loginPassword.getText().toString().equals("") ){
+    public void checkIfUsernameAndPasswordAreCorrectsAndLoginIfTheyAre(View view){
+        if(isUsernameOrPasswordEmpty()){
             Toast.makeText(this,"Please fill in username/password", Toast.LENGTH_SHORT).show();
         }
-        else if(loginUsername.getText().toString().equals(user.getUsername()) && loginPassword.getText().toString().equals(user.getPassword())) {
-            SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = loginData.edit();
-            editor.putString("username", loginUsername.getText().toString());
-            editor.putString("password", loginPassword.getText().toString());
-            editor.apply();
+        else if(isUsernameAndPasswordCorrect()) {
+            saveCorrectUsernameAndPasswordToSharedPreferences();
             Toast.makeText(this,"Saved", Toast.LENGTH_SHORT).show();
-            Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(loginIntent);
+            loginWithCorrectUsernameAndPassword();
         }else{
             Toast.makeText(this,"Wrong username/password", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void loginWithCorrectUsernameAndPassword() {
+        Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(loginIntent);
+    }
+
+    private void saveCorrectUsernameAndPasswordToSharedPreferences() {
+        SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginData.edit();
+        editor.putString("username", loginUsername.getText().toString());
+        editor.putString("password", loginPassword.getText().toString());
+        editor.apply();
+    }
+
+    private boolean isUsernameAndPasswordCorrect() {
+        return loginUsername.getText().toString().equals(user.getUsername()) && loginPassword.getText().toString().equals(user.getPassword());
+    }
+
+    private boolean isUsernameOrPasswordEmpty() {
+        return loginUsername.getText().toString().equals("") || loginPassword.getText().toString().equals("");
     }
 
     public void getData(View view){

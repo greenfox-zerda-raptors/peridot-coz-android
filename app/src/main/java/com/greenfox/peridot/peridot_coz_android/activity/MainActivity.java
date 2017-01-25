@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.greenfox.peridot.peridot_coz_android.R;
@@ -26,17 +27,21 @@ public class MainActivity extends AppCompatActivity {
     User user;
     @Inject
     MockService mockService;
+    TextView welcomeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        welcomeText = (TextView) findViewById(R.id.welcomeText);
         DaggerMainActivityComponent.builder().build().inject(this);
         mockService.getUser().enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 user = response.body();
-                checkSharedPreferencesForUser(user);}
+                checkSharedPreferencesForUser(user);
+                welcomeText.setText("Welcome " + user.getUsername() + "!");
+            }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 }});
@@ -48,17 +53,17 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this,"You have to log in", Toast.LENGTH_SHORT).show();
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
-        } else {loginExistingUser(user);}
-    }
-
-    public void loginExistingUser(User user) {
-        if (!(user.getUsername().equals(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username",""))
-                && user.getPassword().equals(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password","")))) {
-            Toast.makeText(this,"Wrong username/password", Toast.LENGTH_SHORT).show();
-            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(loginIntent);
         }
     }
+
+//    public void loginExistingUser(User user) {
+//        if (!(user.getUsername().equals(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username",""))
+//                && user.getPassword().equals(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password","")))) {
+//            Toast.makeText(this,"Wrong username/password", Toast.LENGTH_SHORT).show();
+//            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+//            startActivity(loginIntent);
+//        }
+//    }
 
     public void logout(View v){
         SharedPreferences preferences =getSharedPreferences("userInfo", Context.MODE_PRIVATE);
