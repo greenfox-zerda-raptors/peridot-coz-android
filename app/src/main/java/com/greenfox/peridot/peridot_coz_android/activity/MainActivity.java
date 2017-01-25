@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("username", "");
         editor.putString("password", "");
         editor.apply();
-        Toast.makeText(this,"Succesful logout", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Successful logout", Toast.LENGTH_SHORT).show();
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(loginIntent);
     };
