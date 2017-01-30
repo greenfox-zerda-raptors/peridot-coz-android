@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,12 +29,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
         loginUsername = (EditText) findViewById(R.id.loginName);
         loginPassword = (EditText) findViewById(R.id.loginPassword);
         loginButton = (Button) findViewById(R.id.loginButton);
         registerLink = (TextView) findViewById(R.id.registerHereLink);
         dataView = (TextView) findViewById(R.id.dataView);
-        
+
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +54,30 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(loginIntent);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.icon) {
+            Toast.makeText(this, "Megnyomtad a csillagikont", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.settings) {
+            Toast.makeText(this, "Rakattintottal a beallitasokra", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.statistics) {
+            Toast.makeText(this, "Itt jonnek majd a statisztikak", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.logout) {
+            Toast.makeText(this, "Itt ki fogunk loggolni vagy nem", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void saveData(View view){

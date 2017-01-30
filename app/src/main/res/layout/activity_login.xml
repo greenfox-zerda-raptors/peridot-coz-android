@@ -1,10 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/loginName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your login name"
+        android:layout_alignParentLeft="true">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/loginPassword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your login password"
+        android:layout_below="@+id/loginName"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentLeft="true"
+        android:inputType="textPassword">
+    </EditText>
 
     <Button
+        android:onClick="saveData"
         android:id="@+id/loginButton"
         android:text="Login"
         android:layout_below="@+id/loginPassword"
@@ -22,30 +57,6 @@ android:layout_height="fill_parent">
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
     </Button>
-
-    <EditText
-        android:id="@+id/loginName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter your login name"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp">
-    </EditText>
-
-    <EditText
-        android:id="@+id/loginPassword"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter your login password"
-        android:layout_below="@+id/loginName"
-        android:layout_marginBottom="20dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:inputType="textPassword">
-    </EditText>
 
     <TextView
         android:text="Register Here"
@@ -69,4 +80,6 @@ android:layout_height="fill_parent">
         android:layout_toStartOf="@+id/displayButton"
         android:layout_marginTop="61dp" />
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
