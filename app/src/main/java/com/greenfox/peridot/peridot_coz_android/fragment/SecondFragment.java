@@ -15,11 +15,10 @@ import com.greenfox.peridot.peridot_coz_android.R;
 
 public class SecondFragment extends Fragment {
 
-    View contentView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        contentView = inflater.inflate(R.layout.second_layout, container, false);
+        View contentView = inflater.inflate(R.layout.second_layout, container, false);
         return contentView;
     }
 }
