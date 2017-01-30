@@ -26,8 +26,7 @@ public class Building {
         this.hp = 0;
     }
 
-    public Building() {
-    }
+    public Building() {}
 
     public int getId() {return id;}
 

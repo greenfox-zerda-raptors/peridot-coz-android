@@ -1,9 +1,7 @@
 package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
-import com.google.gson.annotations.SerializedName;
-
-
 /// TODO upadate this class' name after merge
+
 public class UserToBeRenamed {
 
     String username;
