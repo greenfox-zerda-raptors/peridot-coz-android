@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
-import com.greenfox.peridot.peridot_coz_android.model.api.MockService;
+import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 
 import javax.inject.Inject;
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button logoutButton;
     User user;
     @Inject
-    MockService mockService;
+    ApiService apiService;
     TextView welcomeText;
 
     @Override
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         welcomeText = (TextView) findViewById(R.id.welcomeText);
         DaggerMainActivityComponent.builder().build().inject(this);
-        mockService.getUser().enqueue(new Callback<User>() {
+        apiService.getUser().enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 user = response.body();
@@ -56,15 +56,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    public void loginExistingUser(User user) {
-//        if (!(user.getUsername().equals(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username",""))
-//                && user.getPassword().equals(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password","")))) {
-//            Toast.makeText(this,"Wrong username/password", Toast.LENGTH_SHORT).show();
-//            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-//            startActivity(loginIntent);
-//        }
-//    }
-
     public void logout(View v){
         SharedPreferences preferences =getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -74,5 +65,5 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this,"Successful logout", Toast.LENGTH_SHORT).show();
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(loginIntent);
-    };
+    }
 }

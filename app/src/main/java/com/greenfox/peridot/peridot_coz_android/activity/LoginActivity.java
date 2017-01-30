@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
-import com.greenfox.peridot.peridot_coz_android.model.api.MockService;
+import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView registerLink;
     TextView dataView;
     @Inject
-    MockService mockService;
+    ApiService apiService;
     User user;
 
     @Override
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         registerLink = (TextView) findViewById(R.id.registerHereLink);
         dataView = (TextView) findViewById(R.id.dataView);
 
-        mockService.getUser().enqueue(new Callback<User>() {
+        apiService.getUser().enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 user = response.body();}

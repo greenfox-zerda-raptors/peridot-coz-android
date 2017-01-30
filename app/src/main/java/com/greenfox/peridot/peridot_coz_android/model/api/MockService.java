@@ -9,15 +9,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @Module
-public class MockService implements UserInterface{
+public class MockService implements ApiService {
 
     private static final String TAG = "MockService";
-    public MockService() {}
 
-    @Provides
-    public MockService provideMockService(){
-        return new MockService();
-    }
+    public MockService() {}
 
     @Override
     public Call<User> getUser() {
