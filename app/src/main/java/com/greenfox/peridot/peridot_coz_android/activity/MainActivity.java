@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 user = response.body();
-                checkSharedPreferencesForUser(user);
+                checkSharedPreferencesForUser();
                 welcomeText.setText("Welcome " + user.getUsername() + "!");
             }
             @Override
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void checkSharedPreferencesForUser(User user) {
+    public void checkSharedPreferencesForUser() {
         if(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username","").equals("")){
             Toast.makeText(this,"You have to log in", Toast.LENGTH_SHORT).show();
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);

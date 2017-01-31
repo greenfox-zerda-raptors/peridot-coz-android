@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText loginUsername;
     EditText loginPassword;
     Button loginButton;
-    TextView registerLink;
+    Button registerButton;
     TextView dataView;
     @Inject
     ApiService apiService;
@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         loginUsername = (EditText) findViewById(R.id.loginName);
         loginPassword = (EditText) findViewById(R.id.loginPassword);
         loginButton = (Button) findViewById(R.id.loginButton);
-        registerLink = (TextView) findViewById(R.id.registerHereLink);
+        registerButton = (Button) findViewById(R.id.registerHereButton);
         dataView = (TextView) findViewById(R.id.dataView);
 
         apiService.getUser().enqueue(new Callback<User>() {
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<User> call, Throwable t) {
             }});
 
-        registerLink.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
