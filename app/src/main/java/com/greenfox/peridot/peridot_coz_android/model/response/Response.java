@@ -8,5 +8,5 @@ package com.greenfox.peridot.peridot_coz_android.model.response;
  */
 
 public class Response {
-    ErrorResponse errors;
+    Error errors;
 }
