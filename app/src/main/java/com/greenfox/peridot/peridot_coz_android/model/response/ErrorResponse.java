@@ -7,4 +7,5 @@ package com.greenfox.peridot.peridot_coz_android.model.response;
 public class ErrorResponse extends Response{
     String username;
     String password;
+    //TODO: userId for 404Error, need to ask Jasper team
 }
