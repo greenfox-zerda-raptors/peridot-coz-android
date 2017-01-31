@@ -7,18 +7,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiManager {
 
-    private static UserInterface mUserInterface;
+    private static ApiService mApiService;
 
-    public static UserInterface getUserApi() {
-        if(mUserInterface == null) {
+    public static ApiService getUserApi() {
+        if(mApiService == null) {
             final OkHttpClient client = new OkHttpClient();
             final Retrofit retrofit = new Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create())
-                    .baseUrl(UserInterface.ENDPOINT)
+                    .baseUrl(ApiService.ENDPOINT)
                     .client(client)
                     .build();
-            mUserInterface = retrofit.create(UserInterface.class);
+            mApiService = retrofit.create(ApiService.class);
         }
-        return mUserInterface;
+        return mApiService;
     }
 }
