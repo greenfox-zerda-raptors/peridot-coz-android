@@ -1,7 +1,5 @@
 package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 
 /**
@@ -10,17 +8,15 @@ import java.util.ArrayList;
 
 public class Resource {
 
-    @SerializedName("type")
     private String type;
-    @SerializedName("amount")
     private int amount;
-    @SerializedName("buildings")
     private ArrayList<Building> buildings;
 
     public Resource() {}
 
-    public Resource(String type, ArrayList<Building> buildings) {
+    public Resource(String type, int amount, ArrayList<Building> buildings) {
         this.type = type;
+        this.amount = amount;
         this.buildings = buildings;
     }
 

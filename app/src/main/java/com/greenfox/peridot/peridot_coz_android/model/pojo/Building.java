@@ -1,23 +1,14 @@
 package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
 /**
  * Created by bedij on 2017. 01. 30..
  */
 
 public class Building {
 
-    @SerializedName("id")
     private int id;
-    @SerializedName("type")
     private String type;
-    @SerializedName("level")
     private int level;
-    @SerializedName("hp")
     private int hp;
 
     public Building(String type) {

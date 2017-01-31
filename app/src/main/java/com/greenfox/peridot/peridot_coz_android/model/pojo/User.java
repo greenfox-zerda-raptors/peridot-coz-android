@@ -1,16 +1,12 @@
 package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by bedij on 2017. 01. 30..
  */
 
 public class User {
 
-    @SerializedName("UserName")
     String username;
-    @SerializedName("Password")
     String password;
 
     public User() {}
