@@ -3,13 +3,12 @@ package com.greenfox.peridot.peridot_coz_android.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.widget.EditText;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.greenfox.peridot.peridot_coz_android.BuildConfig;
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 
 import junit.framework.Assert;
 
@@ -19,10 +18,6 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
-
-import javax.inject.Inject;
-
-import static org.junit.Assert.*;
 import static org.robolectric.Shadows.shadowOf;
 
 /**
@@ -36,17 +31,27 @@ public class MainActivityTest {
     private TextView welcomeTxt;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
 
     @Before
     public void setUp(){
         mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();
         welcomeTxt = (TextView) mainActivity.findViewById(R.id.welcomeText);
+        toolbar = (Toolbar) mainActivity.findViewById(R.id.toolbar);
+        drawer = (DrawerLayout) mainActivity.findViewById(R.id.drawer_layout);
         preferences = mainActivity.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         editor = preferences.edit();
         editor.putString("username", "");
         editor.putString("password", "");
         editor.apply();
     }
+
+    @Test
+    public void testToolbarAppearing() throws Exception {
+        Assert.assertNotNull(mainActivity.getSupportActionBar());
+    }
+
 
     @Test
     public void testIfEmptySharedPrefMainGoesToLogin() throws Exception {
