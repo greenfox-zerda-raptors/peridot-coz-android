@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 
 import javax.inject.Inject;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button logoutButton;
     User user;
+    Kingdom kingdom;
     @Inject
     ApiService apiService;
     TextView welcomeText;
@@ -46,6 +48,16 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<User> call, Throwable t) {
                 }});
         logoutButton = (Button) findViewById(R.id.logoutButton);
+
+        apiService.getKingdom().enqueue(new Callback<Kingdom>() {
+            @Override
+            public void onResponse(Call<Kingdom> call, Response<Kingdom> response) {
+                kingdom = response.body();
+                welcomeText.setText("Welcome in kingdom of " + kingdom.getUser().getUsername() + "!");
+            }
+            @Override
+            public void onFailure(Call<Kingdom> call, Throwable t) {
+            }});
     }
 
     public void checkSharedPreferencesForUser(User user) {
