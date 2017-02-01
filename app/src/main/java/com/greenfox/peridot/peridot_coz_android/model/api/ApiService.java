@@ -1,6 +1,7 @@
 package com.greenfox.peridot.peridot_coz_android.model.api;
 
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 
 import retrofit2.Call;
@@ -15,4 +16,7 @@ public interface ApiService {
 
     @GET("/kingdom/{userId}/")
     Call<Kingdom> getKingdom();
+
+    @GET("/kingdom/[userId]/resources/")
+    Call<Resource> getResource();
 }
