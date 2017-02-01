@@ -8,6 +8,7 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;
@@ -49,5 +50,31 @@ public class MockService implements ApiService {
                 callback.onResponse(this, r);
             }
         };
+    }
+
+    @Override
+    public Call<ArrayList<Building>> getBuildings(int userId) {
+        return new MockCall<ArrayList<Building>>() {
+            @Override
+            public void enqueue(Callback<ArrayList<Building>> callback) {
+                Response<ArrayList<Building>> v = Response.success(buildings);
+                callback.onResponse(this, v);
+            }
+        };
+    }
+
+    @Override
+    public Call<Building> getDetailsOfBuilding() {
+        return null;
+    }
+
+    @Override
+    public Call<Building> createBuilding() {
+        return null;
+    }
+
+    @Override
+    public Call<Building> upgradeBuilding() {
+        return null;
     }
 }

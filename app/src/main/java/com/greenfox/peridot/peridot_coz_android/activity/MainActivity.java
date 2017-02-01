@@ -13,8 +13,11 @@ import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -27,9 +30,11 @@ public class MainActivity extends AppCompatActivity {
     Button logoutButton;
     User user;
     Kingdom kingdom;
+    ArrayList<Building> buildings;
     @Inject
     ApiService apiService;
     TextView welcomeText;
+    TextView buildingText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Kingdom> call, Throwable t) {
             }});
+
+        apiService.getBuildings(1).enqueue(new Callback<ArrayList<Building>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Building>> call, Response<ArrayList<Building>> response) {
+                buildings = response.body();
+                buildingText.setText("You have your buildings here!");
+            }
+            @Override
+            public void onFailure(Call<ArrayList<Building>> call, Throwable t) {
+            }});
+
+
+
+
     }
 
     public void checkSharedPreferencesForUser(User user) {
