@@ -1,6 +1,5 @@
 package com.greenfox.peridot.peridot_coz_android.activity;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -17,8 +16,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
+import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverview;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
-import com.greenfox.peridot.peridot_coz_android.fragment.SecondFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverview;
+import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverview;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import javax.inject.Inject;
@@ -127,10 +128,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, kingdomOverviewFragment);
             fragmentTransaction.commit();
-        } else if (id == R.id.nav_second_layout) {
-            SecondFragment secondFragment= new SecondFragment();
+        } else if (id == R.id.nav_buildings) {
+            BuildingsOverview buildingsOverview = new BuildingsOverview();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_frame, secondFragment);
+            fragmentTransaction.replace(R.id.content_frame, buildingsOverview);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_troops) {
+            TroopsOverview troopsOverview = new TroopsOverview();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, troopsOverview);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_battle) {
+            BattleOverview battleOverview = new BattleOverview();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, battleOverview);
             fragmentTransaction.commit();
         }
 
