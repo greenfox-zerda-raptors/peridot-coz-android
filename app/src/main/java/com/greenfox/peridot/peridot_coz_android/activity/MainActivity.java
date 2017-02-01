@@ -21,6 +21,7 @@ import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityCompone
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
@@ -107,7 +108,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "Megnyomtad a csillagikont", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.settings) {
-            Toast.makeText(this, "Rakattintottal a beallitasokra", Toast.LENGTH_SHORT).show();
+            SettingsFragment settingsFragment= new SettingsFragment();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, settingsFragment);
+            fragmentTransaction.commit();
             return true;
         } else if (id == R.id.statistics) {
             Toast.makeText(this, "Itt jonnek majd a statisztikak", Toast.LENGTH_SHORT).show();
