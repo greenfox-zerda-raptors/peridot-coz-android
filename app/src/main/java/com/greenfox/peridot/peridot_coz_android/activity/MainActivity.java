@@ -2,6 +2,7 @@ package com.greenfox.peridot.peridot_coz_android.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ApiService apiService;
     TextView welcomeText;
     FragmentTransaction fragmentTransaction;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    public void logout(){
+        SharedPreferences preferences = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("username", "");
+        editor.putString("password", "");
+        editor.apply();
+        Toast.makeText(this,"Successful logout", Toast.LENGTH_SHORT).show();
+
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        this.startActivity(loginIntent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar, menu);
@@ -98,8 +113,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "Itt jonnek majd a statisztikak", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.logout) {
-            Toast.makeText(this, "Itt ki fogunk loggolni vagy nem", Toast.LENGTH_SHORT).show();
+            logout();
             return true;
+
         } else if (id == R.id.action_settings) {
             Toast.makeText(this, "Megnyomtad az Action settingset", Toast.LENGTH_SHORT).show();
             return true;
