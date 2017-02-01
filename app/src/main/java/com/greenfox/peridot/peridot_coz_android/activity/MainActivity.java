@@ -31,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
     User user;
     Kingdom kingdom;
     ArrayList<Building> buildings;
+    Building building;
     @Inject
     ApiService apiService;
-    TextView welcomeText;
     TextView buildingText;
+    TextView welcomeText;
+    TextView buildingsText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +70,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<Building>> call, Response<ArrayList<Building>> response) {
                 buildings = response.body();
-                buildingText.setText("You have your buildings here!");
+                buildingsText.setText("You have your buildings here!");
             }
             @Override
             public void onFailure(Call<ArrayList<Building>> call, Throwable t) {
             }});
+
+        apiService.getDetailsOfBuilding(1,1).enqueue(new Callback<Building>() {
+            @Override
+            public void onResponse(Call<Building> call, Response<Building> response) {
+                building = response.body();
+                buildingText.setText("You have your building, see it's details here!");
+            }
+
+            @Override
+            public void onFailure(Call<Building> call, Throwable t) {
+
+            }
+        });
 
 
 
@@ -97,4 +112,5 @@ public class MainActivity extends AppCompatActivity {
         Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(loginIntent);
     }
+
 }

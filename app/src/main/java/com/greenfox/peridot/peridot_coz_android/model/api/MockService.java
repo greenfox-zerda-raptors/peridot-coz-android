@@ -23,6 +23,8 @@ public class MockService implements ApiService {
 
     private User user = new User("aaa","aaa");
 
+    private Building building = new Building("townhall");
+
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
 
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
@@ -64,17 +66,35 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Building> getDetailsOfBuilding() {
-        return null;
+    public Call<Building> getDetailsOfBuilding(int userId, int buildingId) {
+        return new MockCall<Building>() {
+            @Override
+            public void enqueue(Callback<Building> callback) {
+                Response<Building> v = Response.success(building);
+                callback.onResponse(this, v);
+            }
+        };
     }
 
     @Override
-    public Call<Building> createBuilding() {
-        return null;
+    public Call<Building> createBuilding(int userId, Building building) {
+        return new MockCall<Building>() {
+            @Override
+            public void enqueue(Callback<Building> callback) {
+                Response<Building> v = Response.success(new Building("farm"));
+                callback.onResponse(this, v);
+            }
+        };
     }
 
     @Override
-    public Call<Building> upgradeBuilding() {
-        return null;
+    public Call<Building> upgradeBuilding(int userId, int buildingId, final Building building) {
+        return new MockCall<Building>() {
+            @Override
+            public void enqueue(Callback<Building> callback) {
+                Response<Building> v = Response.success(building);
+                callback.onResponse(this, v);
+            }
+        };
     }
 }

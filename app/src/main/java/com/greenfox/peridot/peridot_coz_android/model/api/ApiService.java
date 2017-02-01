@@ -23,13 +23,13 @@ public interface ApiService {
     @GET("/kingdom/{userId}/buildings/")
     Call<ArrayList<Building>> getBuildings(@Path("userId") int userId);
 
-    @GET("/kingdom/{userId}/buildings/[buildingId]")
-    Call<Building> getDetailsOfBuilding();
+    @GET("/kingdom/{userId}/buildings/{buildingId}/")
+    Call<Building> getDetailsOfBuilding(@Path("userId")int userId, @Path("buildingId")int buildingId);
 
     @POST("/kingdom/{userId}/buildings/")
-    Call<Building> createBuilding();
+    Call<Building> createBuilding(@Path("userId") int userId,@Body Building building);
 
-    @PUT("/kingdom/{userId}/buildings/")
-    Call<Building> upgradeBuilding();
+    @PUT("/kingdom/{userId}/buildings/{buildingId}/")
+    Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId")int buildingId, @Body Building building);
 
 }
