@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.greenfox.peridot.peridot_coz_android.R;
 
-public class TroopsOverview extends Fragment {
+public class TroopsOverviewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

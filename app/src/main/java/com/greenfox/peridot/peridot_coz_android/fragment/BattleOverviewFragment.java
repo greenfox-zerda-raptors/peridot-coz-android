@@ -9,16 +9,12 @@ import android.view.ViewGroup;
 
 import com.greenfox.peridot.peridot_coz_android.R;
 
-/**
- * Created by mozgaanna on 25/01/17.
- */
-
-public class BuildingsOverview extends Fragment {
+public class BattleOverviewFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View contentView = inflater.inflate(R.layout.buildings_overview_layout, container, false);
-        return contentView;
+        return inflater.inflate(R.layout.battle_overview_layout, container, false);
     }
+
 }
