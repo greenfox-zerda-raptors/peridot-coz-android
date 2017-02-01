@@ -1,25 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:openDrawer="start"
-        android:fitsSystemWindows="false">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-               <include
-                    layout="@layout/app_bar_left_navigation"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+    <EditText
+        android:id="@+id/loginName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:hint="Enter your login name"></EditText>
 
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_left_navigation"
-            app:menu="@menu/activity_left_navigation_drawer" />
+    <EditText
+        android:id="@+id/loginPassword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/loginName"
+        android:layout_marginBottom="20dp"
+        android:hint="Enter your login password"
+        android:inputType="textPassword">
+        <!--android:layout_alignParentStart="true"-->
+    </EditText>
 
-    </android.support.v4.widget.DrawerLayout>
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginPassword"
+        android:onClick="saveData"
+        android:text="Login"></Button>
+
+    <Button
+        android:id="@+id/displayButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/loginButton"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:onClick="getData"
+        android:text="Display Info"></Button>
+
+    <Button
+        android:id="@+id/registerHereButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/loginButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/loginButton"
+        android:layout_below="@+id/loginButton"
+        android:layout_marginTop="28dp"
+        android:text="Register Here"></Button>
+
+    <TextView
+        android:id="@+id/dataView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginButton"
+        android:layout_marginTop="61dp"
+        android:layout_toLeftOf="@+id/displayButton"
+        android:layout_toStartOf="@+id/displayButton"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

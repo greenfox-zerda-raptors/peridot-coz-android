@@ -13,12 +13,12 @@ import com.greenfox.peridot.peridot_coz_android.R;
  * Created by mozgaanna on 25/01/17.
  */
 
-public class FirstFragment extends Fragment {
+public class KingdomOverviewFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View contentView = inflater.inflate(R.layout.first_layout, container, false);
+        View contentView = inflater.inflate(R.layout.kingdom_overview_layout, container, false);
         return contentView;
     }
 }
