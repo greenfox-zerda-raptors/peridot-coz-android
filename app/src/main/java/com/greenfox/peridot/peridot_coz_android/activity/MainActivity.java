@@ -21,6 +21,7 @@ import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityCompone
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
@@ -158,6 +159,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             BattleOverviewFragment battleOverviewFragment = new BattleOverviewFragment();
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.content_frame, battleOverviewFragment);
+            fragmentTransaction.commit();
+        } else if (id == R.id.nav_resources) {
+            ResourcesOverviewFragment resourcesOverviewFragment = new ResourcesOverviewFragment();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_frame, resourcesOverviewFragment);
             fragmentTransaction.commit();
         }
 
