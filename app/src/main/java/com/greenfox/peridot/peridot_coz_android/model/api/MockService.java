@@ -41,7 +41,7 @@ public class MockService implements ApiService {
         };
     }
     @Override
-    public Call<Kingdom> getKingdom() {
+    public Call<Kingdom> getKingdom(int userId) {
         return new MockCall<Kingdom>() {
             @Override
             public void enqueue(Callback<Kingdom> callback) {

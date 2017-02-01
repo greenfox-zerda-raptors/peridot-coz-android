@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 }});
         logoutButton = (Button) findViewById(R.id.logoutButton);
 
-        apiService.getKingdom().enqueue(new Callback<Kingdom>() {
+        apiService.getKingdom(1).enqueue(new Callback<Kingdom>() {
             @Override
             public void onResponse(Call<Kingdom> call, Response<Kingdom> response) {
                 kingdom = response.body();
