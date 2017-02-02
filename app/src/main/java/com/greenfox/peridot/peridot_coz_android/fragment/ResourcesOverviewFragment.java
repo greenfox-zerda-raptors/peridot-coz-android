@@ -27,9 +27,14 @@ public class ResourcesOverviewFragment extends Fragment {
         View contentView = inflater.inflate(R.layout.resources_overview_layout, container, false);
 
         resourceList = new ArrayList<>();
+
         resourcesListView = (ListView) contentView.findViewById(R.id.resourcesListView);
 
-        resourceAdapter = new ResourceAdapter(getActivity());
+        resourceAdapter = new ResourceAdapter(
+                getActivity(),
+                R.id.resourcesListView,
+                resourceList);
+
         resourcesListView.setAdapter(resourceAdapter);
 
         return contentView;

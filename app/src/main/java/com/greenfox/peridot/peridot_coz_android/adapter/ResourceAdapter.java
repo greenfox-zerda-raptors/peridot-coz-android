@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class ResourceAdapter extends ArrayAdapter<Resource> {
 
-    public ResourceAdapter(Context context) {
+    public ResourceAdapter(Context context, int resourcesListView, ArrayList<Resource> resourceList) {
         super(context, 0, new ArrayList<Resource>());
     }
 
