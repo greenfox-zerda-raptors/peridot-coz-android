@@ -79,7 +79,7 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> v = Response.success(new Building("farm"));
+                Response<Building> v = Response.success(new Building("townhall"));
                 callback.onResponse(this, v);
             }
         };
@@ -90,7 +90,7 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> v = Response.success(building);
+                Response<Building> v = Response.success(new Building("townhall",building.increaseLevelOfBuilding()));
                 callback.onResponse(this, v);
             }
         };
