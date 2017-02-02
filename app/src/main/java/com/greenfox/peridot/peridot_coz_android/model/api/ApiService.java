@@ -1,5 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.model.api;
 
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
@@ -7,6 +8,8 @@ import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterR
 
 import retrofit2.Call;
 import retrofit2.http.*;
+
+import static android.R.attr.id;
 
 public interface ApiService {
 
@@ -17,4 +20,8 @@ public interface ApiService {
 
     @POST("/register")
     Call<LoginAndRegisterResponse> register(RegisterRequest registerRequest);
+
+    @GET("/kingdom/{userId}/")
+    Call<Kingdom> getKingdom(@Path("userId") int userId);
+
 }

@@ -1,10 +1,17 @@
 package com.greenfox.peridot.peridot_coz_android.model.api;
 
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.Error;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import dagger.Module;
 import retrofit2.Call;
@@ -15,6 +22,9 @@ import retrofit2.Response;
 public class MockService implements ApiService {
 
     private static final String TAG = "MockService";
+    private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
+    private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
+    private ArrayList<Troop> troops = new ArrayList<>(Arrays.asList(new Troop(5, 5, 5)));
 
     public MockService() {}
 
@@ -43,6 +53,19 @@ public class MockService implements ApiService {
                 }
             }
         };
+    }
+
+    @Override
+    public Call<Kingdom> getKingdom(int userId) {
+        ///TODO this.
+        return null;
+//        return new MockCall<Kingdom>() {
+//            @Override
+//            public void enqueue(Callback<Kingdom> callback) {
+//                Response<Kingdom> r = Response.success(new Kingdom(user, buildings, resources, troops));
+//                callback.onResponse(this, r);
+//            }
+//        };
     }
 
     @Override
