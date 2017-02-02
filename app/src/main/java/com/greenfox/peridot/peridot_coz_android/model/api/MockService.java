@@ -61,4 +61,14 @@ public class MockService implements ApiService {
             }
         };
     }
+    @Override
+    public Call<Resource> getType() {
+        return new MockCall<Resource>() {
+            @Override
+            public void enqueue(Callback<Resource> callback) {
+                Response<Resource> r = Response.success(new Resource("food", 20, buildings));
+                callback.onResponse(this, r);
+            }
+        };
+    }
 }
