@@ -28,8 +28,6 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 
-import java.util.ArrayList;
-
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,8 +37,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     User user;
     Kingdom kingdom;
-    ArrayList<Building> buildings;
-    Building building;
     @Inject
     ApiService apiService;
 
@@ -93,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar, menu);
-        getMenuInflater().inflate(R.menu.left_navigation, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -111,9 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         } else if (id == R.id.logout) {
             logout();
-            return true;
-        } else if (id == R.id.action_settings) {
-            Toast.makeText(this, "You pressed action settings.", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
