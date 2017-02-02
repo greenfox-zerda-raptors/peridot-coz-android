@@ -8,8 +8,6 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Call;

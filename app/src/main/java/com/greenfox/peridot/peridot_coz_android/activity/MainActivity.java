@@ -66,32 +66,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<Kingdom> call, Throwable t) {
             }});
 
-        apiService.getBuildings(1).enqueue(new Callback<ArrayList<Building>>() {
-            @Override
-            public void onResponse(Call<ArrayList<Building>> call, Response<ArrayList<Building>> response) {
-                buildings = response.body();
-                buildingsText.setText("You have your buildings here!");
-            }
-            @Override
-            public void onFailure(Call<ArrayList<Building>> call, Throwable t) {
-            }});
-
-        apiService.getDetailsOfBuilding(1,1).enqueue(new Callback<Building>() {
-            @Override
-            public void onResponse(Call<Building> call, Response<Building> response) {
-                building = response.body();
-                buildingText.setText("You have your building, see it's details here!");
-            }
-
-            @Override
-            public void onFailure(Call<Building> call, Throwable t) {
-
-            }
-        });
-
-
-
-
     }
 
     public void checkSharedPreferencesForUser(User user) {

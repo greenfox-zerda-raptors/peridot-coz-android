@@ -16,6 +16,18 @@
         android:layout_height="wrap_content"
         android:text="You shouldn't be able to see this" />
 
+    <TextView
+        android:id="@+id/buildingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You shouldn't be able to see this" />
+
+    <TextView
+        android:id="@+id/buildingsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You shouldn't be able to see this" />
+
     <Button
         android:text="Logout"
         android:layout_width="wrap_content"
