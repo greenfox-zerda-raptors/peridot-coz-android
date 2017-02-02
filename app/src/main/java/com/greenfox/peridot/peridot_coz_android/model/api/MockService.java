@@ -50,7 +50,6 @@ public class MockService implements ApiService {
             }
         };
     }
-
     @Override
     public Call<Resource> getResource() {
         return new MockCall<Resource>() {
