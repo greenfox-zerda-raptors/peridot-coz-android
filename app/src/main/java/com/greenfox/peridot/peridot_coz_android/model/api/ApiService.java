@@ -17,6 +17,11 @@ public interface ApiService {
     @GET("/kingdom/{userId}/")
     Call<Kingdom> getKingdom();
 
-    @GET("/kingdom/[userId]/resources/")
+    @GET("/kingdom/{userId}/resources/")
     Call<Resource> getResource();
+
+    @GET("/kingdom/{userId}/resources/{type}")
+    Call<Resource> getType();
+
+
 }
