@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@android:color/holo_green_light">
+    android:background="@android:color/holo_purple"  >
 
     <TextView
-        android:text="This is your kingdom"
+        android:text="This will be the TROOPS overview."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="151dp"
-        android:id="@+id/kingdomOverview" />
-
+        android:id="@+id/secondLayout" />
 </RelativeLayout>
