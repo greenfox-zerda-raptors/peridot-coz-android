@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 
+import java.util.ArrayList;
+
 
 /**
  * Created by mozgaanna on 01/02/17.
@@ -16,8 +18,8 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 
 public class ResourceAdapter extends ArrayAdapter<Resource> {
 
-    public ResourceAdapter(Context context, int resource) {
-        super(context, resource);
+    public ResourceAdapter(Context context) {
+        super(context, 0, new ArrayList<Resource>());
     }
 
     @Override
@@ -36,9 +38,7 @@ public class ResourceAdapter extends ArrayAdapter<Resource> {
         // Populate the data into the template view using the data object
         type.setText(resource.getType());
         amount.setText(resource.getAmount());
-        //TODO: buildings.setText((CharSequence) resource.getBuildings()); getArrayListOfBuildings
-
-
+        buildings.setText((CharSequence) resource.getBuildings());
 
         // Return the completed view to render on screen
         return convertView;
