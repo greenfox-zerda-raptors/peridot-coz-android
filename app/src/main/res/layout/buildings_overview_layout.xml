@@ -4,7 +4,7 @@
     android:background="@android:color/holo_green_dark">
 
     <TextView
-        android:text="You are on the second fragment layout"
+        android:text="This will be the BUILDINGS overview."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

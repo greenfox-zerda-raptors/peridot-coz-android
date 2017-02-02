@@ -45,7 +45,6 @@ public class MainActivityTest {
     @Before
     public void setUp(){
         mainActivity = Robolectric.buildActivity(MainActivity.class).create().get();
-        welcomeTxt = (TextView) mainActivity.findViewById(R.id.welcomeText);
         toolbar = (Toolbar) mainActivity.findViewById(R.id.toolbar);
         drawer = (DrawerLayout) mainActivity.findViewById(R.id.drawer_layout);
         preferences = mainActivity.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
@@ -88,17 +87,4 @@ public class MainActivityTest {
         Assert.assertEquals(LoginActivity.class.getName(), shadowOf(mainActivity).getNextStartedActivity().getComponent().getClassName());
 
     }
-
-    @Test
-    public void testIfUserWelcomed(){
-        Assert.assertEquals("Welcome aaa!", welcomeTxt.getText().toString());
-    }
-
-    @Test
-    public void testIfLogoutClickedSharedPrefGoesEmpty(){
-        mainActivity.findViewById(R.id.logoutButton).performClick();
-        Assert.assertEquals("", preferences.getString("username",""));
-        Assert.assertEquals("", preferences.getString("password",""));
-    }
-
 }
