@@ -1,10 +1,10 @@
 package com.greenfox.peridot.peridot_coz_android.activity;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,14 +13,15 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
+import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
-import com.greenfox.peridot.peridot_coz_android.fragment.SecondFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import javax.inject.Inject;
@@ -30,11 +31,12 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    Button logoutButton;
     User user;
     @Inject
     ApiService apiService;
     TextView welcomeText;
+    FragmentTransaction fragmentTransaction;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onFailure(Call<User> call, Throwable t) {
             }});
-        logoutButton = (Button) findViewById(R.id.logoutButton);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -64,25 +66,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame, new KingdomOverviewFragment())
+                .commit();
     }
 
     public void checkSharedPreferencesForUser() {
         if(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username","").equals("")){
             Toast.makeText(this,"You have to log in", Toast.LENGTH_SHORT).show();
-            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(loginIntent);
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
     }
 
-    public void logout(View v){
-        SharedPreferences preferences =getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+    public void logout(){
+        SharedPreferences preferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("username", "");
         editor.putString("password", "");
         editor.apply();
         Toast.makeText(this,"Successful logout", Toast.LENGTH_SHORT).show();
-        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(loginIntent);
+        startActivity(new Intent(this, LoginActivity.class));
     }
 
     @Override
@@ -99,14 +104,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "Megnyomtad a csillagikont", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.settings) {
-            Toast.makeText(this, "Rakattintottal a beallitasokra", Toast.LENGTH_SHORT).show();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new SettingsFragment())
+                    .commit();
             return true;
         } else if (id == R.id.statistics) {
             Toast.makeText(this, "Itt jonnek majd a statisztikak", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.logout) {
-            Toast.makeText(this, "Itt ki fogunk loggolni vagy nem", Toast.LENGTH_SHORT).show();
+            logout();
             return true;
+
         } else if (id == R.id.action_settings) {
             Toast.makeText(this, "Megnyomtad az Action settingset", Toast.LENGTH_SHORT).show();
             return true;
@@ -129,17 +138,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_kingdom_overview) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame
-                            , new KingdomOverviewFragment())
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new KingdomOverviewFragment())
                     .commit();
-        } else if (id == R.id.nav_second_layout) {
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame
-                            , new SecondFragment())
+        } else if (id == R.id.nav_buildings) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new BuildingsOverviewFragment())
+                    .commit();
+        } else if (id == R.id.nav_troops) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new TroopsOverviewFragment())
+                    .commit();
+        } else if (id == R.id.nav_battle) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.content_frame, new BattleOverviewFragment())
                     .commit();
         }
 
