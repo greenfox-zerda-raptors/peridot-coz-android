@@ -23,6 +23,7 @@ import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragme
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -32,6 +33,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     User user;
+    Kingdom kingdom;
     @Inject
     ApiService apiService;
     TextView welcomeText;
@@ -57,6 +59,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onFailure(Call<User> call, Throwable t) {
             }});
 
+
+
+        apiService.getKingdom(1).enqueue(new Callback<Kingdom>() {
+            @Override
+            public void onResponse(Call<Kingdom> call, Response<Kingdom> response) {
+                kingdom = response.body();
+                welcomeText.setText("Welcome in kingdom of " + kingdom.getUser().getUsername() + "!");
+            }
+            @Override
+            public void onFailure(Call<Kingdom> call, Throwable t) {
+            }});
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
