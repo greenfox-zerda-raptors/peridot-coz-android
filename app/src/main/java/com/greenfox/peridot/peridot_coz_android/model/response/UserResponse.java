@@ -11,4 +11,3 @@ public class UserResponse extends Response {
     String kingdom;
     int points;
 }
-
