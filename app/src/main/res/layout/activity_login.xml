@@ -12,7 +12,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:hint="Enter your login name"></EditText>
+        android:hint="Enter your login name">
+    </EditText>
 
     <EditText
         android:id="@+id/loginPassword"
@@ -23,7 +24,6 @@
         android:layout_marginBottom="20dp"
         android:hint="Enter your login password"
         android:inputType="textPassword">
-        <!--android:layout_alignParentStart="true"-->
     </EditText>
 
     <Button
@@ -32,7 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/loginPassword"
         android:onClick="saveData"
-        android:text="Login"></Button>
+        android:text="Login">
+
+    </Button>
 
     <Button
         android:id="@+id/displayButton"
@@ -42,7 +44,9 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:onClick="getData"
-        android:text="Display Info"></Button>
+        android:text="Display Info">
+
+    </Button>
 
     <Button
         android:id="@+id/registerHereButton"
@@ -54,7 +58,8 @@
         android:layout_alignRight="@+id/loginButton"
         android:layout_below="@+id/loginButton"
         android:layout_marginTop="28dp"
-        android:text="Register Here"></Button>
+        android:text="Register Here">
+    </Button>
 
     <TextView
         android:id="@+id/dataView"

@@ -6,21 +6,35 @@ package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
 public class User {
 
+    int id;
     String username;
-    String password;
+    String kingdom;
+    int points;
 
     public User() {}
 
-    public User(String username, String password) {
+
+
+    public User(int id, String username, String kingdom, int points) {
+        this.id = id;
         this.username = username;
-        this.password = password;
+        this.kingdom = kingdom;
+        this.points = points;
     }
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public String getUsername() {return username;}
 
-    public String getPassword() {return password;}
-
     public void setUsername(String username) {this.username = username;}
 
-    public void setPassword(String password) {this.password = password;}
+    public String getKingdom() {return kingdom;}
+
+    public void setKingdom(String kingdom) {this.kingdom = kingdom;}
+
+    public int getPoints() {return points;}
+
+    public void setPoints(int points) {this.points = points;}
 }
