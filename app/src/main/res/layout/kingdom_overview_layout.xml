@@ -1,16 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="#fffbf7">
 
-    <TextView
-        android:text="This is your kingdom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.v7.widget.CardView
+        android:background="#FFFFFF"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:id="@+id/cardview_buildings"
+        card_view:cardCornerRadius="2dp"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/cardview_troops"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Buildings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_main_buildings"
+                android:paddingLeft="10dp"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:gravity="left"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:background="#FFFFFF"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:id="@+id/cardview_resources"
+        card_view:cardCornerRadius="2dp"
+        android:layout_below="@+id/cardview_buildings"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Troops"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_main_troops"
+                android:paddingLeft="10dp"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:gravity="left"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:background="#FFFFFF"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:id="@+id/cardview_troops"
+        card_view:cardCornerRadius="2dp"
+        android:layout_marginTop="38dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="151dp"
-        android:id="@+id/kingdomOverview" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="Resources"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_main_resources"
+                android:paddingLeft="10dp"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:gravity="left"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
 </RelativeLayout>
