@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.greenfox.peridot.peridot_coz_android.R;
+import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
+import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 
@@ -37,22 +39,27 @@ public class BuildingsOverviewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        DaggerMainActivityComponent.builder().build().inject(this);
+
         View contentView = inflater.inflate(R.layout.buildings_overview_layout, container, false);
 
         listView = (ListView)contentView.findViewById(R.id.listViewBuilding);
 
+        adapter = new BuildingAdapter(container.getContext(), buildings);
+
+        listView.setAdapter(adapter);
+
         apiService.getBuildings(1).enqueue(new Callback<ArrayList<Building>>() {
             @Override
             public void onResponse(Call<ArrayList<Building>> call, Response<ArrayList<Building>> response) {
-                buildings = response.body();
+                adapter.clear();
+                adapter.addAll(response.body());
             }
             @Override
             public void onFailure(Call<ArrayList<Building>> call, Throwable t) {
             }});
 
-        adapter = new ArrayAdapter<Building>(getActivity().getBaseContext(), 0,buildings);
 
-        listView.setAdapter(adapter);
 
         return contentView;
     }
