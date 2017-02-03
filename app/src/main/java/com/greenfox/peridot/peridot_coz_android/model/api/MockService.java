@@ -26,7 +26,10 @@ public class MockService implements ApiService {
     private static final String TAG = "MockService";
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
-    private ArrayList<Troop> troops = new ArrayList<>(Arrays.asList(new Troop(5, 5, 5)));
+    private Troop troop1 = new Troop(5, 5, 5);
+    private Troop troop2 = new Troop(10, 8, 2);
+    private Troop troop3 = new Troop(20, 3, 7);
+    private ArrayList<Troop> troops = new ArrayList<>(Arrays.asList(troop1, troop2, troop3));
 
     public MockService() {}
 
@@ -67,6 +70,36 @@ public class MockService implements ApiService {
             }
         };
     }
+
+    @Override
+    public Call<ArrayList<Troop>> getTroops(int userId) {
+        return new MockCall<ArrayList<Troop>>() {
+            @Override
+            public void enqueue(Callback<ArrayList<Troop>> callback) {
+                Response<ArrayList<Troop>> r = Response.success(troops);
+                callback.onResponse(this, r);
+            }
+        };
+    }
+
+    @Override
+    public Call<Troop> getTroopDetail(int userId,final int troopId) {
+        return new MockCall<Troop>() {
+            @Override
+            public void enqueue(Callback<Troop> callback) {
+                Response<Troop> r = null;
+                if (troopId == 1) {
+                    r = Response.success(troop1);
+                } else if (troopId == 2){
+                    r = Response.success(troop2);
+                } else if (troopId == 3){
+                    r = Response.success(troop3);
+                }
+                callback.onResponse(this, r);
+            }
+        };
+    }
+
 
     @Override
     public Call<LoginAndRegisterResponse> register(RegisterRequest registerRequest) {
