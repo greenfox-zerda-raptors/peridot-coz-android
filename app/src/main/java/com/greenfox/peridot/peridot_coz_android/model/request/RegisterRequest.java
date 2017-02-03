@@ -1,4 +1,4 @@
-package com.greenfox.peridot.peridot_coz_android.model.pojo;
+package com.greenfox.peridot.peridot_coz_android.model.request;
 
 public class RegisterRequest {
 
