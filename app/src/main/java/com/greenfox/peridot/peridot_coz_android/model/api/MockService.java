@@ -22,6 +22,7 @@ public class MockService implements ApiService {
 
     private static final String TAG = "MockService";
 
+    private Building building = new Building("townhall");
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
     private ArrayList<Troop> troops = new ArrayList<>(Arrays.asList(new Troop(5, 5, 5)));
