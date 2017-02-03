@@ -60,5 +60,4 @@ public class SettingsFragment extends Fragment {
         editor.putBoolean(modifyThis, isEnabled);
         editor.apply();
     }
-
 }

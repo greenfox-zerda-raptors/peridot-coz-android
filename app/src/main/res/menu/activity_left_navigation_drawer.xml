@@ -18,6 +18,9 @@
             android:id="@+id/nav_battle"
             android:icon="@drawable/ic_sword_black"
             android:title="Battle"/>
+        <item
+            android:id="@+id/nav_resources"
+            android:title="Resources"/>
     </group>
 
 </menu>
