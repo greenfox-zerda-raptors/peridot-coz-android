@@ -19,6 +19,7 @@ import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityCompone
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
@@ -26,7 +27,6 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
-
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -135,6 +135,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             loadFragment(new TroopsOverviewFragment());
         } else if (id == R.id.nav_battle) {
             loadFragment(new BattleOverviewFragment());
+        } else if (id == R.id.nav_resources) {
+            loadFragment(new ResourcesOverviewFragment());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -157,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(this,"Successful logout", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginActivity.class));
     }
+  
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
