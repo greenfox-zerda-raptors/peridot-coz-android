@@ -12,10 +12,6 @@ import android.view.animation.AnimationUtils;
 
 import com.greenfox.peridot.peridot_coz_android.R;
 
-/**
- * Created by mozgaanna on 25/01/17.
- */
-
 public class BuildingsOverviewFragment extends Fragment {
 
     FloatingActionButton mainFab, mineFab, farmFab;
@@ -57,4 +53,3 @@ public class BuildingsOverviewFragment extends Fragment {
         return contentView;
     }
 }
-
