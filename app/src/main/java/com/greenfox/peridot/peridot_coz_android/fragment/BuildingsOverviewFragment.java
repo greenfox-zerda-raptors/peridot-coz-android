@@ -57,3 +57,4 @@ public class BuildingsOverviewFragment extends Fragment {
         return contentView;
     }
 }
+

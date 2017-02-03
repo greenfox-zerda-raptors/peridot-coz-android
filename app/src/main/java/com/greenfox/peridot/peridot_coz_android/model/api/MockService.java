@@ -7,6 +7,7 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
+import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.Error;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 
@@ -22,11 +23,14 @@ import retrofit2.Response;
 public class MockService implements ApiService {
 
     private static final String TAG = "MockService";
-    private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
+
+    private Building building = new Building("townhall");
+    private ArrayList<Building> buildings = new ArrayList<>();
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
     private ArrayList<Troop> troops = new ArrayList<>(Arrays.asList(new Troop(5, 5, 5)));
 
-    public MockService() {}
+    public MockService() {
+    }
 
     @Override
     public Call<LoginAndRegisterResponse> login(final LoginRequest loginRequest) {
@@ -36,9 +40,9 @@ public class MockService implements ApiService {
                 if (loginRequest.getUsername().equals("aaa")
                         && loginRequest.getPassword().equals("aaa")) {
                     Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                    r.body().setUser(new User(1, "aaa","aaa's kingdom",0));
+                    r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
                     callback.onResponse(this, r);
-                } else if (!loginRequest.getUsername().equals("aaa")){
+                } else if (!loginRequest.getUsername().equals("aaa")) {
                     Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
                     Error error = new Error();
                     error.setUsername("No such user exists");
@@ -72,5 +76,58 @@ public class MockService implements ApiService {
     public Call<LoginAndRegisterResponse> register(RegisterRequest registerRequest) {
         /// TODO this.
         return null;
+    }
+
+    @Override
+    public Call<BuildingsResponse> getBuildings(int userId) {
+        return new MockCall<BuildingsResponse>() {
+            @Override
+            public void enqueue(Callback<BuildingsResponse> callback) {
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Barrack"));
+                buildings.add(new Building("Barrack"));
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Townhall"));
+                Response<BuildingsResponse> v = Response.success(new BuildingsResponse(buildings));
+                callback.onResponse(this, v);
+            }
+        };
+    }
+
+    @Override
+    public Call<Building> getDetailsOfBuilding(int userId, int buildingId) {
+        return new MockCall<Building>() {
+            @Override
+            public void enqueue(Callback<Building> callback) {
+                Response<Building> v = Response.success(building);
+                callback.onResponse(this, v);
+            }
+        };
+    }
+
+    @Override
+    public Call<Building> createBuilding(int userId, Building building) {
+        return new MockCall<Building>() {
+            @Override
+            public void enqueue(Callback<Building> callback) {
+                Response<Building> v = Response.success(new Building("townhall"));
+                callback.onResponse(this, v);
+            }
+        };
+    }
+
+    @Override
+    public Call<Building> upgradeBuilding(int userId, int buildingId, final Building building) {
+        return new MockCall<Building>() {
+            @Override
+            public void enqueue(Callback<Building> callback) {
+                Response<Building> v = Response.success(new Building("townhall", building.increaseLevelOfBuilding()));
+                callback.onResponse(this, v);
+            }
+        };
     }
 }

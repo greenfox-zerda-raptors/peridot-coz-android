@@ -13,15 +13,26 @@ public class Building {
 
     public Building(String type) {
         this.type = type;
-        this.level = 0;
-        this.hp = 0;
+        this.level = 1;
+        this.hp = 100;
     }
+
+    public Building(String type, int level) {
+        this.type = type;
+        this.level = level;
+        this.hp = 100;
+    }
+
+    public int increaseLevelOfBuilding(){
+        return level++;
+    }
+
 
     public Building() {}
 
     public int getId() {return id;}
 
-    public void setId(int id) {this.id = id;}
+    public void setId(int id) {this.id++;}
 
     public String getType() {return type;}
 
@@ -34,4 +45,5 @@ public class Building {
     public int getHp() {return hp;}
 
     public void setHp(int hp) {this.hp = hp;}
+
 }
