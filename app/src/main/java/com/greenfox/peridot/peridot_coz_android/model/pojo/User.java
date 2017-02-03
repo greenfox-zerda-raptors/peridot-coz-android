@@ -13,8 +13,6 @@ public class User {
 
     public User() {}
 
-
-
     public User(int id, String username, String kingdom, int points) {
         this.id = id;
         this.username = username;
@@ -37,4 +35,5 @@ public class User {
     public int getPoints() {return points;}
 
     public void setPoints(int points) {this.points = points;}
+
 }
