@@ -14,6 +14,9 @@ import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
+import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
+import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText loginUsername;
     EditText loginPassword;
     Button loginButton;
-    TextView registerLink;
+    Button registerButton;
     TextView dataView;
     @Inject
     ApiService apiService;
@@ -35,26 +38,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         DaggerMainActivityComponent.builder().build().inject(this);
-
         loginUsername = (EditText) findViewById(R.id.loginName);
         loginPassword = (EditText) findViewById(R.id.loginPassword);
         loginButton = (Button) findViewById(R.id.loginButton);
-        registerLink = (TextView) findViewById(R.id.registerHereLink);
+        registerButton = (Button) findViewById(R.id.registerHereButton);
         dataView = (TextView) findViewById(R.id.dataView);
 
-        apiService.getUser().enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                user = response.body();}
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            }});
-
-        registerLink.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(registerIntent);
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
 
@@ -70,34 +63,42 @@ public class LoginActivity extends AppCompatActivity {
         if(isUsernameOrPasswordEmpty()){
             Toast.makeText(this,"Please fill in username/password", Toast.LENGTH_SHORT).show();
         }
-        else if(isUsernameAndPasswordCorrect()) {
-            saveCorrectUsernameAndPasswordToSharedPreferences();
-            Toast.makeText(this,"Saved", Toast.LENGTH_SHORT).show();
-            loginWithCorrectUsernameAndPassword();
-        }else{
-            Toast.makeText(this,"Wrong username/password", Toast.LENGTH_SHORT).show();
+        else {
+            apiService.login(new LoginRequest(loginUsername.getText().toString(),loginPassword.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
+                @Override
+                public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
+                    if (response.body().getErrors() != null) {
+                        if (response.body().getErrors().getUsername() != null) {
+                            Toast.makeText(getApplicationContext(), response.body().getErrors().getUsername(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), response.body().getErrors().getPassword(), Toast.LENGTH_SHORT).show();
+                        }
+                }else {
+                        saveCorrectUsernameAndPasswordToSharedPreferences(loginUsername.getText().toString(),loginPassword.getText().toString());
+                        loginWithCorrectUsernameAndPassword();
+                    }
+                }
+                @Override
+                public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {}
+            });
         }
     }
 
     private void loginWithCorrectUsernameAndPassword() {
-        Intent loginIntent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(loginIntent);
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
-    private void saveCorrectUsernameAndPasswordToSharedPreferences() {
+    private void saveCorrectUsernameAndPasswordToSharedPreferences(String username, String password) {
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = loginData.edit();
-        editor.putString("username", loginUsername.getText().toString());
-        editor.putString("password", loginPassword.getText().toString());
+        editor.putString("username", username);
+        editor.putString("password", password);
         editor.apply();
     }
 
-    private boolean isUsernameAndPasswordCorrect() {
-        return loginUsername.getText().toString().equals(user.getUsername()) && loginPassword.getText().toString().equals(user.getPassword());
-    }
-
     private boolean isUsernameOrPasswordEmpty() {
-        return loginUsername.getText().toString().equals("") || loginPassword.getText().toString().equals("");
+        return loginUsername.getText().toString().equals("")
+            || loginPassword.getText().toString().equals("");
     }
 
     public void getData(View view){
