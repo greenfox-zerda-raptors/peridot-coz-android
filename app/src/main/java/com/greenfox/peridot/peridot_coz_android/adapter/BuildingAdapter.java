@@ -1,7 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.adapter;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 
 import java.util.ArrayList;
@@ -23,6 +21,7 @@ public class BuildingAdapter extends ArrayAdapter<Building> {
     TextView buildingType;
     TextView buildingLevel;
     Building building;
+    int count = 0;
 
     public BuildingAdapter(Context context, ArrayList<Building> buildings) {
         super(context, 0, buildings);
@@ -37,8 +36,8 @@ public class BuildingAdapter extends ArrayAdapter<Building> {
         }
         buildingType = (TextView) convertView.findViewById(R.id.buildingName);
         buildingLevel = (TextView) convertView.findViewById(R.id.buildingLevel);
-        buildingType.setText(String.format(building.getType() + " " + building.getId()));
-        buildingLevel.setText(String.valueOf(building.getLevel()));
+        buildingType.setText(String.valueOf(building.getType() + " " + count++));
+        buildingLevel.setText(String.valueOf("Level " + building.getLevel()));
 
         return convertView;
     }
