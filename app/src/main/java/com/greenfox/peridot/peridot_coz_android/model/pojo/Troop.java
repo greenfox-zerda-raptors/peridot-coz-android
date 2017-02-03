@@ -6,9 +6,9 @@ package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
 public class Troop {
 
-    private int hp;
-    private int attackPower;
-    private int defensePower;
+    public Integer hp;
+    public Integer attackPower;
+    public Integer defensePower;
 
     public Troop(int hp, int attackPower, int defensePower) {
         this.hp = hp;
