@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@android:color/holo_green_dark">
 
@@ -11,4 +12,51 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="151dp"
         android:id="@+id/secondLayout" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:rotation="45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/mainFab"
+        app:backgroundTint="@android:color/holo_blue_dark" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:clickable="false"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_compass"
+        android:layout_above="@+id/mineFab"
+        android:layout_alignLeft="@+id/mineFab"
+        android:layout_alignStart="@+id/mineFab"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="7.5dp"
+
+        android:id="@+id/farmFab"
+        app:backgroundTint="@android:color/holo_blue_bright" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:clickable="false"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_view"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="7.5dp"
+
+        android:id="@+id/mineFab"
+        android:layout_above="@+id/mainFab"
+        android:layout_alignRight="@+id/mainFab"
+        android:layout_alignEnd="@+id/mainFab"
+        app:backgroundTint="@android:color/holo_blue_light" />
+
 </RelativeLayout>
