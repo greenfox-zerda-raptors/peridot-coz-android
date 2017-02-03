@@ -3,13 +3,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_first_layout"
+            android:id="@+id/nav_kingdom_overview"
             android:icon="@drawable/ic_menu_camera"
-            android:title="First Layout" />
+            android:title="Your Kingdom" />
         <item
-            android:id="@+id/nav_second_layout"
+            android:id="@+id/nav_buildings"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Second Layout" />
+            android:title="Buildings" />
+        <item
+            android:id="@+id/nav_troops"
+            android:title="Troops"/>
+        <item
+            android:id="@+id/nav_battle"
+            android:title="Battle"/>
     </group>
 
     <item android:title="Communicate">
