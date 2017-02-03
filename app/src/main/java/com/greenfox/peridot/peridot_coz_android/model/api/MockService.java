@@ -7,6 +7,7 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
+import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.Error;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 
@@ -24,7 +25,7 @@ public class MockService implements ApiService {
     private static final String TAG = "MockService";
 
     private Building building = new Building("townhall");
-    private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("Farm"), new Building("Farm"), new Building("Mine"), new Building("Barrack"), new Building("Barrack"), new Building("Barrack"), new Building("Mine"), new Building("Mine"), new Building("Farm"), new Building("Farm"), new Building("Farm"), new Building("Townhall")));
+    private ArrayList<Building> buildings = new ArrayList<>();
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
     private ArrayList<Troop> troops = new ArrayList<>(Arrays.asList(new Troop(5, 5, 5)));
 
@@ -78,11 +79,20 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<ArrayList<Building>> getBuildings(int userId) {
-        return new MockCall<ArrayList<Building>>() {
+    public Call<BuildingsResponse> getBuildings(int userId) {
+        return new MockCall<BuildingsResponse>() {
             @Override
-            public void enqueue(Callback<ArrayList<Building>> callback) {
-                Response<ArrayList<Building>> v = Response.success(buildings);
+            public void enqueue(Callback<BuildingsResponse> callback) {
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Barrack"));
+                buildings.add(new Building("Barrack"));
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Townhall"));
+                Response<BuildingsResponse> v = Response.success(new BuildingsResponse(buildings));
                 callback.onResponse(this, v);
             }
         };

@@ -18,8 +18,6 @@ import java.util.ArrayList;
 
 public class BuildingAdapter extends ArrayAdapter<Building> {
 
-    int count = 0;
-
     public BuildingAdapter(Context context, ArrayList<Building> buildings) {
         super(context, 0, buildings);
     }

@@ -5,6 +5,7 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
+import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public interface ApiService {
     Call<Kingdom> getKingdom(@Path("userId") int userId);
 
     @GET("/kingdom/{userId}/buildings/")
-    Call<ArrayList<Building>> getBuildings(@Path("userId") int userId);
+    Call<BuildingsResponse> getBuildings(@Path("userId") int userId);
 
     @GET("/kingdom/{userId}/buildings/{buildingId}/")
     Call<Building> getDetailsOfBuilding(@Path("userId")int userId, @Path("buildingId")int buildingId);
