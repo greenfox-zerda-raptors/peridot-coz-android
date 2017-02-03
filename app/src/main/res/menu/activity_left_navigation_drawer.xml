@@ -4,31 +4,20 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_kingdom_overview"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_crown_black"
             android:title="Your Kingdom" />
         <item
             android:id="@+id/nav_buildings"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_castle_black"
             android:title="Buildings" />
         <item
             android:id="@+id/nav_troops"
+            android:icon="@drawable/ic_shield_black"
             android:title="Troops"/>
         <item
             android:id="@+id/nav_battle"
+            android:icon="@drawable/ic_sword_black"
             android:title="Battle"/>
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
 
 </menu>
