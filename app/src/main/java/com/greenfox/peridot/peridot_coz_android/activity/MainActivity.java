@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(myToolbar);
 
         checkSharedPreferencesForUser();
-        apiService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username",""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password",""))).enqueue(new Callback<LoginAndRegisterResponse>() {
+        apiService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password",""))).enqueue(new Callback<LoginAndRegisterResponse>() {
             @Override
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                 if (response.body().getErrors() == null) {
