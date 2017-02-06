@@ -37,6 +37,12 @@ public interface ApiService {
     @GET ("/kingdom/{userId}/troops/{troopId}/")
     Call<Troop> getTroopDetail(@Path("userId") int userId, @Path("troopId") int troopId);
 
+    @POST ("/kingdom/{userId}/troops/")
+    Call<Troop> createTroop(@Path("userId") int userId);
+
+    @PUT ("/kingdom/{userId}/troops/{troopId}/")
+    Call<Troop> upgradeTroop(@Path("userId") int userId, @Path("troopId") int troopId);
+
     @GET("/kingdom/{userId}/buildings/")
     Call<ArrayList<Building>> getBuildings(@Path("userId") int userId);
 
