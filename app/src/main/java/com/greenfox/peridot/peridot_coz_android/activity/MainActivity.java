@@ -23,6 +23,7 @@ import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragme
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Kingdom kingdom;
     @Inject
     ApiService apiService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onFailure(Call<KingdomResponse> call, Throwable t) {
             }});
 
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -93,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.toolbar, menu);
         getMenuInflater().inflate(R.menu.left_navigation, menu);
         return super.onCreateOptionsMenu(menu);
+
     }
 
     @Override
@@ -170,4 +174,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.content_frame, fragment)
                 .commit();
     }
+
 }
