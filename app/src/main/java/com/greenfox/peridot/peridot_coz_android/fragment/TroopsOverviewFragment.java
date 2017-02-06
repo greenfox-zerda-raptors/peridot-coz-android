@@ -14,6 +14,7 @@ import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
+import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 
 import java.util.ArrayList;
 
@@ -45,14 +46,14 @@ public class TroopsOverviewFragment extends Fragment {
         troopsList.setAdapter(troopAdapter);
 
 
-        apiService.getTroops(1).enqueue(new Callback<ArrayList<Troop>>() {
+        apiService.getTroops(1).enqueue(new Callback<TroopsResponse>() {
             @Override
-            public void onResponse(Call<ArrayList<Troop>> call, Response<ArrayList<Troop>> response) {
+            public void onResponse(Call<TroopsResponse> call, Response<TroopsResponse> response) {
                 troopAdapter.clear();
-                troopAdapter.addAll(response.body());
+                troopAdapter.addAll(response.body().getTroops());
             }
             @Override
-            public void onFailure(Call<ArrayList<Troop>> call, Throwable t) {
+            public void onFailure(Call<TroopsResponse> call, Throwable t) {
             }});
         return contentView;
     }
