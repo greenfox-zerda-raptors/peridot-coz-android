@@ -10,6 +10,7 @@ import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.Error;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 
 import java.util.ArrayList;
@@ -108,6 +109,24 @@ public class MockService implements ApiService {
         /// TODO this.
         return null;
     }
+
+    @Override
+    public Call<ResourceResponse> getResource() {
+        return new MockCall<ResourceResponse>() {
+            @Override
+            public void enqueue(Callback<ResourceResponse> callback) {
+                Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("food", 40, buildings)));
+                callback.onResponse(this, r);
+            }
+        };
+    }
+    @Override
+    public Call<ResourceResponse> getType() {
+        return new MockCall<ResourceResponse>() {
+            @Override
+            public void enqueue(Callback<ResourceResponse> callback) {
+                Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("gold", 20, buildings)));
+                callback.onResponse(this, r);
 
     @Override
     public Call<ArrayList<Building>> getBuildings(int userId) {
