@@ -7,9 +7,11 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
+import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.Error;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class MockService implements ApiService {
 
     private User user = new User (1, "aaa", "aaasKingdom", 10);
     private static final String TAG = "MockService";
+    private Building building = new Building("townhall");
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
     private Troop troop1 = new Troop(5, 5, 5);
