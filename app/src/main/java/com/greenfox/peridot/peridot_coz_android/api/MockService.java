@@ -23,7 +23,7 @@ import retrofit2.Response;
 @Module
 public class MockService implements ApiService {
 
-    private User user = new User (1, "aaa", "aaasKingdom", 10);
+    private User user = new User (1, "aaa", "aaa's Kingdom", 10);
     private static final String TAG = "MockService";
     private Building building = new Building("townhall");
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
