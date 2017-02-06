@@ -41,4 +41,10 @@ public interface ApiService {
     @PUT("/kingdom/{userId}/buildings/{buildingId}/")
     Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId")int buildingId, @Body Building building);
 
+    @GET ("/kingdom/{userId}/troops/")
+    Call<TroopsResponse> getTroops(@Path("userId") int userId);
+
+    @GET ("/kingdom/{userId}/troops/{troopId}/")
+    Call<Troop> getTroopDetail(@Path("userId") int userId, @Path("troopId") int troopId);
+
 }
