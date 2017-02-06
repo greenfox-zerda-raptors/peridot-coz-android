@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar, menu);
-        getMenuInflater().inflate(R.menu.left_navigation, menu);
+        getMenuInflater().inflate(R.menu.activity_left_navigation_drawer, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -109,9 +109,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         } else if (id == R.id.logout) {
             logout();
-            return true;
-        } else if (id == R.id.action_settings) {
-            Toast.makeText(this, "You pressed action settings.", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
