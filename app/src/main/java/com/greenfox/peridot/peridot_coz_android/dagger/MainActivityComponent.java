@@ -3,16 +3,9 @@ package com.greenfox.peridot.peridot_coz_android.dagger;
 import com.greenfox.peridot.peridot_coz_android.activity.LoginActivity;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
-import com.greenfox.peridot.peridot_coz_android.model.api.ApiProvider;
-import com.greenfox.peridot.peridot_coz_android.model.api.MockService;
-
+import com.greenfox.peridot.peridot_coz_android.api.ApiProvider;
 import javax.inject.Singleton;
-
 import dagger.Component;
-
-/**
- * Created by BB on 2017-01-24.
- */
 
 @Singleton
 @Component(modules = {ApiProvider.class})

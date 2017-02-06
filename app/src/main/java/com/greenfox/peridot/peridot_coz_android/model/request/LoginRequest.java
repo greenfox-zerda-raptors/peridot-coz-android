@@ -1,9 +1,5 @@
 package com.greenfox.peridot.peridot_coz_android.model.request;
 
-/**
- * Created by BB on 2017-02-02.
- */
-
 public class LoginRequest {
     String username;
     String password;

@@ -5,23 +5,12 @@
     android:layout_height="match_parent"
     android:background="@android:color/holo_green_dark">
 
-    <TextView
-        android:id="@+id/secondLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="151dp"
-        android:text="This will be the BUILDINGS overview." />
-
     <ListView
         android:id="@+id/listViewBuilding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
-
     </ListView>
-
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/mainFab"
