@@ -178,5 +178,7 @@ public class MockService implements ApiService {
             public void enqueue(Callback<ResourceResponse> callback) {
                 Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("gold", 20, buildings)));
                 callback.onResponse(this, r);
-
+                    }
+        };
+    }
 }
