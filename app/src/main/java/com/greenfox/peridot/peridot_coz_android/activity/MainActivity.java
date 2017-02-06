@@ -1,4 +1,4 @@
-Listview-buildingspackage com.greenfox.peridot.peridot_coz_android.activity;
+package com.greenfox.peridot.peridot_coz_android.activity;
 
 import android.content.Context;
 import android.content.Intent;
