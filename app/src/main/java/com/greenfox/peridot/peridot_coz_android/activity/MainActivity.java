@@ -19,14 +19,16 @@ import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityCompone
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
+import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
-
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Kingdom kingdom;
     @Inject
     ApiService apiService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +66,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {
             }});
 
-        /// TODO this.
-//        apiService.getKingdom(1).enqueue(new Callback<Kingdom>() {
-//            @Override
-//            public void onResponse(Call<Kingdom> call, Response<Kingdom> response) {
-//                kingdom = response.body();
-//                welcomeText.setText("Welcome in kingdom of " + kingdom.getUser().getUsername() + "!");
-//            }
-//            @Override
-//            public void onFailure(Call<Kingdom> call, Throwable t) {
-//            }});
+        apiService.getKingdom(user.getId()).enqueue(new Callback<KingdomResponse>() {
+            @Override
+            public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
+                if (response.body().getErrors() == null) {
+                    kingdom = response.body().getKingdom();
+                    Toast.makeText(getApplicationContext(), "Welcome in kingdom of " + kingdom.getUser().getUsername() + "!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Something went wrong, please try to refresh", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<KingdomResponse> call, Throwable t) {
+            }});
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -89,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.toolbar, menu);
         getMenuInflater().inflate(R.menu.left_navigation, menu);
         return super.onCreateOptionsMenu(menu);
+
     }
 
     @Override
@@ -135,6 +143,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             loadFragment(new TroopsOverviewFragment());
         } else if (id == R.id.nav_battle) {
             loadFragment(new BattleOverviewFragment());
+        } else if (id == R.id.nav_resources) {
+            loadFragment(new ResourcesOverviewFragment());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -157,10 +167,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(this,"Successful logout", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginActivity.class));
     }
+  
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();
     }
+
 }

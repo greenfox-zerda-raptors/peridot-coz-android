@@ -37,4 +37,5 @@ public class User {
     public int getPoints() {return points;}
 
     public void setPoints(int points) {this.points = points;}
+
 }
