@@ -46,5 +46,11 @@ public interface ApiService {
 
     @GET ("/kingdom/{userId}/troops/{troopId}/")
     Call<Troop> getTroopDetail(@Path("userId") int userId, @Path("troopId") int troopId);
+  
+     @GET("/kingdom/{userId}/resources/")
+    Call<ResourceResponse> getResource();
+
+    @GET("/kingdom/{userId}/resources/{type}")
+    Call<ResourceResponse> getType();
 
 }
