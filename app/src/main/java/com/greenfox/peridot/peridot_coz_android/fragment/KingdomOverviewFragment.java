@@ -10,14 +10,12 @@ import android.widget.Button;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 
-
 /**
  * Created by mozgaanna on 25/01/17.
  */
 
 public class KingdomOverviewFragment extends Fragment{
     Button buildingButton, troopButton, resourceButton;
-
 
     @Nullable
     @Override
