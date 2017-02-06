@@ -26,6 +26,7 @@ import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
+import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -63,16 +64,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {
             }});
 
-        /// TODO this.
-//        apiService.getKingdom(1).enqueue(new Callback<Kingdom>() {
-//            @Override
-//            public void onResponse(Call<Kingdom> call, Response<Kingdom> response) {
-//                kingdom = response.body();
-//                welcomeText.setText("Welcome in kingdom of " + kingdom.getUser().getUsername() + "!");
-//            }
-//            @Override
-//            public void onFailure(Call<Kingdom> call, Throwable t) {
-//            }});
+        apiService.getKingdom(user.getId()).enqueue(new Callback<KingdomResponse>() {
+            @Override
+            public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
+                if (response.body().getErrors() == null) {
+                    kingdom = response.body().getKingdom();
+                    Toast.makeText(getApplicationContext(), "Welcome in kingdom of " + kingdom.getUser().getUsername() + "!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Something went wrong, please try to refresh", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<KingdomResponse> call, Throwable t) {
+            }});
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
