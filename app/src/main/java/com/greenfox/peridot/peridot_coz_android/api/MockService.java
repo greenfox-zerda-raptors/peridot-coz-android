@@ -116,8 +116,8 @@ public class MockService implements ApiService {
                 buildings.add(new Building("Farm"));
                 buildings.add(new Building("Mine"));
                 buildings.add(new Building("Townhall"));
-                Response<BuildingsResponse> v = Response.success(new BuildingsResponse(buildings));
-                callback.onResponse(this, v);
+                Response<BuildingsResponse> r = Response.success(new BuildingsResponse(buildings));
+                callback.onResponse(this, r);
             }
         };
     }
@@ -127,8 +127,8 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> v = Response.success(building);
-                callback.onResponse(this, v);
+                Response<Building> r = Response.success(building);
+                callback.onResponse(this, r);
             }
         };
     }
@@ -138,8 +138,8 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> v = Response.success(new Building("townhall"));
-                callback.onResponse(this, v);
+                Response<Building> r = Response.success(new Building("townhall"));
+                callback.onResponse(this, r);
             }
         };
     }
@@ -149,8 +149,8 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> v = Response.success(new Building("townhall", building.increaseLevelOfBuilding()));
-                callback.onResponse(this, v);
+                Response<Building> r = Response.success(new Building("townhall", building.increaseLevelOfBuilding()));
+                callback.onResponse(this, r);
             }
         };
     }   

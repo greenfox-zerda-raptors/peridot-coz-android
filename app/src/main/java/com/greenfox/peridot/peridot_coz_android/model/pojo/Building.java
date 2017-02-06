@@ -23,7 +23,6 @@ public class Building {
         return level++;
     }
 
-
     public Building() {}
 
     public int getId() {return id;}
