@@ -23,7 +23,6 @@ import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragme
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Kingdom kingdom;
     @Inject
     ApiService apiService;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onFailure(Call<KingdomResponse> call, Throwable t) {
             }});
 
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -94,9 +91,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar, menu);
-        getMenuInflater().inflate(R.menu.left_navigation, menu);
+        getMenuInflater().inflate(R.menu.activity_left_navigation_drawer, menu);
         return super.onCreateOptionsMenu(menu);
-
     }
 
     @Override
@@ -113,9 +109,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         } else if (id == R.id.logout) {
             logout();
-            return true;
-        } else if (id == R.id.action_settings) {
-            Toast.makeText(this, "You pressed action settings.", Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -174,5 +167,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.content_frame, fragment)
                 .commit();
     }
-
 }
