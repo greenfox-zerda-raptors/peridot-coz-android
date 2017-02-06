@@ -11,7 +11,6 @@
         android:id="@+id/cardview_buildings"
         card_view:cardCornerRadius="2dp"
         android:layout_marginTop="36dp"
-        android:layout_below="@+id/cardview_troops"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
@@ -37,6 +36,16 @@
                 android:textSize="25dp"
                 android:layout_centerInParent="true"
                 android:gravity="left"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/textview_finished_buildings"
+                android:style="?android:attr/borderlessButtonStyle"
+                android:textColor="#f4bf42"
+                android:text="GO TO BUILDINGS"/>
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
@@ -51,42 +60,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="31dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:text="Troops"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textview_main_troops"
-                android:paddingLeft="10dp"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                android:gravity="left"/>
-            <TextView
-                android:text="12 finished"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textview_finished_troops"
-                android:paddingLeft="10dp"
-                android:textSize="25dp"
-                android:layout_centerInParent="true"
-                android:gravity="left"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-
-
-    <android.support.v7.widget.CardView
-        android:background="#FFFFFF"
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:id="@+id/cardview_troops"
-        card_view:cardCornerRadius="2dp"
-        android:layout_marginTop="38dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -110,7 +83,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="left"/>
             <TextView
-                android:text="1200 gold"
+                android:text="1200 food"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textview_food"
@@ -120,6 +93,59 @@
                 android:layout_centerInParent="true"
                 android:layout_alignParentBottom="true"
                 android:gravity="left"/>
+
+            <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignBaseline="@id/textview_food"-->
+            <!--android:textColor="#f4bf42"-->
+            <!--android:style="?android:attr/borderlessButtonStyle"-->
+            <!--android:text="GO TO RESOURCES"/>-->
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:background="#FFFFFF"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:id="@+id/cardview_troops"
+        card_view:cardCornerRadius="2dp"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/cardview_resources"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="Troops"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_main_troops"
+                android:paddingLeft="10dp"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:gravity="left"/>
+            <TextView
+                android:text="12 finished"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_finished_troops"
+                android:paddingLeft="10dp"
+                android:textSize="25dp"
+                android:layout_centerInParent="true"
+                android:gravity="left"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/textview_finished_troops"
+                android:textColor="#f4bf42"
+                android:style="?android:attr/borderlessButtonStyle"
+                android:text="GO TO TROOPS"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
