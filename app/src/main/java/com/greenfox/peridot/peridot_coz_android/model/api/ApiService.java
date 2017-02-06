@@ -5,6 +5,7 @@ import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public interface ApiService {
     Call<KingdomResponse> getKingdom(@Path("userId") int userId);
 
     @GET ("/kingdom/{userId}/troops/")
-    Call<ArrayList<Troop>> getTroops(@Path("userId") int userId);
+    Call<TroopsResponse> getTroops(@Path("userId") int userId);
 
     @GET ("/kingdom/{userId}/troops/{troopId}/")
     Call<Troop> getTroopDetail(@Path("userId") int userId, @Path("troopId") int troopId);
