@@ -41,10 +41,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
                 android:layout_below="@id/textview_finished_buildings"
                 android:style="?android:attr/borderlessButtonStyle"
                 android:textColor="#f4bf42"
-                android:text="GO TO BUILDINGS"/>
+                android:text="GO TO BUILDINGS"
+                android:clickable="true"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
@@ -94,14 +96,14 @@
                 android:layout_alignParentBottom="true"
                 android:gravity="left"/>
 
-            <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_alignBaseline="@id/textview_food"-->
-            <!--android:textColor="#f4bf42"-->
-            <!--android:style="?android:attr/borderlessButtonStyle"-->
-            <!--android:text="GO TO RESOURCES"/>-->
+            <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="#f4bf42"
+            android:style="?android:attr/borderlessButtonStyle"
+            android:text="GO TO RESOURCES"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
@@ -142,10 +144,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
                 android:layout_below="@id/textview_finished_troops"
                 android:textColor="#f4bf42"
                 android:style="?android:attr/borderlessButtonStyle"
-                android:text="GO TO TROOPS"/>
+                android:text="GO TO TROOPS"
+                android:clickable="true"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
