@@ -43,9 +43,16 @@ public class MockService implements ApiService {
         return new MockCall<LoginAndRegisterResponse>() {
             @Override
             public void enqueue(Callback<LoginAndRegisterResponse> callback) {
-                if (loginRequest.getPassword().equals("aaa")) {
+                if (loginRequest.getUsername().equals("aaa")
+                        && loginRequest.getPassword().equals("aaa")) {
                     Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
                     r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
+                    callback.onResponse(this, r);
+                } else if (!loginRequest.getUsername().equals("aaa")) {
+                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
+                    Error error = new Error();
+                    error.setUsername("No such user exists");
+                    r.body().setErrors(error);
                     callback.onResponse(this, r);
                 } else if (!loginRequest.getPassword().equals("aaa")) {
                     Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
@@ -63,19 +70,9 @@ public class MockService implements ApiService {
         return new MockCall<LoginAndRegisterResponse>() {
             @Override
             public void enqueue(Callback<LoginAndRegisterResponse> callback) {
-                if (registerRequest.getPassword().equals("aaa")) {
-                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                    r.body().setUser(new User(2, registerRequest.getUsername(), registerRequest.getKingdomName(), 0));
-                    callback.onResponse(this, r);
-                } else if (!registerRequest.getPassword().equals("aaa")) {
-                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                    Error error = new Error();
-                    error.setPassword("Wrong password");
-                    r.body().setErrors(error);
-                    callback.onResponse(this, r);
-                }
-
-
+                Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
+                r.body().setUser(new User(2, registerRequest.getUsername(), registerRequest.getKingdomName(), 0));
+                callback.onResponse(this, r);
             }
         };
     }

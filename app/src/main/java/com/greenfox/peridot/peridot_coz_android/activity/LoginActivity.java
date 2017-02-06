@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
@@ -19,7 +18,6 @@ import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 
 import javax.inject.Inject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,28 +59,29 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void checkIfUsernameAndPasswordAreCorrectsAndLoginIfTheyAre(View view) {
-        if (isUsernameOrPasswordEmpty()) {
-            Toast.makeText(this, "Please fill in username/password", Toast.LENGTH_SHORT).show();
-        } else {
-            apiService.login(new LoginRequest(loginPassword.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
+    public void checkIfUsernameAndPasswordAreCorrectsAndLoginIfTheyAre(View view){
+        if(isUsernameOrPasswordEmpty()){
+            Toast.makeText(this,"Please fill in username/password", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            apiService.login(new LoginRequest(loginUsername.getText().toString(),loginPassword.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
                 @Override
                 public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                     if (response.body().getErrors() != null) {
-
-                        Toast.makeText(getApplicationContext(), response.body().getErrors().getPassword(), Toast.LENGTH_SHORT).show();
-                    } else {
-                        saveCorrectUsernameAndPasswordToSharedPreferences(loginUsername.getText().toString(), loginPassword.getText().toString());
+                        if (response.body().getErrors().getUsername() != null) {
+                            Toast.makeText(getApplicationContext(), response.body().getErrors().getUsername(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), response.body().getErrors().getPassword(), Toast.LENGTH_SHORT).show();
+                        }
+                }else {
+                        saveCorrectUsernameAndPasswordToSharedPreferences(loginUsername.getText().toString(),loginPassword.getText().toString());
                         loginWithCorrectUsernameAndPassword();
                     }
                 }
-
                 @Override
-                public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {
-                }
+                public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {}
             });
         }
-
     }
 
     private void loginWithCorrectUsernameAndPassword() {
@@ -99,13 +98,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isUsernameOrPasswordEmpty() {
         return loginUsername.getText().toString().equals("")
-                || loginPassword.getText().toString().equals("");
+            || loginPassword.getText().toString().equals("");
     }
 
-    public void getData(View view) {
+    public void getData(View view){
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String name = loginData.getString("username", "");
-        String pw = loginData.getString("password", "");
+        String pw = loginData.getString("password","");
         String msg = "Saved User Name: " + name + "\nSaved Password: " + pw;
         dataView.setText(msg);
     }

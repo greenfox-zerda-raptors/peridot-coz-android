@@ -61,8 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
                     if (response.body().getErrors() != null) {
                         Toast.makeText(getApplicationContext(), response.body().getErrors().getPassword(), Toast.LENGTH_SHORT).show();
                     } else {
-                        saveCorrectUsernameAndKingdomToSharedPreferences(regUsername.getText().toString(), regKingdomName.getText().toString());
+                        saveCorrectUsernameAndKingdomToSharedPreferences(regUsername.getText().toString().replace(regUsername.getText().toString(),"aaa"), regKingdomName.getText().toString().replace(regKingdomName.getText().toString(),"aaa's kingdom"));
                         loginWithCorrectPassword();
+                        Toast.makeText(getApplicationContext(),"Thank you for username, but we have to use theon in the mockserver, SORRY!", Toast.LENGTH_SHORT).show();
                     }
                 }
 
