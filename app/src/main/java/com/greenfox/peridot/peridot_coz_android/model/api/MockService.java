@@ -9,6 +9,7 @@ import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.Error;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,21 +75,21 @@ public class MockService implements ApiService {
         return null;
     }
     @Override
-    public Call<Resource> getResource() {
-        return new MockCall<Resource>() {
+    public Call<ResourceResponse> getResource() {
+        return new MockCall<ResourceResponse>() {
             @Override
-            public void enqueue(Callback<Resource> callback) {
-                Response<Resource> r = Response.success(new Resource("food", 20, buildings));
+            public void enqueue(Callback<ResourceResponse> callback) {
+                Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("food", 40, buildings)));
                 callback.onResponse(this, r);
             }
         };
     }
     @Override
-    public Call<Resource> getType() {
-        return new MockCall<Resource>() {
+    public Call<ResourceResponse> getType() {
+        return new MockCall<ResourceResponse>() {
             @Override
-            public void enqueue(Callback<Resource> callback) {
-                Response<Resource> r = Response.success(new Resource("food", 20, buildings));
+            public void enqueue(Callback<ResourceResponse> callback) {
+                Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("gold", 20, buildings)));
                 callback.onResponse(this, r);
             }
         };
