@@ -58,13 +58,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
-                    if (response.body().getErrors() != null) {
-                        Toast.makeText(getApplicationContext(), response.body().getErrors().getPassword(), Toast.LENGTH_SHORT).show();
-                    } else {
-                        saveCorrectUsernameAndKingdomToSharedPreferences(regUsername.getText().toString().replace(regUsername.getText().toString(),"aaa"), regKingdomName.getText().toString().replace(regKingdomName.getText().toString(),"aaa's kingdom"));
-                        loginWithCorrectPassword();
-                        Toast.makeText(getApplicationContext(),"Thank you for username, but we have to use theon in the mockserver, SORRY!", Toast.LENGTH_SHORT).show();
-                    }
+                    saveCorrectUsernameAndKingdomToSharedPreferences();
+                    loginWithCorrectPassword();
+                    Toast.makeText(getApplicationContext(), "Thank you for username, but we have to use the one in the mockserver, SORRY!", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
@@ -80,11 +76,11 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
     }
 
-    private void saveCorrectUsernameAndKingdomToSharedPreferences(String username, String kingdomName) {
+    private void saveCorrectUsernameAndKingdomToSharedPreferences() {
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = loginData.edit();
-        editor.putString("username", username);
-        editor.putString("kingdomName", kingdomName);
+        editor.putString("username", "aaa");
+        editor.putString("password", "aaa");
         editor.apply();
     }
 

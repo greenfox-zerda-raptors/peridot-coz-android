@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
                 if (response.body().getErrors() == null) {
                     kingdom = response.body().getKingdom();
-                    Toast.makeText(getApplicationContext(), "Welcome in kingdom of " + kingdom.getUser().getUsername() + "!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Welcome in kingdom of " + kingdom.getUser().getKingdom() + "!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please try to refresh", Toast.LENGTH_SHORT).show();
                 }
