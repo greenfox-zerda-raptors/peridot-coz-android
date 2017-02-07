@@ -20,6 +20,10 @@
             android:title="Battle"/>
         <item
             android:id="@+id/nav_resources"
+<<<<<<< HEAD
+=======
+            android:icon="@drawable/ic_coin_black"
+>>>>>>> refs/remotes/origin/master
             android:title="Resources"/>
     </group>
 

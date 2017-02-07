@@ -161,10 +161,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(new Intent(this, LoginActivity.class));
     }
   
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();
     }
 }
+
