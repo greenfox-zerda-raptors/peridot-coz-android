@@ -1,21 +1,18 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
-        import android.os.Bundle;
-        import android.support.annotation.Nullable;
-        import android.support.v4.app.Fragment;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-
-        import com.greenfox.peridot.peridot_coz_android.R;
-        import android.widget.ListView;
-
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import com.greenfox.peridot.peridot_coz_android.R;
+import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
-
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -28,8 +25,8 @@ public class TroopsOverviewFragment extends Fragment {
 
     ListView troopsList;
     Troop troop;
-    ArrayList<Troop> troops;
-    TroopAdapter troopAdapter;
+    private ArrayList<Troop> troops = new ArrayList<>();
+    private TroopAdapter troopAdapter;
     @Inject
     ApiService apiService;
 
@@ -40,13 +37,13 @@ public class TroopsOverviewFragment extends Fragment {
         View contentView = inflater.inflate(R.layout.troops_overview_layout, container, false);
 
         troopsList = (ListView) contentView.findViewById(R.id.troopsList);
-        troops = new ArrayList<>();
 
         troopAdapter = new TroopAdapter(container.getContext(), troops);
         troopsList.setAdapter(troopAdapter);
 
 
         apiService.getTroops(1).enqueue(new Callback<TroopsResponse>() {
+
             @Override
             public void onResponse(Call<TroopsResponse> call, Response<TroopsResponse> response) {
                 troopAdapter.clear();
