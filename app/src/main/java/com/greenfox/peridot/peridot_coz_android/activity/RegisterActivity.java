@@ -60,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                     saveCorrectUsernameAndKingdomToSharedPreferences();
                     loginWithCorrectPassword();
-                    Toast.makeText(getApplicationContext(), "Thank you for username, but we have to use the one in the mockserver, SORRY!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Thank you " + regUsername.getText().toString() + ", but we have to use the username in the mockserver, SORRY!", Toast.LENGTH_LONG).show();
                 }
 
                 @Override
