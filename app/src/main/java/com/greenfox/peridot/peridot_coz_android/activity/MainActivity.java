@@ -167,8 +167,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(this, "Successful logout", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginActivity.class));
     }
-
-    private void loadFragment(Fragment fragment) {
+  
+    public void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_frame, fragment)
