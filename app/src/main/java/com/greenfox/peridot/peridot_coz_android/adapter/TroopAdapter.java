@@ -20,21 +20,20 @@ public class TroopAdapter extends ArrayAdapter<Troop>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        Troop troop = super.getItem(super.getCount() - position - 1);
+        Troop troop = super.getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.troops_overview_layout, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.troops_overview_listitem, parent, false);
         }
         // Lookup view for data population
         TextView tvHP = (TextView) convertView.findViewById(R.id.tvHP);
         TextView tvAP = (TextView) convertView.findViewById(R.id.tvAP);
         TextView tvDP = (TextView) convertView.findViewById(R.id.tvDP);
         // Populate the data into the template view using the data object
-        tvHP.setText(String.format("AP: " + troop.getHp()));
+        tvHP.setText(String.valueOf("HP: " + troop.getHp()));
         tvAP.setText(String.valueOf("AP: " + troop.getAttackPower()));
         tvDP.setText(String.valueOf("DP: " + troop.getDefensePower()));
         // Return the completed view to render on screen
         return convertView;
     }
-
 }
