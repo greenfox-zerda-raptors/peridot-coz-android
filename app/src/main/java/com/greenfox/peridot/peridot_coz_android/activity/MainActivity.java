@@ -120,8 +120,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+        if (drawer.isDrawerOpen(GravityCompat.START) && getFragmentManager().getBackStackEntryCount() > 0) {
             drawer.closeDrawer(GravityCompat.START);
+            getFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
         }
@@ -170,4 +171,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.content_frame, fragment)
                 .commit();
     }
+
+
 }

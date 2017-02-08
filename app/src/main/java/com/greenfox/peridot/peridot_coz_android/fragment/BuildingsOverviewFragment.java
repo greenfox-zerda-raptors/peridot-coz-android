@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.R;
+import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
@@ -39,6 +42,7 @@ public class BuildingsOverviewFragment extends Fragment {
 
         View contentView = inflater.inflate(R.layout.buildings_overview_layout, container, false);
         DaggerMainActivityComponent.builder().build().inject(this);
+//        contentView.setClickable(true);
 
         mainFab = (FloatingActionButton) contentView.findViewById(R.id.mainFab);
         mineFab = (FloatingActionButton) contentView.findViewById(R.id.mineFab);
@@ -85,7 +89,22 @@ public class BuildingsOverviewFragment extends Fragment {
             public void onFailure(Call<BuildingsResponse> call, Throwable t) {
             }
         });
+        View.OnClickListener buildingDetailClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment buildingDetail = new BuildingDetailFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.content_frame, buildingDetail);
+//                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        };
+        contentView.setOnClickListener(buildingDetailClickListener);
+
+
         return contentView;
     }
+
 
 }
