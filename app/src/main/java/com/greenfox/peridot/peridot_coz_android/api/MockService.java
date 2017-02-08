@@ -161,7 +161,6 @@ public class MockService implements ApiService {
         return null;
     }
 
-
     @Override
     public Call<ResourceResponse> getResource() {
         return new MockCall<ResourceResponse>() {
@@ -172,6 +171,7 @@ public class MockService implements ApiService {
             }
         };
     }
+
     @Override
     public Call<ResourceResponse> getType() {
         return new MockCall<ResourceResponse>() {
@@ -180,6 +180,28 @@ public class MockService implements ApiService {
                 Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("gold", 20, buildings)));
                 callback.onResponse(this, r);
                     }
+        };
+    }
+
+    @Override
+    public Call<Troop> createTroop(int userId) {
+        return new MockCall<Troop>() {
+            @Override
+            public void enqueue(Callback<Troop> callback) {
+                Response<Troop> v = Response.success(new Troop());
+                callback.onResponse(this, v);
+            }
+        };
+    }
+
+    @Override
+    public Call<Troop> upgradeTroop(int userId, int troopId) {
+        return new MockCall<Troop>() {
+            @Override
+            public void enqueue(Callback<Troop> callback) {
+                Response<Troop> v = Response.success(new Troop(10, 2, 1));
+                callback.onResponse(this, v);
+            }
         };
     }
 }

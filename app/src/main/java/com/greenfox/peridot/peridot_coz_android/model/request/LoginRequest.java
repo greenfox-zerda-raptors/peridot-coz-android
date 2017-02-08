@@ -1,6 +1,7 @@
 package com.greenfox.peridot.peridot_coz_android.model.request;
 
 public class LoginRequest {
+
     String username;
     String password;
 

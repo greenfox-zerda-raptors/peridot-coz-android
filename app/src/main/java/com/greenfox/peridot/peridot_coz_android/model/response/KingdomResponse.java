@@ -3,6 +3,7 @@ package com.greenfox.peridot.peridot_coz_android.model.response;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 
 public class KingdomResponse extends Response{
+
     Kingdom kingdom;
 
     public Kingdom getKingdom() {
@@ -17,6 +18,6 @@ public class KingdomResponse extends Response{
         this.kingdom = kingdom;
     }
 
-    public KingdomResponse() {
-    }
+    public KingdomResponse() {}
 }
+

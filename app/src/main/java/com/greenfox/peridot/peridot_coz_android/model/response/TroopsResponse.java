@@ -3,7 +3,7 @@ package com.greenfox.peridot.peridot_coz_android.model.response;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import java.util.ArrayList;
 
-public class TroopsResponse {
+public class TroopsResponse extends Response {
 
     ArrayList<Troop> troops;
 
