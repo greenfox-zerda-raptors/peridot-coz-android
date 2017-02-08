@@ -172,7 +172,8 @@ public class MockService implements ApiService {
         return new MockCall<ResourceResponse>() {
             @Override
             public void enqueue(Callback<ResourceResponse> callback) {
-                Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("food", 40, buildings)));
+                resources.add(new Resource("gold", 40, buildings));
+                Response<ResourceResponse> r = Response.success(new ResourceResponse(resources));
                 callback.onResponse(this, r);
             }
         };
@@ -183,7 +184,7 @@ public class MockService implements ApiService {
         return new MockCall<ResourceResponse>() {
             @Override
             public void enqueue(Callback<ResourceResponse> callback) {
-                Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("gold", 20, buildings)));
+                Response<ResourceResponse> r = Response.success(new ResourceResponse(resources));
                 callback.onResponse(this, r);
                     }
         };

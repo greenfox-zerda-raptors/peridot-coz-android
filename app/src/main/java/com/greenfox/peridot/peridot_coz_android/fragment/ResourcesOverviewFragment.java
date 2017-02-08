@@ -9,17 +9,29 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.ResourceAdapter;
+import com.greenfox.peridot.peridot_coz_android.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
+import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import java.util.ArrayList;
+
+import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ResourcesOverviewFragment extends Fragment {
     ResourceAdapter resourceAdapter;
     ArrayList<Resource> resourceList;
     ListView resourcesListView;
+    @Inject
+    ApiService apiService;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        DaggerMainActivityComponent.builder().build().inject(this);
         View contentView = inflater.inflate(R.layout.resources_overview_layout, container, false);
 
         resourceList = new ArrayList<>();
@@ -30,8 +42,19 @@ public class ResourcesOverviewFragment extends Fragment {
                 getActivity(),
                 R.id.resourcesListView,
                 resourceList);
-
         resourcesListView.setAdapter(resourceAdapter);
+
+        apiService.getResource().enqueue(new Callback<ResourceResponse>() {
+            @Override
+            public void onResponse(Call<ResourceResponse> call, Response<ResourceResponse> response) {
+                resourceAdapter.clear();
+                resourceAdapter.addAll(response.body().getResources());
+            }
+
+            @Override
+            public void onFailure(Call<ResourceResponse> call, Throwable t) {
+            }
+        });
 
         return contentView;
     }
