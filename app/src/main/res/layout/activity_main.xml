@@ -16,7 +16,7 @@
         android:fitsSystemWindows="false">
 
         <include
-            layout="@layout/app_bar_left_navigation"
+            layout="@layout/activity_main_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -26,9 +26,10 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_left_navigation"
-            app:menu="@menu/activity_left_navigation_drawer" />
+            app:headerLayout="@layout/nav_drawer_header"
+            app:menu="@menu/nav_drawer_menu" />
 
     </android.support.v4.widget.DrawerLayout>
 
 </RelativeLayout>
+

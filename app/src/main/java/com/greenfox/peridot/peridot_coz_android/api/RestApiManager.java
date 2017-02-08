@@ -1,9 +1,8 @@
-package com.greenfox.peridot.peridot_coz_android.model.api;
+package com.greenfox.peridot.peridot_coz_android.api;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 
 public class RestApiManager {
 

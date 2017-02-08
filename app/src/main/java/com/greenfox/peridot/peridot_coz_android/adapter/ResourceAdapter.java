@@ -8,13 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
-
 import java.util.ArrayList;
-
-
-/**
- * Created by mozgaanna on 01/02/17.
- */
 
 public class ResourceAdapter extends ArrayAdapter<Resource> {
 
@@ -26,7 +20,7 @@ public class ResourceAdapter extends ArrayAdapter<Resource> {
     public View getView(int position, View convertView, ViewGroup parent) {
        Resource resource = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.resource, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.resources_overview_listitem, parent, false);
         }
 
         TextView type = (TextView) convertView.findViewById(R.id.type);

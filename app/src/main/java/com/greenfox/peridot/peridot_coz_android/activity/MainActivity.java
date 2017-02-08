@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
@@ -23,15 +22,13 @@ import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragme
 import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
-import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
-
 import javax.inject.Inject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -97,8 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar, menu);
-        getMenuInflater().inflate(R.menu.activity_left_navigation_drawer, menu);
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
