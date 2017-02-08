@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by BB on 2017-02-03.
  */
 
-public class TroopsResponse {
+public class TroopsResponse extends Response {
 
     ArrayList<Troop> troops;
 
