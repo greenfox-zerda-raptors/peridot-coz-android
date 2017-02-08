@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(myToolbar);
 
         checkSharedPreferencesForUser();
-        apiService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username",""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password",""))).enqueue(new Callback<LoginAndRegisterResponse>() {
+        apiService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
             @Override
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                 if (response.body().getErrors() == null) {
@@ -60,23 +60,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
             }
+
             @Override
             public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {
-            }});
+            }
+        });
 
         apiService.getKingdom(user.getId()).enqueue(new Callback<KingdomResponse>() {
             @Override
             public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
                 if (response.body().getErrors() == null) {
                     kingdom = response.body().getKingdom();
-                    Toast.makeText(getApplicationContext(), "Welcome in kingdom of " + kingdom.getUser().getUsername() + "!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Welcome in kingdom of " + kingdom.getUser().getKingdom() + "!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please try to refresh", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<KingdomResponse> call, Throwable t) {
-            }});
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -85,12 +89,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        loadFragment( new KingdomOverviewFragment());
+        loadFragment(new KingdomOverviewFragment());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        getMenuInflater().inflate(R.menu.activity_left_navigation_drawer, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -144,22 +149,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void checkSharedPreferencesForUser() {
-        if(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username","").equals("")){
-            Toast.makeText(this,"You have to log in", Toast.LENGTH_SHORT).show();
+        if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
+            Toast.makeText(this, "You have to log in", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
     }
 
-    private void logout(){
+    private void logout() {
         SharedPreferences preferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("username", "");
         editor.putString("password", "");
         editor.apply();
-        Toast.makeText(this,"Successful logout", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Successful logout", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginActivity.class));
     }
-  
+
     public void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()

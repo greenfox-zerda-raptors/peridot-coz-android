@@ -43,7 +43,7 @@ public class MockService implements ApiService {
                 if (loginRequest.getUsername().equals("aaa")
                         && loginRequest.getPassword().equals("aaa")) {
                     Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                    r.body().setUser(new User(1, "aaa","aaa's kingdom",0));
+                    r.body().setUser(new User(1, "aaa", "aaa's kingdom",0));
                     callback.onResponse(this, r);
                 } else if (!loginRequest.getUsername().equals("aaa")){
                     Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
@@ -92,9 +92,9 @@ public class MockService implements ApiService {
                 Response<Troop> r = null;
                 if (troopId == 1) {
                     r = Response.success(troop1);
-                } else if (troopId == 2){
+                } else if (troopId == 2) {
                     r = Response.success(troop2);
-                } else if (troopId == 3){
+                } else if (troopId == 3) {
                     r = Response.success(troop3);
                 }
                 callback.onResponse(this, r);
@@ -153,12 +153,18 @@ public class MockService implements ApiService {
                 callback.onResponse(this, r);
             }
         };
-    }   
-  
+    }
+
     @Override
-    public Call<LoginAndRegisterResponse> register(RegisterRequest registerRequest) {
-        /// TODO this.
-        return null;
+    public Call<LoginAndRegisterResponse> register(final RegisterRequest registerRequest) {
+        return new MockCall<LoginAndRegisterResponse>() {
+            @Override
+            public void enqueue(Callback<LoginAndRegisterResponse> callback) {
+                Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
+                r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
+                callback.onResponse(this, r);
+            }
+        };
     }
 
     @Override
@@ -188,8 +194,8 @@ public class MockService implements ApiService {
         return new MockCall<Troop>() {
             @Override
             public void enqueue(Callback<Troop> callback) {
-                Response<Troop> v = Response.success(new Troop());
-                callback.onResponse(this, v);
+                Response<Troop> r = Response.success(new Troop());
+                callback.onResponse(this, r);
             }
         };
     }
@@ -199,8 +205,8 @@ public class MockService implements ApiService {
         return new MockCall<Troop>() {
             @Override
             public void enqueue(Callback<Troop> callback) {
-                Response<Troop> v = Response.success(new Troop(10, 2, 1));
-                callback.onResponse(this, v);
+                Response<Troop> r = Response.success(new Troop(10, 2, 1));
+                callback.onResponse(this, r);
             }
         };
     }
