@@ -15,15 +15,12 @@ import android.view.SubMenu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.greenfox.peridot.peridot_coz_android.BuildConfig;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.Response;
-
 import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,12 +29,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.fakes.RoboMenuItem;
 import org.robolectric.shadows.ShadowToast;
-
 import static org.robolectric.Shadows.shadowOf;
 
-/**
- * Created by bedij on 2017. 01. 31..
- */
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP)
 public class MainActivityTest {
@@ -45,7 +38,6 @@ public class MainActivityTest {
     private MainActivity mainActivity;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-
 
     @Before
     public void setUp(){

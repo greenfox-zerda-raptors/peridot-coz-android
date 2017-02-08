@@ -8,13 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
-
 import java.util.ArrayList;
-
-
-/**
- * Created by mozgaanna on 01/02/17.
- */
 
 public class ResourceAdapter extends ArrayAdapter<Resource> {
 
@@ -24,23 +18,19 @@ public class ResourceAdapter extends ArrayAdapter<Resource> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // Get the data item for this position
        Resource resource = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.resource, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.resources_overview_listitem, parent, false);
         }
-        // Lookup view for data population
+
         TextView type = (TextView) convertView.findViewById(R.id.type);
         TextView amount = (TextView) convertView.findViewById(R.id.amount);
         TextView buildings = (TextView) convertView.findViewById(R.id.buildings);
 
-        // Populate the data into the template view using the data object
         type.setText(resource.getType());
         amount.setText(resource.getAmount());
         buildings.setText((CharSequence) resource.getBuildings());
 
-        // Return the completed view to render on screen
         return convertView;
     }
 }

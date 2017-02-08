@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
-
 import com.greenfox.peridot.peridot_coz_android.R;
 
 public class SettingsFragment extends Fragment {
@@ -20,7 +19,7 @@ public class SettingsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View contentView = inflater.inflate(R.layout.settings_layout, container, false);
+        View contentView = inflater.inflate(R.layout.toolbar_settings_layout, container, false);
 
         enableNotifications = (Switch) contentView.findViewById(R.id.enableNotifications);
         enableNotifications.setChecked(true);

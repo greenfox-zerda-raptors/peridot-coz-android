@@ -1,13 +1,9 @@
-package com.greenfox.peridot.peridot_coz_android.model.api;
+package com.greenfox.peridot.peridot_coz_android.api;
 
 import java.io.IOException;
 import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Response;
-
-/**
- * Created by BB on 2017-01-23.
- */
 
 public abstract class MockCall<T> implements Call<T> {
 

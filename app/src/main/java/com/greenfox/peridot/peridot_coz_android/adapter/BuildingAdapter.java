@@ -6,15 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
-
 import java.util.ArrayList;
-
-/**
- * Created by bedij on 2017. 02. 03..
- */
 
 public class BuildingAdapter extends ArrayAdapter<Building> {
 
@@ -26,7 +20,7 @@ public class BuildingAdapter extends ArrayAdapter<Building> {
     public View getView(int position, View convertView, ViewGroup parent) {
         Building building = super.getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.buildingview, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.buildings_overview_listitem, parent, false);
         }
         TextView buildingType = (TextView) convertView.findViewById(R.id.buildingName);
         TextView buildingLevel = (TextView) convertView.findViewById(R.id.buildingLevel);
