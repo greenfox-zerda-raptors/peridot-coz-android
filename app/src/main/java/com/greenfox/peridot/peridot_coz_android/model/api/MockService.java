@@ -71,7 +71,7 @@ public class MockService implements ApiService {
             @Override
             public void enqueue(Callback<LoginAndRegisterResponse> callback) {
                 Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                r.body().setUser(user);
+                r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
                 callback.onResponse(this, r);
             }
         };
