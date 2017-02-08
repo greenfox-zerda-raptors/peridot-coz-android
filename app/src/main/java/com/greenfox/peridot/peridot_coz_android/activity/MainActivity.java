@@ -1,5 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Kingdom kingdom;
     @Inject
     ApiService apiService;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +136,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_kingdom_overview) {
             loadFragment(new KingdomOverviewFragment());
         } else if (id == R.id.nav_buildings) {
+            progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.show();
+            progressDialog.setMessage("loading...");
             loadFragment(new BuildingsOverviewFragment());
         } else if (id == R.id.nav_troops) {
             loadFragment(new TroopsOverviewFragment());
