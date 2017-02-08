@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 
@@ -58,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
-                    saveCorrectUsernameAndKingdomToSharedPreferences();
+                    saveCorrectUsernameAndPasswordToSharedPreferences();
                     loginWithCorrectPassword();
                     Toast.makeText(getApplicationContext(), "Thank you " + regUsername.getText().toString() + ", but we have to use the username in the mockserver, SORRY!", Toast.LENGTH_LONG).show();
                 }
@@ -76,9 +75,9 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
     }
 
-    private void saveCorrectUsernameAndKingdomToSharedPreferences() {
-        SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = loginData.edit();
+    private void saveCorrectUsernameAndPasswordToSharedPreferences() {
+        SharedPreferences registerData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = registerData.edit();
         editor.putString("username", "aaa");
         editor.putString("password", "aaa");
         editor.apply();
