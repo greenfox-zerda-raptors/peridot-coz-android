@@ -22,6 +22,10 @@
             android:id="@+id/nav_resources"
             android:icon="@drawable/ic_coin_black"
             android:title="Resources"/>
+        <item
+            android:id="@+id/nav_user"
+            android:icon="@drawable/ic_user_black"
+            android:title="Profile"/>
     </group>
 
 </menu>
