@@ -25,7 +25,7 @@ import retrofit2.Response;
 @Module
 public class MockService implements ApiService {
 
-    private User user = new User (1, "aaa", "aaasKingdom", 10);
+    private User user = new User(1, "aaa", "aaasKingdom", 0);
     private static final String TAG = "MockService";
     private Building building = new Building("townhall");
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
@@ -35,7 +35,8 @@ public class MockService implements ApiService {
     private Troop troop3 = new Troop(20, 3, 7);
     private ArrayList<Troop> troops = new ArrayList<>(Arrays.asList(troop1, troop2, troop3));
 
-    public MockService() {}
+    public MockService() {
+    }
 
     @Override
     public Call<LoginAndRegisterResponse> login(final LoginRequest loginRequest) {
@@ -45,9 +46,9 @@ public class MockService implements ApiService {
                 if (loginRequest.getUsername().equals("aaa")
                         && loginRequest.getPassword().equals("aaa")) {
                     Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                    r.body().setUser(new User(1, "aaa","aaa's kingdom",0));
+                    r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
                     callback.onResponse(this, r);
-                } else if (!loginRequest.getUsername().equals("aaa")){
+                } else if (!loginRequest.getUsername().equals("aaa")) {
                     Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
                     Error error = new Error();
                     error.setUsername("No such user exists");
@@ -60,6 +61,18 @@ public class MockService implements ApiService {
                     r.body().setErrors(error);
                     callback.onResponse(this, r);
                 }
+            }
+        };
+    }
+
+    @Override
+    public Call<LoginAndRegisterResponse> register(final RegisterRequest registerRequest) {
+        return new MockCall<LoginAndRegisterResponse>() {
+            @Override
+            public void enqueue(Callback<LoginAndRegisterResponse> callback) {
+                Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
+                r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
+                callback.onResponse(this, r);
             }
         };
     }
@@ -87,23 +100,23 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Troop> getTroopDetail(int userId,final int troopId) {
+    public Call<Troop> getTroopDetail(int userId, final int troopId) {
         return new MockCall<Troop>() {
             @Override
             public void enqueue(Callback<Troop> callback) {
                 Response<Troop> r = null;
                 if (troopId == 1) {
                     r = Response.success(troop1);
-                } else if (troopId == 2){
+                } else if (troopId == 2) {
                     r = Response.success(troop2);
-                } else if (troopId == 3){
+                } else if (troopId == 3) {
                     r = Response.success(troop3);
                 }
                 callback.onResponse(this, r);
             }
         };
     }
-  
+
     @Override
     public Call<BuildingsResponse> getBuildings(int userId) {
         return new MockCall<BuildingsResponse>() {
@@ -118,8 +131,8 @@ public class MockService implements ApiService {
                 buildings.add(new Building("Farm"));
                 buildings.add(new Building("Mine"));
                 buildings.add(new Building("Townhall"));
-                Response<BuildingsResponse> v = Response.success(new BuildingsResponse(buildings));
-                callback.onResponse(this, v);
+                Response<BuildingsResponse> r = Response.success(new BuildingsResponse(buildings));
+                callback.onResponse(this, r);
             }
         };
     }
@@ -129,8 +142,8 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> v = Response.success(building);
-                callback.onResponse(this, v);
+                Response<Building> r = Response.success(building);
+                callback.onResponse(this, r);
             }
         };
     }
@@ -140,8 +153,8 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> v = Response.success(new Building("townhall"));
-                callback.onResponse(this, v);
+                Response<Building> r = Response.success(new Building("townhall"));
+                callback.onResponse(this, r);
             }
         };
     }
@@ -155,14 +168,7 @@ public class MockService implements ApiService {
                 callback.onResponse(this, v);
             }
         };
-    }   
-  
-    @Override
-    public Call<LoginAndRegisterResponse> register(RegisterRequest registerRequest) {
-        /// TODO this.
-        return null;
     }
-
 
     @Override
     public Call<ResourceResponse> getResource() {
@@ -174,6 +180,7 @@ public class MockService implements ApiService {
             }
         };
     }
+
     @Override
     public Call<ResourceResponse> getType() {
         return new MockCall<ResourceResponse>() {
@@ -181,9 +188,10 @@ public class MockService implements ApiService {
             public void enqueue(Callback<ResourceResponse> callback) {
                 Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("gold", 20, buildings)));
                 callback.onResponse(this, r);
-                    }
+            }
         };
     }
+
     @Override
     public Call<Troop> createTroop(int userId) {
         return new MockCall<Troop>() {
