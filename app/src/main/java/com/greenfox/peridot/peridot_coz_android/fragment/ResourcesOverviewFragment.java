@@ -12,10 +12,6 @@ import com.greenfox.peridot.peridot_coz_android.adapter.ResourceAdapter;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import java.util.ArrayList;
 
-/**
- * Created by mozgaanna on 01/02/17.
- */
-
 public class ResourcesOverviewFragment extends Fragment {
     ResourceAdapter resourceAdapter;
     ArrayList<Resource> resourceList;

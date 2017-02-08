@@ -1,4 +1,4 @@
-package com.greenfox.peridot.peridot_coz_android.model.api;
+package com.greenfox.peridot.peridot_coz_android.api;
 
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
@@ -49,7 +49,7 @@ public interface ApiService {
 
     @PUT("/kingdom/{userId}/buildings/{buildingId}/")
     Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId")int buildingId, @Body Building building);
-
+  
     @GET("/kingdom/{userId}/resources/")
     Call<ResourceResponse> getResource();
 

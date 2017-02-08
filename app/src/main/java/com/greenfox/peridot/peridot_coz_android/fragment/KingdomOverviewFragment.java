@@ -10,11 +10,8 @@ import android.widget.Button;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 
-/**
- * Created by mozgaanna on 25/01/17.
- */
-
 public class KingdomOverviewFragment extends Fragment{
+
     Button buildingButton, troopButton, resourceButton;
 
     @Nullable
@@ -24,7 +21,6 @@ public class KingdomOverviewFragment extends Fragment{
         buildingButton = (Button) contentView.findViewById(R.id.buildings_button);
         troopButton = (Button) contentView.findViewById(R.id.troops_button);
         resourceButton = (Button) contentView.findViewById(R.id.resources_button);
-
 
         buildingButton.setOnClickListener(new View.OnClickListener(){
             @Override
