@@ -3,6 +3,7 @@ package com.greenfox.peridot.peridot_coz_android.backgroundSync;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
@@ -15,7 +16,6 @@ import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class SyncService extends IntentService{
 
@@ -42,11 +42,11 @@ public class SyncService extends IntentService{
         syncIntent.setAction(SYNC_DONE);
         backgroundSync();
         bundle.putSerializable("buildings", buildings);
-        Log.e("SymcService", buildings.getBuildings().get(1).getType());
+        Log.e("SyncService", buildings.getBuildings().get(1).getType());
         syncIntent.putExtra("bundle", bundle.getSerializable("buildings"));
         syncIntent.setClass(this, BuildingsOverviewFragment.class);
         Log.e("SyncService", "Sync stop");
-        getBaseContext().sendBroadcast(syncIntent, SYNC_DONE);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(syncIntent);
         Log.e("SyncService", "Broadcast sent");
     }
 

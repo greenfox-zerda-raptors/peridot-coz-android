@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,7 +62,7 @@ public class BuildingsOverviewFragment extends Fragment {
                 Toast.makeText(getActivity(), "Buildings synced", Toast.LENGTH_SHORT).show();
             }
         };
-        getActivity().registerReceiver(syncReceiver, intentFilter, SyncService.SYNC_DONE, null);
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(syncReceiver, intentFilter);
         mainFab = (FloatingActionButton) contentView.findViewById(R.id.mainFab);
         mineFab = (FloatingActionButton) contentView.findViewById(R.id.mineFab);
         farmFab = (FloatingActionButton) contentView.findViewById(R.id.farmFab);
@@ -74,31 +75,14 @@ public class BuildingsOverviewFragment extends Fragment {
         mainFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isMainFabOpen) {
-                    mainFab.startAnimation(mainFabRotateLeft);
-                    mineFab.startAnimation(disappearSmallFab);
-                    farmFab.startAnimation(disappearSmallFab);
-                    fakeFab.startAnimation(disappearSmallFab);
-                    mineFab.setClickable(false);
-                    farmFab.setClickable(false);
-                    fakeFab.setClickable(false);
-                    isMainFabOpen = false;
-                } else {
-                    mainFab.startAnimation(mainFabRotateRight);
-                    mineFab.startAnimation(appearSmallFab);
-                    farmFab.startAnimation(appearSmallFab);
-                    fakeFab.startAnimation(appearSmallFab);
-                    mineFab.setClickable(true);
-                    farmFab.setClickable(true);
-                    fakeFab.setClickable(true);
-                    isMainFabOpen = true;
-                }
+                openAndCloseFabs();
             }
         });
         fakeFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startSyncService(v);
+                openAndCloseFabs();
             }
         });
         ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
@@ -117,7 +101,38 @@ public class BuildingsOverviewFragment extends Fragment {
         return contentView;
     }
 
- private void startSyncService(View v) {
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(syncReceiver);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(syncReceiver, intentFilter);
+    }
+
+    private void openAndCloseFabs() {
+        if (isMainFabOpen) {
+            mainFab.startAnimation(mainFabRotateLeft);
+            mineFab.startAnimation(disappearSmallFab);
+            farmFab.startAnimation(disappearSmallFab);
+            fakeFab.startAnimation(disappearSmallFab);
+            isMainFabOpen = false;
+        } else {
+            mainFab.startAnimation(mainFabRotateRight);
+            mineFab.startAnimation(appearSmallFab);
+            farmFab.startAnimation(appearSmallFab);
+            fakeFab.startAnimation(appearSmallFab);
+            isMainFabOpen = true;
+        }
+        mineFab.setClickable(isMainFabOpen);
+        farmFab.setClickable(isMainFabOpen);
+        fakeFab.setClickable(isMainFabOpen);
+    }
+
+    private void startSyncService(View v) {
     Intent intent = new Intent(getActivity(), SyncService.class);
      getActivity().startService(intent);
  }
