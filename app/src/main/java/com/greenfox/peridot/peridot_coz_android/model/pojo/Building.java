@@ -2,16 +2,16 @@ package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
 public class Building {
 
-    private static int id = 0;
+    private int id;
     private String type;
     private int level;
     private int hp;
 
-    public Building(String type) {
+    public Building(int id, String type) {
         this.type = type;
         this.level = 1;
         this.hp = 100;
-        this.id ++;
+        this.id = id;
     }
 
     public Building(String type, int level) {

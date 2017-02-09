@@ -4,23 +4,26 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.github.kimkevin.cachepot.CachePot;
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
+
 import java.util.ArrayList;
+
 import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -74,7 +77,7 @@ public class BuildingsOverviewFragment extends Fragment {
         });
 
 
-        ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
+        final ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
         adapter = new BuildingAdapter(container.getContext(), buildings);
         listView.setAdapter(adapter);
         apiService.getBuildings(1).enqueue(new Callback<BuildingsResponse>() {
@@ -88,23 +91,24 @@ public class BuildingsOverviewFragment extends Fragment {
             @Override
             public void onFailure(Call<BuildingsResponse> call, Throwable t) {
             }
+
+
+
         });
-        View.OnClickListener buildingDetailClickListener = new View.OnClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Fragment buildingDetail = new BuildingDetailFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.content_frame, buildingDetail);
-//                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, new BuildingDetailFragment())
+                        .commit();
+                Building building = (Building) listView.getAdapter().getItem(position);
+                CachePot.getInstance().push(building);
             }
-        };
-        contentView.setOnClickListener(buildingDetailClickListener);
+        }) ;
 
-
-        return contentView;
-    }
+    return contentView;
+}
 
 
 }

@@ -6,10 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.github.kimkevin.cachepot.CachePot;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
@@ -40,11 +39,14 @@ public class BuildingDetailFragment extends Fragment {
         View contentView = inflater.inflate(R.layout.building_detail, container, false);
         DaggerMainActivityComponent.builder().build().inject(this);
 
-        apiService.getDetailsOfBuilding(1,1).enqueue(new Callback<Building>() {
+        Building buildingFromPrevFrag = CachePot.getInstance().pop(Building.class);
+
+
+        apiService.getDetailsOfBuilding(1, buildingFromPrevFrag.getId()).enqueue(new Callback<Building>() {
             @Override
             public void onResponse(Call<Building> call, Response<Building> response) {
-                    building = response.body();
-                }
+                building = response.body();
+            }
 
             @Override
             public void onFailure(Call<Building> call, Throwable t) {

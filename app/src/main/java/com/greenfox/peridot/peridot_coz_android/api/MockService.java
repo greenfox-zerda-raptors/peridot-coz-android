@@ -25,8 +25,7 @@ public class MockService implements ApiService {
 
     private User user = new User (1, "aaa", "aaa's Kingdom", 10);
     private static final String TAG = "MockService";
-    private Building building = new Building("townhall");
-    private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
+    private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building(1,"Townhall"), new Building(2,"Farm"), new Building(3,"Farm"),new Building(4,"Mine"),new Building(5,"Mine"),new Building(6,"Barrack"),new Building(7,"Barrack"),new Building(8,"Farm"),new Building(9,"Mine"), new Building(10,"Townhall") ));
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
     private Troop troop1 = new Troop(5, 5, 5);
     private Troop troop2 = new Troop(10, 8, 2);
@@ -107,15 +106,6 @@ public class MockService implements ApiService {
         return new MockCall<BuildingsResponse>() {
             @Override
             public void enqueue(Callback<BuildingsResponse> callback) {
-                buildings.add(new Building("Farm"));
-                buildings.add(new Building("Farm"));
-                buildings.add(new Building("Mine"));
-                buildings.add(new Building("Mine"));
-                buildings.add(new Building("Barrack"));
-                buildings.add(new Building("Barrack"));
-                buildings.add(new Building("Farm"));
-                buildings.add(new Building("Mine"));
-                buildings.add(new Building("Townhall"));
                 Response<BuildingsResponse> r = Response.success(new BuildingsResponse(buildings));
                 callback.onResponse(this, r);
             }
@@ -123,11 +113,11 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Building> getDetailsOfBuilding(int userId, int buildingId) {
+    public Call<Building> getDetailsOfBuilding(int userId, final int buildingId) {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> r = Response.success(building);
+                Response<Building> r = Response.success(buildings.get(buildingId-1));
                 callback.onResponse(this, r);
             }
         };
@@ -138,7 +128,7 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> r = Response.success(new Building("townhall"));
+                Response<Building> r = Response.success(new Building(11,"Townhall"));
                 callback.onResponse(this, r);
             }
         };

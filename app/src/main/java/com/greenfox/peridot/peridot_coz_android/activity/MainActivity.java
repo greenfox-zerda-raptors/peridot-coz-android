@@ -122,9 +122,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START) && getFragmentManager().getBackStackEntryCount() > 0) {
             drawer.closeDrawer(GravityCompat.START);
-            getFragmentManager().popBackStack();
-        } else {
             super.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
         }
     }
 
