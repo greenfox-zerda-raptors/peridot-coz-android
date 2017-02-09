@@ -55,4 +55,6 @@ public interface ApiService {
 
     @GET("/kingdom/{userId}/resources/{type}")
     Call<ResourceResponse> getType();
-}
+
+    @GET("/kingdom/{userId}/buildings/")
+    Call<BuildingsResponse> syncBuildings(@Path("userId") int userId);}

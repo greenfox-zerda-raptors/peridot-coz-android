@@ -19,13 +19,14 @@ import dagger.Module;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Path;
 
 @Module
 public class MockService implements ApiService {
 
     private User user = new User (1, "aaa", "aaa's Kingdom", 10);
     private static final String TAG = "MockService";
-    private Building building = new Building("townhall");
+    private Building building = new Building("Townhall");
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
     private Troop troop1 = new Troop(5, 5, 5);
@@ -206,6 +207,36 @@ public class MockService implements ApiService {
             @Override
             public void enqueue(Callback<Troop> callback) {
                 Response<Troop> r = Response.success(new Troop(10, 2, 1));
+                callback.onResponse(this, r);
+            }
+        };
+    }
+
+    @Override
+    public Call<BuildingsResponse> syncBuildings(@Path("userId") int userId) {
+        return new MockCall<BuildingsResponse>() {
+            @Override
+            public void enqueue(Callback<BuildingsResponse> callback) {
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Barrack"));
+                buildings.add(new Building("Barrack"));
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Townhall"));
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Barrack"));
+                buildings.add(new Building("Barrack"));
+                buildings.add(new Building("Farm"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Mine"));
+                buildings.add(new Building("Barrack"));
+                buildings.add(new Building("Barrack"));
+                Response<BuildingsResponse> r = Response.success(new BuildingsResponse(buildings));
                 callback.onResponse(this, r);
             }
         };

@@ -27,22 +27,6 @@
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/farmFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/mineFab"
-        android:layout_alignLeft="@+id/mineFab"
-        android:layout_alignStart="@+id/mineFab"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="7.5dp"
-        android:clickable="false"
-        android:visibility="invisible"
-        app:backgroundTint="@android:color/holo_blue_bright"
-
-        app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_menu_compass" />
-
-    <android.support.design.widget.FloatingActionButton
         android:id="@+id/mineFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,11 +35,39 @@
         android:layout_alignRight="@+id/mainFab"
         android:layout_marginBottom="15dp"
         android:layout_marginRight="7.5dp"
-
         android:clickable="false"
         android:visibility="invisible"
         app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_menu_view" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/farmFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mineFab"
+        android:layout_alignLeft="@+id/mineFab"
+        android:layout_alignStart="@+id/mineFab"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="0dp"
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_bright"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_compass" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fakeDownloadFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/farmFab"
+        android:layout_alignEnd="@+id/farmFab"
+        android:layout_alignRight="@+id/farmFab"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="0dp"
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/black"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_dialog_info" />
 </RelativeLayout>
