@@ -13,12 +13,16 @@ import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.UserResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import dagger.Module;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Path;
 
 @Module
 public class MockService implements ApiService {
@@ -26,6 +30,7 @@ public class MockService implements ApiService {
     private User user = new User (1, "aaa", "aaa's Kingdom", 10);
     private static final String TAG = "MockService";
     private Building building = new Building("townhall");
+    private ArrayList<User> users = new ArrayList<>(Arrays.asList(new User("Anna")));
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
     private Troop troop1 = new Troop(5, 5, 5);
@@ -123,6 +128,21 @@ public class MockService implements ApiService {
     }
 
     @Override
+    public Call<UsersResponse> getUsers(int userId) {
+        return new MockCall<UsersResponse>() {
+            @Override
+            public void enqueue(Callback<UsersResponse> callback) {
+                users.add(new User("Balint"));
+                users.add(new User("Bea"));
+                users.add(new User("Szilvi"));
+
+                Response<UsersResponse> r = Response.success(new UsersResponse(users));
+                callback.onResponse(this, r);
+            }
+        };
+    }
+
+    @Override
     public Call<Building> getDetailsOfBuilding(int userId, int buildingId) {
         return new MockCall<Building>() {
             @Override
@@ -168,26 +188,29 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<ResourceResponse> getResource() {
+    public Call<ResourceResponse> getResource(@Path("userId") int userId) {
         return new MockCall<ResourceResponse>() {
             @Override
             public void enqueue(Callback<ResourceResponse> callback) {
-                Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("food", 40, buildings)));
+                resources.add(new Resource("gold", 40, buildings));
+                Response<ResourceResponse> r = Response.success(new ResourceResponse(resources));
                 callback.onResponse(this, r);
             }
         };
     }
 
+
     @Override
-    public Call<ResourceResponse> getType() {
+    public Call<ResourceResponse> getType(@Path("userId") int userId, @Path("type") String type) {
         return new MockCall<ResourceResponse>() {
             @Override
             public void enqueue(Callback<ResourceResponse> callback) {
-                Response<ResourceResponse> r = Response.success(new ResourceResponse(new Resource("gold", 20, buildings)));
+                Response<ResourceResponse> r = Response.success(new ResourceResponse(resources));
                 callback.onResponse(this, r);
                     }
         };
     }
+
 
     @Override
     public Call<Troop> createTroop(int userId) {

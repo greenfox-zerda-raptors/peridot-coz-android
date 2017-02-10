@@ -2,6 +2,7 @@ package com.greenfox.peridot.peridot_coz_android.api;
 
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
@@ -9,6 +10,9 @@ import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.UserResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
+
 import retrofit2.Call;
 import retrofit2.http.*;
 import static android.R.attr.id;
@@ -51,8 +55,12 @@ public interface ApiService {
     Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId")int buildingId, @Body Building building);
   
     @GET("/kingdom/{userId}/resources/")
-    Call<ResourceResponse> getResource();
+    Call<ResourceResponse> getResource(@Path("userId") int userId);
 
     @GET("/kingdom/{userId}/resources/{type}")
-    Call<ResourceResponse> getType();
+    Call<ResourceResponse> getType(@Path("userId") int userId, @Path("type") String type);
+
+    @GET("/kingdom/{userId}")
+    Call<UsersResponse> getUsers(@Path("userID") int userId);
+
 }
