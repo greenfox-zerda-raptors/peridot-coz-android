@@ -39,7 +39,7 @@
         android:layout_marginRight="0dp"
         android:clickable="false"
         android:visibility="invisible"
-        app:backgroundTint="@android:color/black"
+        app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_menu_recent_history" />
 
@@ -54,7 +54,7 @@
         android:layout_marginRight="0dp"
         android:clickable="false"
         android:visibility="invisible"
-        app:backgroundTint="@android:color/black"
+        app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_menu_zoom" />
 
@@ -69,7 +69,7 @@
         android:layout_marginRight="0dp"
         android:clickable="false"
         android:visibility="invisible"
-        app:backgroundTint="@android:color/black"
+        app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_menu_always_landscape_portrait" />
 
@@ -84,7 +84,7 @@
         android:layout_marginRight="0dp"
         android:clickable="false"
         android:visibility="invisible"
-        app:backgroundTint="@android:color/black"
+        app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_dialog_map" />
 

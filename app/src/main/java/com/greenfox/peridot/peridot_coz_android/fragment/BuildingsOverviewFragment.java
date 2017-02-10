@@ -1,5 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
+import com.greenfox.peridot.peridot_coz_android.api.MockService;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
@@ -30,7 +32,7 @@ public class BuildingsOverviewFragment extends Fragment {
 
     private ArrayList<Building> buildings = new ArrayList<>();
     private BuildingAdapter adapter;
-
+    private int counter = 34;
     @Inject
     ApiService apiService;
     FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab;
@@ -85,7 +87,19 @@ public class BuildingsOverviewFragment extends Fragment {
         mineFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Building mine = new Building(counter, "Mine");
+                counter++;
+                apiService.createBuilding(1,mine).enqueue(new Callback<Building>() {
+                    @Override
+                    public void onResponse(Call<Building> call, Response<Building> response) {
+                        adapter.add(response.body());
+                    }
 
+                    @Override
+                    public void onFailure(Call<Building> call, Throwable t) {
+
+                    }
+                });
             }
         });
 

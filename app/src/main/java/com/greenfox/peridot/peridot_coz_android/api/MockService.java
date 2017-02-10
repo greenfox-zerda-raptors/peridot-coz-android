@@ -1,10 +1,13 @@
 package com.greenfox.peridot.peridot_coz_android.api;
 
+import android.os.Bundle;
+
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
+import com.greenfox.peridot.peridot_coz_android.model.request.BuildingRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
@@ -19,6 +22,8 @@ import dagger.Module;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Body;
+import retrofit2.http.Path;
 
 @Module
 public class MockService implements ApiService {
@@ -57,6 +62,18 @@ public class MockService implements ApiService {
                     r.body().setErrors(error);
                     callback.onResponse(this, r);
                 }
+            }
+        };
+    }
+
+    @Override
+    public Call<LoginAndRegisterResponse> register(final RegisterRequest registerRequest) {
+        return new MockCall<LoginAndRegisterResponse>() {
+            @Override
+            public void enqueue(Callback<LoginAndRegisterResponse> callback) {
+                Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
+                r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
+                callback.onResponse(this, r);
             }
         };
     }
@@ -124,38 +141,33 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Building> createBuilding(int userId, final Building building) {
+    public Call<Building> createBuilding(@Path("userId") int userId, @Body final Building building) {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-
                 Response<Building> r = Response.success(building);
                 callback.onResponse(this, r);
             }
         };
     }
 
-    @Override
-    public Call<Building> upgradeBuilding(int userId, int buildingId, final Building building) {
-        return new MockCall<Building>() {
-            @Override
-            public void enqueue(Callback<Building> callback) {
-                Response<Building> r = Response.success(new Building("townhall", building.increaseLevelOfBuilding()));
-                callback.onResponse(this, r);
-            }
-        };
-    }
+//    @Override
+//    public Call<Building> upgradeBuilding(final BuildingRequest buildingRequest) {
+//        return new MockCall<Building>() {
+//            @Override
+//            public void enqueue(Callback<Building> callback) {
+//                Bundle bundle = getArguments();
+//                Building buildingFromPrevFrag = (Building) bundle.getSerializable("building");
+//                Response<Building> r = Response.success(buildingFromPrevFrag.increaseLevelOfBuilding());
+//                callback.onResponse(this, r);
+//            }
+//        };
+//    }
+
 
     @Override
-    public Call<LoginAndRegisterResponse> register(final RegisterRequest registerRequest) {
-        return new MockCall<LoginAndRegisterResponse>() {
-            @Override
-            public void enqueue(Callback<LoginAndRegisterResponse> callback) {
-                Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
-                callback.onResponse(this, r);
-            }
-        };
+    public Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId") int buildingId, @Body Building building) {
+        return null;
     }
 
     @Override
