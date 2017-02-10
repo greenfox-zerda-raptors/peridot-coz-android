@@ -1,8 +1,10 @@
 package com.greenfox.peridot.peridot_coz_android.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Kingdom kingdom;
     @Inject
     ApiService apiService;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                 if (response.body().getErrors() == null) {
                     user = response.body().getUser();
+/*                    showLoadingProgress();*/
                     Toast.makeText(getApplicationContext(), "Welcome " + user.getUsername() + "!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
                 if (response.body().getErrors() == null) {
                     kingdom = response.body().getKingdom();
+                    showLoadingProgress();
                     Toast.makeText(getApplicationContext(), "Welcome in kingdom of " + kingdom.getUser().getKingdom() + "!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please try to refresh", Toast.LENGTH_SHORT).show();
@@ -132,20 +137,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_kingdom_overview) {
+            showLoadingProgress();
             loadFragment(new KingdomOverviewFragment());
         } else if (id == R.id.nav_buildings) {
+            showLoadingProgress();
             loadFragment(new BuildingsOverviewFragment());
         } else if (id == R.id.nav_troops) {
+            showLoadingProgress();
             loadFragment(new TroopsOverviewFragment());
         } else if (id == R.id.nav_battle) {
+            showLoadingProgress();
             loadFragment(new BattleOverviewFragment());
         } else if (id == R.id.nav_resources) {
+            showLoadingProgress();
             loadFragment(new ResourcesOverviewFragment());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void showLoadingProgress(){
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.show();
+        progressDialog.setMessage("loading...");
+        Runnable progressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.cancel();
+            }
+        };
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 2000);
+    }
+
 
     private void checkSharedPreferencesForUser() {
         if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
