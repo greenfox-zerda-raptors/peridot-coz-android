@@ -1,5 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.activity;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -89,7 +90,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        loadFragment(new KingdomOverviewFragment());
+        if (getIntent().getStringExtra("notification") != null) {
+            NotificationManager notificationManager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(Integer.valueOf(getIntent().getStringExtra("notificationID")));
+        }
+        if (getIntent().getStringExtra("fragment")== null) {
+            loadFragment(new KingdomOverviewFragment());
+        } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
+            loadFragment(new BuildingsOverviewFragment());
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -91,6 +92,10 @@ public class BuildingsOverviewFragment extends Fragment {
         apiService.getBuildings(1).enqueue(new Callback<BuildingsResponse>() {
             @Override
             public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
+                SharedPreferences preferences = getActivity().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("buildings", response.body().getBuildings().size());
+                editor.apply();
                 adapter.clear();
                 adapter.addAll(response.body().getBuildings());
             }
