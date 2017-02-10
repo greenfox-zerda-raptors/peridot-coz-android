@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +18,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
+import com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
@@ -38,9 +43,10 @@ public class BuildingsOverviewFragment extends Fragment {
     BroadcastReceiver syncReceiver;
     @Inject
     ApiService apiService;
-    FloatingActionButton mainFab, mineFab, farmFab, fakeFab;
+    FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab, fakeFab;
     boolean isMainFabOpen;
     Animation mainFabRotateLeft, mainFabRotateRight, appearSmallFab, disappearSmallFab;
+    int counter = 123;
 
     @Nullable
     @Override
