@@ -55,7 +55,7 @@
         android:clickable="false"
         android:visibility="invisible"
         app:backgroundTint="@android:color/black"
-        app:fabSize="mini"s
+        app:fabSize="mini"
         app:srcCompat="@android:drawable/ic_dialog_info" />
 
     <android.support.design.widget.FloatingActionButton
@@ -75,6 +75,8 @@
 
    <android.support.design.widget.FloatingActionButton
         android:id="@+id/townhallFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/barrackFab"
         android:layout_alignEnd="@+id/barrackFab"
         android:layout_alignRight="@+id/barrackFab"
