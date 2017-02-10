@@ -11,23 +11,31 @@
         android:id="@+id/resourceImage" />
 
     <TextView
+        android:textStyle="bold"
+        android:textSize="16sp"
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/type"
-        android:layout_weight="0.04" />
+        android:layout_weight="0.04"
+        android:layout_marginLeft="30dp"/>
 
     <TextView
         android:text="TextView"
+        android:textSize="14sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/amount"
-        android:layout_weight="0.04" />
+        android:layout_weight="0.04"
+        android:layout_marginLeft="30dp"/>
 
     <TextView
+        android:textStyle="italic"
+        android:textSize="14sp"
         android:text="TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buildings"
-        android:layout_weight="0.04" />
+        android:layout_weight="0.04"
+        android:layout_marginLeft="30dp"/>
 </LinearLayout>

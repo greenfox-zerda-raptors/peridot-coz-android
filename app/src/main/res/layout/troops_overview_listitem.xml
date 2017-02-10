@@ -47,5 +47,4 @@
         android:src="@drawable/up_arrow"
         android:id="@+id/upgrade"
         android:layout_gravity="end"/>
-
 </LinearLayout>

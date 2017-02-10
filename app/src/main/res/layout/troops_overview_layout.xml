@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:padding="15dp" >
 
+
     <ListView
         android:id="@+id/troopsList"
         android:layout_width="match_parent"

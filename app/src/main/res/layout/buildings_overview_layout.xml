@@ -27,14 +27,14 @@
         android:src="@drawable/ic_build" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/farmFab"
+        android:id="@+id/townhallFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/mineFab"
-        android:layout_alignLeft="@+id/mineFab"
-        android:layout_alignStart="@+id/mineFab"
+        android:layout_above="@+id/mainFab"
+        android:layout_alignEnd="@+id/mainFab"
+        android:layout_alignRight="@+id/mainFab"
         android:layout_marginBottom="15dp"
-        android:layout_marginRight="7.5dp"
+        android:layout_marginRight="0dp"
         android:clickable="false"
         android:visibility="invisible"
         app:backgroundTint="@android:color/holo_blue_bright"
@@ -42,12 +42,27 @@
         android:src="@drawable/ic_farm" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/barrackFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/townhallFab"
+        android:layout_alignEnd="@+id/townhallFab"
+        android:layout_alignRight="@+id/townhallFab"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="0dp"
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_zoom" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/mineFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/mainFab"
-        android:layout_alignEnd="@+id/mainFab"
-        android:layout_alignRight="@+id/mainFab"
+        android:layout_above="@+id/barrackFab"
+        android:layout_alignEnd="@+id/barrackFab"
+        android:layout_alignRight="@+id/barrackFab"
         android:layout_marginBottom="15dp"
         android:layout_marginRight="7.5dp"
         android:clickable="false"
@@ -56,4 +71,18 @@
         app:fabSize="mini"
         android:src="@drawable/ic_mine" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/farmFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mineFab"
+        android:layout_alignEnd="@+id/mineFab"
+        android:layout_alignRight="@+id/mineFab"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="0dp"
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_dialog_map" />
 </RelativeLayout>

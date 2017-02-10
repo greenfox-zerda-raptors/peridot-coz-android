@@ -3,10 +3,12 @@ package com.greenfox.peridot.peridot_coz_android.dagger;
 import com.greenfox.peridot.peridot_coz_android.activity.LoginActivity;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.activity.RegisterActivity;
+import com.greenfox.peridot.peridot_coz_android.fragment.BuildingDetailFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.api.ApiProvider;
+import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
 import javax.inject.Singleton;
 import dagger.Component;
 
@@ -19,4 +21,7 @@ public interface MainActivityComponent {
     void inject(TroopsOverviewFragment troopsOverviewFragment);
     void inject(BuildingsOverviewFragment buildingsOverviewFragment);
     void inject(ResourcesOverviewFragment resourcesOverviewFragment);
+    void inject(BuildingDetailFragment buildingDetailFragment);
+    void inject(ResourcesOverviewFragment resourcesOverviewFragment);
+    void inject(UserOverviewFragment userOverviewFragment);
 }
