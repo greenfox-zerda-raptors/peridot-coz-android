@@ -128,7 +128,6 @@ public class MockService implements ApiService {
                 users.add(new User("Balint"));
                 users.add(new User("Bea"));
                 users.add(new User("Szilvi"));
-
                 Response<UsersResponse> r = Response.success(new UsersResponse(users));
                 callback.onResponse(this, r);
             }

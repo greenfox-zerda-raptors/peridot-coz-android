@@ -10,21 +10,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_marginTop="20dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:weightSum="1">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="93dp"
+        android:layout_width="95dp"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/ic_castle_white"
-        android:layout_weight="0.62" />
+        android:paddingTop="20dp"
+        android:paddingLeft="0dp"
+        android:src="@drawable/crown"
+        android:layout_weight="0.75" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:paddingLeft="15dp"
         android:text="Kingdom of Peridot"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -32,6 +35,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
         android:text="Clash of Zerda" />
 
 </LinearLayout>

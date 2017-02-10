@@ -18,8 +18,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import com.greenfox.peridot.peridot_coz_android.R;
+import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import android.widget.Toast;
-
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService;
@@ -38,7 +39,8 @@ public class BuildingsOverviewFragment extends Fragment {
 
     private ArrayList<Building> buildings = new ArrayList<>();
     private BuildingAdapter adapter;
-
+    private int counter = 164;
+   
     IntentFilter intentFilter;
     BroadcastReceiver syncReceiver;
     @Inject
@@ -46,7 +48,6 @@ public class BuildingsOverviewFragment extends Fragment {
     FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab, fakeFab;
     boolean isMainFabOpen;
     Animation mainFabRotateLeft, mainFabRotateRight, appearSmallFab, disappearSmallFab;
-    int counter = 123;
 
     @Nullable
     @Override
@@ -152,10 +153,8 @@ public class BuildingsOverviewFragment extends Fragment {
                         .commit();
             }
         }) ;
-
     return contentView;
 }
-  
    @Override
     public void onPause() {
         super.onPause();
@@ -181,7 +180,6 @@ public class BuildingsOverviewFragment extends Fragment {
             }
         });
     }
-  
    private void openAndCloseFabs() {
         if (isMainFabOpen) {
             mainFab.startAnimation(mainFabRotateLeft);
@@ -211,5 +209,4 @@ public class BuildingsOverviewFragment extends Fragment {
     Intent intent = new Intent(getActivity(), SyncService.class);
      getActivity().startService(intent);
  }
-  
 }
