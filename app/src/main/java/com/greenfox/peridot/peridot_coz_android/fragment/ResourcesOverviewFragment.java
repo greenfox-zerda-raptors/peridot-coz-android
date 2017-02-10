@@ -39,8 +39,7 @@ public class ResourcesOverviewFragment extends Fragment {
         resourcesListView = (ListView) contentView.findViewById(R.id.resourcesListView);
 
         resourceAdapter = new ResourceAdapter(
-                getActivity(),
-                R.id.resourcesListView,
+                getContext(),
                 resourceList);
         resourcesListView.setAdapter(resourceAdapter);
 

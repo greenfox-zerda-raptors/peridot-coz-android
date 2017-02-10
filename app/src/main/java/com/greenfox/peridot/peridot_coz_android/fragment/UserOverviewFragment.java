@@ -16,7 +16,6 @@ import com.greenfox.peridot.peridot_coz_android.R;
 
 public class UserOverviewFragment extends Fragment {
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
