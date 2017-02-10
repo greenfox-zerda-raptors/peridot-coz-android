@@ -171,6 +171,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.content_frame, fragment)
                 .commit();
     }
-
-
 }
