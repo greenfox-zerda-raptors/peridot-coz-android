@@ -22,10 +22,9 @@
         android:layout_marginBottom="15dp"
         android:layout_marginRight="15dp"
         android:clickable="true"
-        android:rotation="45"
         app:backgroundTint="@android:color/holo_blue_dark"
         app:fabSize="normal"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        android:src="@drawable/ic_build" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/farmFab"
@@ -39,9 +38,8 @@
         android:clickable="false"
         android:visibility="invisible"
         app:backgroundTint="@android:color/holo_blue_bright"
-
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_menu_compass" />
+        android:src="@drawable/ic_farm" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/mineFab"
@@ -52,11 +50,10 @@
         android:layout_alignRight="@+id/mainFab"
         android:layout_marginBottom="15dp"
         android:layout_marginRight="7.5dp"
-
         android:clickable="false"
         android:visibility="invisible"
         app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_menu_view" />
+        android:src="@drawable/ic_mine" />
 
 </RelativeLayout>
