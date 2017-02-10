@@ -1,20 +1,17 @@
 package com.greenfox.peridot.peridot_coz_android.api;
 
-import android.os.Bundle;
-
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
-import com.greenfox.peridot.peridot_coz_android.model.request.BuildingRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.Error;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.NewBuildingResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.BuildingNewResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 import java.util.ArrayList;
@@ -142,11 +139,11 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<NewBuildingResponse> createBuilding(@Path("userId") int userId, @Body final Building building) {
-        return new MockCall<NewBuildingResponse>() {
+    public Call<Building> createBuilding(@Path("userId") int userId, @Body final Building building) {
+        return new MockCall<Building>() {
             @Override
-            public void enqueue(Callback<NewBuildingResponse> callback) {
-                Response<NewBuildingResponse> r = Response.success(new NewBuildingResponse(building));
+            public void enqueue(Callback<Building> callback) {
+                Response<Building> r = Response.success(building);
                 callback.onResponse(this, r);
             }
         };

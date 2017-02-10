@@ -1,6 +1,5 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,12 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
-import com.greenfox.peridot.peridot_coz_android.api.MockService;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.NewBuildingResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.BuildingNewResponse;
 
 import java.util.ArrayList;
 
@@ -158,14 +156,14 @@ public class BuildingsOverviewFragment extends Fragment {
 }
 
     private void overrideApi(final Building building) {
-        apiService.createBuilding(1,building).enqueue(new Callback<NewBuildingResponse>() {
+        apiService.createBuilding(1,building).enqueue(new Callback<Building>() {
             @Override
-            public void onResponse(Call<NewBuildingResponse> call, Response<NewBuildingResponse> response) {
-//                adapter.add(response.body());
+            public void onResponse(Call<Building> call, Response<Building> response) {
+                adapter.add(response.body());
             }
 
             @Override
-            public void onFailure(Call<NewBuildingResponse> call, Throwable t) {
+            public void onFailure(Call<Building> call, Throwable t) {
 
             }
         });

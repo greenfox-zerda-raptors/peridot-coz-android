@@ -5,14 +5,14 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 /**
  * Created by bedij on 2017. 02. 10..
  */
-public class NewBuildingResponse {
+public class BuildingNewResponse {
 
     Building building;
 
-    public NewBuildingResponse() {
+    public BuildingNewResponse() {
     }
 
-    public NewBuildingResponse(Building building) {
+    public BuildingNewResponse(Building building) {
         this.building = building;
     }
 
