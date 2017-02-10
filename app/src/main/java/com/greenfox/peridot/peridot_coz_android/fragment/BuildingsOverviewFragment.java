@@ -69,7 +69,6 @@ public class BuildingsOverviewFragment extends Fragment {
             }
         });
 
-
         ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
         adapter = new BuildingAdapter(container.getContext(), buildings);
         listView.setAdapter(adapter);
