@@ -25,6 +25,7 @@ import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragme
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
@@ -125,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-
         } else {
             super.onBackPressed();
         }
@@ -150,19 +150,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_resources) {
             showLoadingProgress();
             loadFragment(new ResourcesOverviewFragment());
+        } else if (id == R.id.nav_user) {
+            showLoadingProgress();
+            loadFragment(new UserOverviewFragment());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void checkSharedPreferencesForUser() {
-        if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
-            Toast.makeText(this, "You have to log in", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        }
-    }
-   public void showLoadingProgress(){
+    public void showLoadingProgress(){
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.show();
         progressDialog.setMessage("loading...");
@@ -174,6 +171,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         };
         Handler pdCanceller = new Handler();
         pdCanceller.postDelayed(progressRunnable, 2000);
+    }
+
+
+    private void checkSharedPreferencesForUser() {
+        if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
+            Toast.makeText(this, "You have to log in", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        }
     }
 
     private void logout() {
