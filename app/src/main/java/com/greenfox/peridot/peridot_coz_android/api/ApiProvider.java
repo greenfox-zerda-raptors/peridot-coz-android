@@ -6,8 +6,7 @@ import dagger.Provides;
 @Module
 public class ApiProvider {
 
+    /*public ApiService provideMockService(){return new MockService();}*/
     @Provides
-    public ApiService provideMockService(){return new MockService();}
-
     public ApiService provideRestApiManager() {return RestApiManager.getUserApi();}
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,13 +73,13 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(getApplicationContext(), response.body().getErrors().getPassword(), Toast.LENGTH_SHORT).show();
                         }
-                }else {
-                        saveCorrectUsernameAndPasswordToSharedPreferences(loginUsername.getText().toString(),loginPassword.getText().toString());
+                } else {
+                        saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(loginUsername.getText().toString(),loginPassword.getText().toString(),response.body().getToken());
                         loginWithCorrectUsernameAndPassword();
                     }
                 }
                 @Override
-                public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {}
+                public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {Log.d("Error", t.getMessage());}
             });
         }
     }
@@ -87,11 +88,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
     }
 
-    private void saveCorrectUsernameAndPasswordToSharedPreferences(String username, String password) {
+    private void saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(String username, String password, String token) {
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = loginData.edit();
         editor.putString("username", username);
         editor.putString("password", password);
+        editor.putString("token", token);
         editor.apply();
     }
 
