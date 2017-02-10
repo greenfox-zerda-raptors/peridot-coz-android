@@ -23,6 +23,12 @@ public class Building implements Serializable {
         this.id ++;
     }
 
+    public Building(String type) {
+        this.type = type;
+        this.level = 1;
+        this.hp = 100;
+    }
+
     public int increaseLevelOfBuilding(){
         return level++;
     }
