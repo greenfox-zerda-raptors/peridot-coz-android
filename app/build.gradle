@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.greenfox.peridot.peridot_coz_android"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -16,6 +16,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 
@@ -35,5 +37,4 @@ dependencies {
     testCompile 'org.robolectric:robolectric:3.2.2'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
     provided 'javax.annotation:jsr250-api:1.0'
-    compile 'com.github.kimkevin:cachepot:1.1.0'
 }

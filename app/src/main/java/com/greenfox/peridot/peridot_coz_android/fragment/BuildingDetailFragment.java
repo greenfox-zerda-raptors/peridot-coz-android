@@ -39,7 +39,8 @@ public class BuildingDetailFragment extends Fragment {
         View contentView = inflater.inflate(R.layout.building_detail, container, false);
         DaggerMainActivityComponent.builder().build().inject(this);
 
-        Building buildingFromPrevFrag = CachePot.getInstance().pop(Building.class);
+        Bundle bundle = getArguments();
+        Building buildingFromPrevFrag = (Building) bundle.getSerializable("building");
 
 
         apiService.getDetailsOfBuilding(1, buildingFromPrevFrag.getId()).enqueue(new Callback<Building>() {

@@ -1,5 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.api;
 
+import com.github.kimkevin.cachepot.CachePot;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
@@ -128,7 +129,8 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> r = Response.success(new Building(11,"Townhall"));
+                Building buildingFromPrevFrag = CachePot.getInstance().pop(Building.class);
+                Response<Building> r = Response.success(buildingFromPrevFrag);
                 callback.onResponse(this, r);
             }
         };

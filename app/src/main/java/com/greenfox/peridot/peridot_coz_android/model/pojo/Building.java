@@ -1,6 +1,8 @@
 package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
-public class Building {
+import java.io.Serializable;
+
+public class Building implements Serializable {
 
     private int id;
     private String type;

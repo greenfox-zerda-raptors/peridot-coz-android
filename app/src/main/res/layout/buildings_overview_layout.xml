@@ -9,7 +9,9 @@
         android:id="@+id/listViewBuilding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
     </ListView>
 
     <android.support.design.widget.FloatingActionButton
@@ -27,23 +29,7 @@
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/farmFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/mineFab"
-        android:layout_alignLeft="@+id/mineFab"
-        android:layout_alignStart="@+id/mineFab"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="7.5dp"
-        android:clickable="false"
-        android:visibility="invisible"
-        app:backgroundTint="@android:color/holo_blue_bright"
-
-        app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_menu_compass" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/mineFab"
+        android:id="@+id/townhallFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/mainFab"
@@ -56,6 +42,51 @@
         android:visibility="invisible"
         app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_menu_view" />
+        app:srcCompat="@android:drawable/ic_menu_recent_history" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/barrackFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_zoom"
+        android:layout_above="@+id/townhallFab"
+        android:layout_alignLeft="@+id/townhallFab"
+        android:layout_alignStart="@+id/townhallFab" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/mineFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_always_landscape_portrait"
+        android:layout_marginBottom="22dp"
+        android:layout_above="@+id/barrackFab"
+        android:layout_alignLeft="@+id/barrackFab"
+        android:layout_alignStart="@+id/barrackFab" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/farmFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_bright"
+
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_dialog_map"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/mineFab"
+        android:layout_alignStart="@+id/mineFab" />
+
 
 </RelativeLayout>
