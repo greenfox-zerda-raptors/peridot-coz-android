@@ -1,9 +1,11 @@
 package com.greenfox.peridot.peridot_coz_android.model.response;
 
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BuildingsResponse extends Response {
+public class BuildingsResponse extends Response implements Serializable{
 
     ArrayList<Building> buildings;
 
