@@ -20,4 +20,3 @@ public class KingdomResponse extends Response{
 
     public KingdomResponse() {}
 }
-

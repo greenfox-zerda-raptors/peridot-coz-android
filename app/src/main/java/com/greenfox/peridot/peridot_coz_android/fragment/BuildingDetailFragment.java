@@ -1,6 +1,5 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,9 +10,7 @@ import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
-
 import javax.inject.Inject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,11 +21,9 @@ public class BuildingDetailFragment extends Fragment {
     ApiService apiService;
     private Building building;
 
-
     public BuildingDetailFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,5 +55,4 @@ public class BuildingDetailFragment extends Fragment {
 
         return contentView;
     }
-
 }

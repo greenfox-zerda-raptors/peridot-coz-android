@@ -62,5 +62,4 @@ public interface ApiService {
 
     @GET("/kingdom/{userId}")
     Call<UsersResponse> getUsers(@Path("userID") int userId);
-
 }

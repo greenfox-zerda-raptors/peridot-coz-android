@@ -167,20 +167,6 @@ public class MockService implements ApiService {
         };
     }
 
-//    @Override
-//    public Call<Building> upgradeBuilding(final BuildingRequest buildingRequest) {
-//        return new MockCall<Building>() {
-//            @Override
-//            public void enqueue(Callback<Building> callback) {
-//                Bundle bundle = getArguments();
-//                Building buildingFromPrevFrag = (Building) bundle.getSerializable("building");
-//                Response<Building> r = Response.success(buildingFromPrevFrag.increaseLevelOfBuilding());
-//                callback.onResponse(this, r);
-//            }
-//        };
-//    }
-
-
     @Override
     public Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId") int buildingId, @Body final Building building) {
         return new MockCall<Building>() {
@@ -204,7 +190,6 @@ public class MockService implements ApiService {
         };
     }
 
-
     @Override
     public Call<ResourceResponse> getType(@Path("userId") int userId, @Path("type") String type) {
         return new MockCall<ResourceResponse>() {
@@ -215,7 +200,6 @@ public class MockService implements ApiService {
             }
         };
     }
-
 
     @Override
     public Call<Troop> createTroop(int userId) {
@@ -238,4 +222,16 @@ public class MockService implements ApiService {
             }
         };
     }
+//    @Override
+//    public Call<Building> upgradeBuilding(final BuildingRequest buildingRequest) {
+//        return new MockCall<Building>() {
+//            @Override
+//            public void enqueue(Callback<Building> callback) {
+//                Bundle bundle = getArguments();
+//                Building buildingFromPrevFrag = (Building) bundle.getSerializable("building");
+//                Response<Building> r = Response.success(buildingFromPrevFrag.increaseLevelOfBuilding());
+//                callback.onResponse(this, r);
+//            }
+//        };
+//    }
 }
