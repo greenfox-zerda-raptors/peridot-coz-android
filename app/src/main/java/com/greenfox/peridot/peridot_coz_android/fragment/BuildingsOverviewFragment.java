@@ -19,6 +19,7 @@ import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityCompone
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.NewBuildingResponse;
 
 import java.util.ArrayList;
 
@@ -156,15 +157,15 @@ public class BuildingsOverviewFragment extends Fragment {
     return contentView;
 }
 
-    private void overrideApi(Building building) {
-        apiService.createBuilding(1,building).enqueue(new Callback<Building>() {
+    private void overrideApi(final Building building) {
+        apiService.createBuilding(1,building).enqueue(new Callback<NewBuildingResponse>() {
             @Override
-            public void onResponse(Call<Building> call, Response<Building> response) {
-                adapter.add(response.body());
+            public void onResponse(Call<NewBuildingResponse> call, Response<NewBuildingResponse> response) {
+//                adapter.add(response.body());
             }
 
             @Override
-            public void onFailure(Call<Building> call, Throwable t) {
+            public void onFailure(Call<NewBuildingResponse> call, Throwable t) {
 
             }
         });
