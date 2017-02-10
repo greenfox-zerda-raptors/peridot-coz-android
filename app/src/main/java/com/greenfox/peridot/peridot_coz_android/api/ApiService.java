@@ -8,6 +8,7 @@ import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.BuildingNewResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.UserResponse;
@@ -15,7 +16,6 @@ import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
 
 import retrofit2.Call;
 import retrofit2.http.*;
-import static android.R.attr.id;
 
 public interface ApiService {
 
@@ -49,9 +49,9 @@ public interface ApiService {
     Call<Building> getDetailsOfBuilding(@Path("userId")int userId, @Path("buildingId")int buildingId);
 
     @POST("/kingdom/{userId}/buildings/")
-    Call<Building> createBuilding(@Path("userId") int userId,@Body Building building);
+    Call<Building> createBuilding(@Path("userId") int userId, @Body Building building);
 
-    @PUT("/kingdom/{userId}/buildings/{buildingId}/")
+    @POST("/kingdom/{userId}/buildings/{buildingId}/")
     Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId")int buildingId, @Body Building building);
   
     @GET("/kingdom/{userId}/resources/")

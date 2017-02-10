@@ -189,12 +189,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.apply();
         Toast.makeText(this, "Successful logout", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 
     public void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.content_frame, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 }
