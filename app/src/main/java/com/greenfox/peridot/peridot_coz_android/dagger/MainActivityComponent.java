@@ -21,7 +21,6 @@ public interface MainActivityComponent {
     void inject(RegisterActivity registerActivity);
     void inject(TroopsOverviewFragment troopsOverviewFragment);
     void inject(BuildingsOverviewFragment buildingsOverviewFragment);
-    void inject(ResourcesOverviewFragment resourcesOverviewFragment);
     void inject (SyncService syncService);
     void inject(BuildingDetailFragment buildingDetailFragment);
     void inject(ResourcesOverviewFragment resourcesOverviewFragment);

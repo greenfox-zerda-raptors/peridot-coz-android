@@ -69,7 +69,7 @@
         android:visibility="invisible"
         app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_barrack" />
+        android:src="@drawable/ic_barracks" />
 
    <android.support.design.widget.FloatingActionButton
         android:id="@+id/townhallFab"
@@ -84,7 +84,7 @@
         android:visibility="invisible"
         app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_townhall" />
+        android:src="@drawable/ic_townhall" />
   
    <android.support.design.widget.FloatingActionButton
         android:id="@+id/fakeDownloadFab"
