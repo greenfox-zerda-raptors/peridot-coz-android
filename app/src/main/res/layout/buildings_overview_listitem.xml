@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <TextView
+        android:icon="@drawable/ic_castle_black"
+        android:textStyle="bold"
+        android:textSize="16sp"
         android:id="@+id/buildingName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="20dp" />
+        android:layout_marginLeft="30dp"
+        android:text="Building Name" />
     <TextView
         android:id="@+id/buildingLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:text="Building Level" />
 
 </LinearLayout>

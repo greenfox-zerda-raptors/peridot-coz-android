@@ -5,18 +5,25 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:textStyle="bold"
+        android:textSize="14sp"
         android:id="@+id/tvHP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="20dp" />
+        android:layout_marginLeft="30dp" />
     <TextView
+        android:textStyle="bold"
+        android:textSize="14sp"
         android:id="@+id/tvAP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="20dp" />
+        android:layout_marginLeft="30dp"/>
     <TextView
+        android:textStyle="bold"
+        android:textSize="14sp"
         android:id="@+id/tvDP"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp" />
 
 </LinearLayout>

@@ -66,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void loginWithCorrectPassword() {
         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+        finish();
     }
 
     private void saveCorrectUsernameAndPasswordToSharedPreferences() {
