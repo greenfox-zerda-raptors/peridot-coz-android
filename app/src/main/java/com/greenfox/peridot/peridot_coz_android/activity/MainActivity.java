@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                 if (response.body().getErrors() == null) {
                     user = response.body().getUser();
-                    showLoadingProgress();
+/*                    showLoadingProgress();*/
                     Toast.makeText(getApplicationContext(), "Welcome " + user.getUsername() + "!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
