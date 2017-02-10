@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import java.util.ArrayList;
@@ -35,5 +37,6 @@ public class BuildingAdapter extends ArrayAdapter<Building> {
 
         return convertView;
     }
+
 
 }

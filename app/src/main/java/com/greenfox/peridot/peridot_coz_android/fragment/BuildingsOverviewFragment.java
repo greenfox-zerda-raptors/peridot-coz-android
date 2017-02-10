@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
@@ -87,5 +90,4 @@ public class BuildingsOverviewFragment extends Fragment {
         });
         return contentView;
     }
-
 }
