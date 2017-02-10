@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Kingdom kingdom;
     @Inject
     ApiService apiService;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,14 +136,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_kingdom_overview) {
+            showLoadingProgress();
             loadFragment(new KingdomOverviewFragment());
         } else if (id == R.id.nav_buildings) {
+            showLoadingProgress();
             loadFragment(new BuildingsOverviewFragment());
         } else if (id == R.id.nav_troops) {
+            showLoadingProgress();
             loadFragment(new TroopsOverviewFragment());
         } else if (id == R.id.nav_battle) {
+            showLoadingProgress();
             loadFragment(new BattleOverviewFragment());
         } else if (id == R.id.nav_resources) {
+            showLoadingProgress();
             loadFragment(new ResourcesOverviewFragment());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
