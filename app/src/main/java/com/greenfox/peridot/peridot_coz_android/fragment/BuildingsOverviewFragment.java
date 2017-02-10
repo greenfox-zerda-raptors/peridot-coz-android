@@ -32,7 +32,7 @@ public class BuildingsOverviewFragment extends Fragment {
 
     private ArrayList<Building> buildings = new ArrayList<>();
     private BuildingAdapter adapter;
-    private int counter = 34;
+    private int counter = 164;
     @Inject
     ApiService apiService;
     FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab;
@@ -89,17 +89,32 @@ public class BuildingsOverviewFragment extends Fragment {
             public void onClick(View v) {
                 Building mine = new Building(counter, "Mine");
                 counter++;
-                apiService.createBuilding(1,mine).enqueue(new Callback<Building>() {
-                    @Override
-                    public void onResponse(Call<Building> call, Response<Building> response) {
-                        adapter.add(response.body());
-                    }
+                overrideApi(mine);
+            }
+        });
 
-                    @Override
-                    public void onFailure(Call<Building> call, Throwable t) {
-
-                    }
-                });
+        farmFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Building farm = new Building(counter, "Farm");
+                counter++;
+                overrideApi(farm);
+            }
+        });
+        barrackFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Building barrack = new Building(counter, "Barrack");
+                counter++;
+                overrideApi(barrack);
+            }
+        });
+        townhallFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Building townhall = new Building(counter, "Townhall");
+                counter++;
+                overrideApi(townhall);
             }
         });
 
@@ -141,7 +156,19 @@ public class BuildingsOverviewFragment extends Fragment {
     return contentView;
 }
 
+    private void overrideApi(Building building) {
+        apiService.createBuilding(1,building).enqueue(new Callback<Building>() {
+            @Override
+            public void onResponse(Call<Building> call, Response<Building> response) {
+                adapter.add(response.body());
+            }
 
+            @Override
+            public void onFailure(Call<Building> call, Throwable t) {
+
+            }
+        });
+    }
 
 
 }

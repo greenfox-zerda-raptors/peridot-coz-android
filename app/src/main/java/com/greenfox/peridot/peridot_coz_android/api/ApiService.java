@@ -47,7 +47,7 @@ public interface ApiService {
     @POST("/kingdom/{userId}/buildings/")
     Call<Building> createBuilding(@Path("userId") int userId,@Body Building building);
 
-    @PUT("/kingdom/{userId}/buildings/{buildingId}/")
+    @POST("/kingdom/{userId}/buildings/{buildingId}/")
     Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId")int buildingId, @Body Building building);
   
     @GET("/kingdom/{userId}/resources/")

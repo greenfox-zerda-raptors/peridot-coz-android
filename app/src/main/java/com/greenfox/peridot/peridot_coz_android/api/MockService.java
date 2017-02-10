@@ -166,8 +166,14 @@ public class MockService implements ApiService {
 
 
     @Override
-    public Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId") int buildingId, @Body Building building) {
-        return null;
+    public Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId") int buildingId, @Body final Building building) {
+        return new MockCall<Building>() {
+            @Override
+            public void enqueue(Callback<Building> callback) {
+                Response<Building> r = Response.success(building);
+                callback.onResponse(this,r);
+            }
+        };
     }
 
     @Override
