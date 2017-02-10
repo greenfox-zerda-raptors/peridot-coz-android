@@ -19,6 +19,7 @@ import dagger.Module;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Path;
 
 @Module
 public class MockService implements ApiService {
@@ -168,7 +169,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<ResourceResponse> getResource() {
+    public Call<ResourceResponse> getResource(@Path("userId") int userId) {
         return new MockCall<ResourceResponse>() {
             @Override
             public void enqueue(Callback<ResourceResponse> callback) {
@@ -179,8 +180,9 @@ public class MockService implements ApiService {
         };
     }
 
+
     @Override
-    public Call<ResourceResponse> getType() {
+    public Call<ResourceResponse> getType(@Path("userId") int userId, @Path("type") String type) {
         return new MockCall<ResourceResponse>() {
             @Override
             public void enqueue(Callback<ResourceResponse> callback) {

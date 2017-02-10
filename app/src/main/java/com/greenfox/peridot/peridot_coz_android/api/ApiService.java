@@ -51,8 +51,8 @@ public interface ApiService {
     Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId")int buildingId, @Body Building building);
   
     @GET("/kingdom/{userId}/resources/")
-    Call<ResourceResponse> getResource();
+    Call<ResourceResponse> getResource(@Path("userId") int userId);
 
     @GET("/kingdom/{userId}/resources/{type}")
-    Call<ResourceResponse> getType();
+    Call<ResourceResponse> getType(@Path("userId") int userId, @Path("type") String type);
 }
