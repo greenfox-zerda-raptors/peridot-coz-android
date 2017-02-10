@@ -61,8 +61,8 @@ public interface ApiService {
     Call<ResourceResponse> getType(@Path("userId") int userId, @Path("type") String type);
   
     @GET("/kingdom/{userId}/buildings/")
-    Call<BuildingsResponse> syncBuildings(@Path("userId") int userId);}
+    Call<BuildingsResponse> syncBuildings(@Path("userId") int userId);
 
     @GET("/kingdom/{userId}")
-    Call<UsersResponse> getUsers(@Path("userID") int userId);
+    Call<UsersResponse> getUsers(@Path("userId") int userId);
 }
