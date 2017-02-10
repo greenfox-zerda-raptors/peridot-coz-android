@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@android:color/holo_purple">
+    android:background="#fffbf7">
     <SearchView
         android:text="Search users"
         android:layout_width="match_parent"
@@ -11,13 +11,24 @@
         android:id="@+id/userSearch" />
 
     <TextView
-        android:text="This will be the USER overview."
+        android:text="username"
+        android:textSize="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="151dp"
-        android:id="@+id/secondLayout" />
+        android:id="@+id/userName" />
+
+    <TextView
+        android:text="points"
+        android:textSize="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/userName"
+        android:layout_marginTop="51dp"
+        android:id="@+id/points" />
 
 
 
