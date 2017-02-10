@@ -99,5 +99,5 @@
         android:visibility="invisible"
         app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
-        app:srcCompat="@android:drawable/ic_dialog_map" />
+        android:src="@drawable/ic_sync" />
 </RelativeLayout>
