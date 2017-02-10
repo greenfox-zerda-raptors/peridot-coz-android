@@ -7,17 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
 import com.greenfox.peridot.peridot_coz_android.adapter.UserAdapter;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
-import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.UserResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
 
 import java.util.ArrayList;
 
@@ -50,15 +47,15 @@ public class UserOverviewFragment extends Fragment {
         userAdapter = new UserAdapter(container.getContext(), users);
         usersList.setAdapter(userAdapter);
 
-        apiService.getUser(1).enqueue(new Callback<User>() {
+        apiService.getUsers(1).enqueue(new Callback<UsersResponse>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<UsersResponse> call, Response<UsersResponse> response) {
                 userAdapter.clear();
-                userAdapter.addAll(response.body());
+                userAdapter.addAll(response.body().getUsers());
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<UsersResponse> call, Throwable t) {
 
             }
         });

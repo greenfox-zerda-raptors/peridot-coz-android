@@ -14,6 +14,7 @@ import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterR
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.UserResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ public class MockService implements ApiService {
     private User user = new User (1, "aaa", "aaa's Kingdom", 10);
     private static final String TAG = "MockService";
     private Building building = new Building("townhall");
+    private ArrayList<User> users = new ArrayList<>(Arrays.asList(new User("Anna")));
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
     private Troop troop1 = new Troop(5, 5, 5);
@@ -126,6 +128,21 @@ public class MockService implements ApiService {
     }
 
     @Override
+    public Call<UsersResponse> getUsers(int userId) {
+        return new MockCall<UsersResponse>() {
+            @Override
+            public void enqueue(Callback<UsersResponse> callback) {
+                users.add(new User("Balint"));
+                users.add(new User("Bea"));
+                users.add(new User("Szilvi"));
+
+                Response<UsersResponse> r = Response.success(new UsersResponse(users));
+                callback.onResponse(this, r);
+            }
+        };
+    }
+
+    @Override
     public Call<Building> getDetailsOfBuilding(int userId, int buildingId) {
         return new MockCall<Building>() {
             @Override
@@ -191,17 +208,6 @@ public class MockService implements ApiService {
                 Response<ResourceResponse> r = Response.success(new ResourceResponse(resources));
                 callback.onResponse(this, r);
                     }
-        };
-    }
-
-    @Override
-    public Call<User> getUser(@Path("userID") int userId) {
-        return new MockCall<User>() {
-            @Override
-            public void enqueue(Callback<User> callback) {
-                Response<User> r = Response.success(new User());
-                callback.onResponse(this, r);
-            }
         };
     }
 

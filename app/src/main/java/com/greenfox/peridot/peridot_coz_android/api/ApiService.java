@@ -11,6 +11,7 @@ import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterR
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.UserResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
 
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -60,6 +61,6 @@ public interface ApiService {
     Call<ResourceResponse> getType(@Path("userId") int userId, @Path("type") String type);
 
     @GET("/kingdom/{userId}")
-    Call<User> getUser(@Path("userID") int userId);
+    Call<UsersResponse> getUsers(@Path("userID") int userId);
 
 }
