@@ -1,5 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -153,6 +154,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(this, "You have to log in", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
+    }
+   public void showLoadingProgress(){
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.show();
+        progressDialog.setMessage("loading...");
+        Runnable progressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.cancel();
+            }
+        };
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 2000);
     }
 
     private void logout() {
