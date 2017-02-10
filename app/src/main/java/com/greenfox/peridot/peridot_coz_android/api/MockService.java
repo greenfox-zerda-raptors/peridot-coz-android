@@ -25,8 +25,8 @@ public class MockService implements ApiService {
 
     private User user = new User (1, "aaa", "aaa's Kingdom", 10);
     private static final String TAG = "MockService";
-    private Building building = new Building("townhall");
-    private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("townhall")));
+    private Building building = new Building("Townhall");
+    private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building("Townhall")));
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings)));
     private Troop troop1 = new Troop(5, 5, 5);
     private Troop troop2 = new Troop(10, 8, 2);
@@ -138,7 +138,7 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> r = Response.success(new Building("townhall"));
+                Response<Building> r = Response.success(new Building("Townhall"));
                 callback.onResponse(this, r);
             }
         };
@@ -149,7 +149,7 @@ public class MockService implements ApiService {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> r = Response.success(new Building("townhall", building.increaseLevelOfBuilding()));
+                Response<Building> r = Response.success(new Building("Townhall", building.increaseLevelOfBuilding()));
                 callback.onResponse(this, r);
             }
         };

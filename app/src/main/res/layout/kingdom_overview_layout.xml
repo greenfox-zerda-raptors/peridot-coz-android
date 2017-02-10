@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#fffbf7">
+    android:background="@android:color/holo_purple">
 
     <android.support.v7.widget.CardView
-        android:background="#FFFFFF"
+        card_view:cardBackgroundColor="#CCFFFFFF"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
         android:id="@+id/cardview_buildings"
@@ -25,7 +26,8 @@
                 android:paddingLeft="10dp"
                 android:textSize="25dp"
                 android:textStyle="bold"
-                android:gravity="left"/>
+                android:gravity="left"
+                />
 
             <TextView
                 android:text="17 finished"
@@ -54,7 +56,7 @@
 
 
     <android.support.v7.widget.CardView
-        android:background="#FFFFFF"
+        card_view:cardBackgroundColor="#CCFFFFFF"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
         android:id="@+id/cardview_resources"
@@ -111,7 +113,7 @@
 
 
     <android.support.v7.widget.CardView
-        android:background="#FFFFFF"
+        card_view:cardBackgroundColor="#CCFFFFFF"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
         android:id="@+id/cardview_troops"

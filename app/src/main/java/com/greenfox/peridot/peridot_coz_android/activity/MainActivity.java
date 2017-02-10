@@ -101,10 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.icon) {
-            Toast.makeText(this, "You pressed the star icon.", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (id == R.id.settings) {
+        if (id == R.id.settings) {
             loadFragment(new SettingsFragment());
             return true;
         } else if (id == R.id.statistics) {
