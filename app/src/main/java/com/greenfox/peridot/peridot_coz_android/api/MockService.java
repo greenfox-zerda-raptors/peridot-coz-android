@@ -13,6 +13,8 @@ import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.UserResponse;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import dagger.Module;
@@ -191,6 +193,18 @@ public class MockService implements ApiService {
                     }
         };
     }
+
+    @Override
+    public Call<User> getUser(@Path("userID") int userId) {
+        return new MockCall<User>() {
+            @Override
+            public void enqueue(Callback<User> callback) {
+                Response<User> r = Response.success(new User());
+                callback.onResponse(this, r);
+            }
+        };
+    }
+
 
     @Override
     public Call<Troop> createTroop(int userId) {
