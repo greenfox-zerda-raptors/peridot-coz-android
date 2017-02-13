@@ -59,7 +59,6 @@ public class BuildingsOverviewFragment extends Fragment {
         syncReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.e("SyncReceiver", "Broadcast received");
                 adapter.clear();
                 BuildingsResponse syncBuildings = (BuildingsResponse) intent
                         .getExtras()

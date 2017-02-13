@@ -46,18 +46,13 @@ public class SyncService extends IntentService{
     @Override
     protected void onHandleIntent(Intent intent) {
         DaggerMainActivityComponent.builder().build().inject(this);
-        Log.e("SyncService", "Sync start");
         Intent syncIntent = new Intent();
-        Bundle bundle = new Bundle();
         syncIntent.setAction(SYNC_DONE);
         backgroundSync();
-        bundle.putSerializable("buildings", buildings);
         Log.e("SyncService", buildings.getBuildings().get(1).getType());
-        syncIntent.putExtra("bundle", bundle.getSerializable("buildings"));
+        syncIntent.putExtra("bundle", buildings);
         syncIntent.setClass(this, BuildingsOverviewFragment.class);
-        Log.e("SyncService", "Sync stop");
         LocalBroadcastManager.getInstance(this).sendBroadcast(syncIntent);
-        Log.e("SyncService", "Broadcast sent");
     }
 
     private void backgroundSync() {
