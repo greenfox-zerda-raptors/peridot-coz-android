@@ -11,36 +11,31 @@ public class RestApiManager {
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
     private static OkHttpClient client;
+    private static ApiLoginService lApiService;
     private static ApiService mApiService;
-    private static Retrofit.Builder builder = new Retrofit.Builder()
-                    .baseUrl(ApiService.ENDPOINT)
-                    .addConverterFactory(GsonConverterFactory.create());
     private static Retrofit retrofit;
 
-    public static ApiService getUserApi() {
+    public static ApiLoginService getLoginApi() {
         client = httpClient.build();
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(ApiLoginService.ENDPOINT)
+                .addConverterFactory(GsonConverterFactory.create());
         retrofit = builder
                 .client(client)
                 .build();
-        if (mApiService == null) {
-            mApiService = retrofit.create(ApiService.class);
+        if (lApiService == null) {
+            lApiService = retrofit.create(ApiLoginService.class);
         }
-        return mApiService;
+        return lApiService;
     }
-/*
-    public ApiService getUserApi(ApiService apiService, String username, String password) {
-        if (!TextUtils.isEmpty(username)
-                && !TextUtils.isEmpty(password)) {
-            String authToken = Credentials.basic(username, password);
-            return getUserApi(apiService, authToken);
-        }
-        return getUserApi(apiService, null, null);
-    }
-*/
-    public  ApiService getUserApi(final String authToken) {
+
+    public  static ApiService getUserApi(final String authToken) {
         if (!TextUtils.isEmpty(authToken)) {
             AuthenticationInterceptor authInterceptor = new AuthenticationInterceptor(authToken);
-             if (!client.interceptors().contains(authInterceptor)) {
+            Retrofit.Builder builder = new Retrofit.Builder()
+                    .baseUrl(ApiService.ENDPOINT)
+                    .addConverterFactory(GsonConverterFactory.create());
+            if (!client.interceptors().contains(authInterceptor)) {
                  httpClient.addInterceptor(authInterceptor);
                  client = httpClient.build();
                  builder.client(client);

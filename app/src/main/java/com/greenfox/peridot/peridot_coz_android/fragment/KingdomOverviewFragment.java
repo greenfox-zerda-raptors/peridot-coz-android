@@ -3,6 +3,7 @@ package com.greenfox.peridot.peridot_coz_android.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ public class KingdomOverviewFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.kingdom_overview_layout, container, false);
+        Log.e("kingdomfragment", "default fragmnet start");
         buildingButton = (Button) contentView.findViewById(R.id.buildings_button);
         troopButton = (Button) contentView.findViewById(R.id.troops_button);
         resourceButton = (Button) contentView.findViewById(R.id.resources_button);

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.greenfox.peridot.peridot_coz_android.R;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
+import com.greenfox.peridot.peridot_coz_android.dagger.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
@@ -33,7 +33,7 @@ public class TroopsOverviewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DaggerMainActivityComponent.builder().build().inject(this);
+        DaggerApiComponent.builder().build().inject(this);
         View contentView = inflater.inflate(R.layout.troops_overview_layout, container, false);
 
         troopsList = (ListView) contentView.findViewById(R.id.troopsList);

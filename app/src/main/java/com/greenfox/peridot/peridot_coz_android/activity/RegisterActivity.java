@@ -10,7 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
+import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
+import com.greenfox.peridot.peridot_coz_android.dagger.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
@@ -25,13 +26,15 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText regPassword;
     private EditText regKingdomName;
     @Inject
+    ApiLoginService apiLoginService;
+    @Inject
     ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        DaggerMainActivityComponent.builder().build().inject(this);
+        DaggerApiComponent.builder().build().inject(this);
         regUsername = (EditText) findViewById(R.id.regUsername);
         regPassword = (EditText) findViewById(R.id.regPassword);
         regKingdomName = (EditText) findViewById(R.id.regKingdom);
@@ -50,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (isUsernameOrPasswordOrKingdomEmpty()) {
             Toast.makeText(this, "Please fill out every field!", Toast.LENGTH_SHORT).show();
         } else {
-            apiService.register(new RegisterRequest(regUsername.getText().toString(), regPassword.getText().toString(), regKingdomName.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
+            apiLoginService.register(new RegisterRequest(regUsername.getText().toString(), regPassword.getText().toString(), regKingdomName.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
                 @Override
                 public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                     saveCorrectUsernameAndPasswordToSharedPreferences();

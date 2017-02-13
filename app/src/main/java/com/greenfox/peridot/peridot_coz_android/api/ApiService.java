@@ -17,12 +17,6 @@ public interface ApiService {
 
     String ENDPOINT = "https://pacific-bastion-75389.herokuapp.com";
 
-    @POST("/auth")
-    Call<LoginAndRegisterResponse> login(LoginRequest loginRequest);
-
-    @POST("/register")
-    Call<LoginAndRegisterResponse> register(RegisterRequest registerRequest);
-
     @GET("/kingdom/{userId}/")
     Call<KingdomResponse> getKingdom(@Path("userId") int userId);
 

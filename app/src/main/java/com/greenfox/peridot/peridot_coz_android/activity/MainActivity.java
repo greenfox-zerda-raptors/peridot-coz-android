@@ -18,20 +18,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
+import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
+import com.greenfox.peridot.peridot_coz_android.dagger.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
-import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
-import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,22 +42,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     User user;
     Kingdom kingdom;
     @Inject
-    ApiService apiService;
+    ApiLoginService apiLoginService;
     ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e("MainActivity", "main started");
         setContentView(R.layout.activity_main);
-        DaggerMainActivityComponent.builder().build().inject(this);
+        DaggerApiComponent.builder().build().inject(this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
         if(SharedPreferencesTokenEmpty()) {
             checkSharedPreferencesForUser();
-            apiService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
+            apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
             @Override
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
+                Log.e("response", response.body().getToken());
                 if (response.body().getErrors() == null) {
                     token = response.body().getToken();
                     //temporary toast
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {Log.d("Error", t.getMessage());}
         });}
 
-        apiService.getKingdom(user.getId()).enqueue(new Callback<KingdomResponse>() {
+       /* apiService.getKingdom(user.getId()).enqueue(new Callback<KingdomResponse>() {
             @Override
             public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
                 if (response.body().getErrors() == null) {
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onFailure(Call<KingdomResponse> call, Throwable t) {
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
