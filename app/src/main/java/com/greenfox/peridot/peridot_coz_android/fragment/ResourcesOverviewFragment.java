@@ -14,14 +14,13 @@ import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityCompone
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import java.util.ArrayList;
-
 import javax.inject.Inject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ResourcesOverviewFragment extends Fragment {
+
     ResourceAdapter resourceAdapter;
     ArrayList<Resource> resourceList;
     ListView resourcesListView;

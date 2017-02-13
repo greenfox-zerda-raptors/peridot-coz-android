@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
@@ -23,11 +24,12 @@ public class ResourceAdapter extends ArrayAdapter<Resource> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.resources_overview_listitem, parent, false);
         }
-
+        ImageView resourceImage = (ImageView) convertView.findViewById(R.id.resourceImage);
         TextView type = (TextView) convertView.findViewById(R.id.type);
         TextView amount = (TextView) convertView.findViewById(R.id.amount);
         TextView buildings = (TextView) convertView.findViewById(R.id.buildings);
-
+        if (resource.getType().equals("gold")) {resourceImage.setImageResource(R.drawable.gold);}
+        if (resource.getType().equals("food")) {resourceImage.setImageResource(R.drawable.food);}
         type.setText(resource.getType());
         amount.setText(String.valueOf(resource.getAmount()));
         buildings.setText(listTheBuildings());

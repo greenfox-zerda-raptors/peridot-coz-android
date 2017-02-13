@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/troop"
+        android:id="@+id/resourceImage" />
+
     <TextView
         android:textStyle="bold"
         android:textSize="16sp"
