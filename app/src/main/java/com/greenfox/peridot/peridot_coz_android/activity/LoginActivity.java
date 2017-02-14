@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginWithCorrectUsernameAndPassword() {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 
     private void saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(String username, String password, String token) {

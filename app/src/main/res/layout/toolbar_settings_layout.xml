@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment">
+    tools:context="com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment"
+    android:padding="15dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -15,13 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/enableNotifications"
-            android:layout_weight="0.06" />
+            android:layout_weight="0.06"
+            android:background="#CCFFFFFF"
+            android:layout_marginBottom="15dp"
+            android:paddingLeft="10dp" />
 
         <Switch
             android:text="Enable background sync"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/enableBackgroundSync"
-            android:layout_weight="0.06" />
+            android:layout_weight="0.06"
+            android:background="#CCFFFFFF"
+            android:paddingLeft="10dp" />
     </LinearLayout>
 </FrameLayout>

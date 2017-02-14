@@ -46,4 +46,3 @@ public class KingdomOverviewFragment extends Fragment{
         return contentView;
     }
 }
-

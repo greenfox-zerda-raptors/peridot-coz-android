@@ -3,6 +3,11 @@
     package="com.greenfox.peridot.peridot_coz_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission android:name="com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService.SYNC_DONE"
+        android:label="sync_permission"
+        android:protectionLevel="dangerous">
+    </permission>
+    <uses-permission android:name="com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService.SYNC_DONE" />
 
     <application
         android:name=".CozApp"
@@ -24,6 +29,12 @@
 
         <activity android:name=".activity.LoginActivity">
         </activity>
+
+        <service android:name="com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService"
+            android:exported="false"
+            android:permission="com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService.SYNC_DONE" >
+        </service>
+
     </application>
 
 </manifest>

@@ -1,21 +1,31 @@
 package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
-public class Building {
+import java.io.Serializable;
+
+public class Building implements Serializable {
 
     private int id;
     private String type;
     private int level;
     private int hp;
 
-    public Building(String type) {
+    public Building(int id, String type) {
         this.type = type;
         this.level = 1;
         this.hp = 100;
+        this.id = id;
     }
 
     public Building(String type, int level) {
         this.type = type;
         this.level = level;
+        this.hp = 100;
+        this.id ++;
+    }
+
+    public Building(String type) {
+        this.type = type;
+        this.level = 1;
         this.hp = 100;
     }
 

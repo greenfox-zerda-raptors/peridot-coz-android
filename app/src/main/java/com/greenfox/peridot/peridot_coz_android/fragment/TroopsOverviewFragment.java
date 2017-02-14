@@ -14,9 +14,7 @@ import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 import java.util.ArrayList;
-
 import javax.inject.Inject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,4 +52,3 @@ public class TroopsOverviewFragment extends Fragment {
         return contentView;
     }
 }
-

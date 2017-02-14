@@ -9,11 +9,17 @@ public class User {
 
     public User() {}
 
+
+
     public User(int id, String username, String kingdom, int points) {
         this.id = id;
         this.username = username;
         this.kingdom = kingdom;
         this.points = points;
+    }
+
+    public User(String username) {
+        this.username = username;
     }
 
     public int getId() {return id;}
