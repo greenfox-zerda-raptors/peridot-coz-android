@@ -27,7 +27,6 @@ import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragme
 import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
-import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;

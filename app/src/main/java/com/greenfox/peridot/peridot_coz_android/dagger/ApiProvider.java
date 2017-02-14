@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.api.MockService;
 import com.greenfox.peridot.peridot_coz_android.api.RestApiManager;
 import com.greenfox.peridot.peridot_coz_android.dagger.ApplicationProvider;
 import com.greenfox.peridot.peridot_coz_android.dagger.DaggerApplicationComponent;
@@ -23,7 +24,7 @@ public class ApiProvider {
     @Inject
     Application mApplication;
 
-    /*public ApiService provideMockService(){return new MockService();}*/
+    public ApiService provideMockService(){return new MockService();}
 
     @Provides
     public ApiLoginService provideLoginApiManager() {return RestApiManager.getLoginApi();}

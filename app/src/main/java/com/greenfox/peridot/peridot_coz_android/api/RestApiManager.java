@@ -29,7 +29,7 @@ public class RestApiManager {
         return lApiService;
     }
 
-    public  static ApiService getUserApi(final String authToken) {
+    public static ApiService getUserApi(final String authToken) {
         if (!TextUtils.isEmpty(authToken)) {
             AuthenticationInterceptor authInterceptor = new AuthenticationInterceptor(authToken);
             Retrofit.Builder builder = new Retrofit.Builder()

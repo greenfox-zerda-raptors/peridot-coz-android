@@ -1,4 +1,3 @@
-/*
 package com.greenfox.peridot.peridot_coz_android.api;
 
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
@@ -6,16 +5,10 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
-import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
-import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.Error;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.BuildingNewResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.UserResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,44 +35,44 @@ public class MockService implements ApiService {
 
     public MockService() {}
 
-    @Override
-    public Call<LoginAndRegisterResponse> login(final LoginRequest loginRequest) {
-        return new MockCall<LoginAndRegisterResponse>() {
-            @Override
-            public void enqueue(Callback<LoginAndRegisterResponse> callback) {
-                if (loginRequest.getUsername().equals("aaa")
-                        && loginRequest.getPassword().equals("aaa")) {
-                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                    r.body().setUser(new User(1, "aaa", "aaa's kingdom",0));
-                    callback.onResponse(this, r);
-                } else if (!loginRequest.getUsername().equals("aaa")){
-                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                    Error error = new Error();
-                    error.setUsername("No such user exists");
-                    r.body().setErrors(error);
-                    callback.onResponse(this, r);
-                } else if (!loginRequest.getPassword().equals("aaa")) {
-                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                    Error error = new Error();
-                    error.setPassword("Wrong password");
-                    r.body().setErrors(error);
-                    callback.onResponse(this, r);
-                }
-            }
-        };
-    }
-
-    @Override
-    public Call<LoginAndRegisterResponse> register(final RegisterRequest registerRequest) {
-        return new MockCall<LoginAndRegisterResponse>() {
-            @Override
-            public void enqueue(Callback<LoginAndRegisterResponse> callback) {
-                Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-                r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
-                callback.onResponse(this, r);
-            }
-        };
-    }
+//    @Override
+//    public Call<LoginAndRegisterResponse> login(final LoginRequest loginRequest) {
+//        return new MockCall<LoginAndRegisterResponse>() {
+//            @Override
+//            public void enqueue(Callback<LoginAndRegisterResponse> callback) {
+//                if (loginRequest.getUsername().equals("aaa")
+//                        && loginRequest.getPassword().equals("aaa")) {
+//                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
+//                    r.body().setUser(new User(1, "aaa", "aaa's kingdom",0));
+//                    callback.onResponse(this, r);
+//                } else if (!loginRequest.getUsername().equals("aaa")){
+//                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
+//                    Error error = new Error();
+//                    error.setUsername("No such user exists");
+//                    r.body().setErrors(error);
+//                    callback.onResponse(this, r);
+//                } else if (!loginRequest.getPassword().equals("aaa")) {
+//                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
+//                    Error error = new Error();
+//                    error.setPassword("Wrong password");
+//                    r.body().setErrors(error);
+//                    callback.onResponse(this, r);
+//                }
+//            }
+//        };
+//    }
+//
+//    @Override
+//    public Call<LoginAndRegisterResponse> register(final RegisterRequest registerRequest) {
+//        return new MockCall<LoginAndRegisterResponse>() {
+//            @Override
+//            public void enqueue(Callback<LoginAndRegisterResponse> callback) {
+//                Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
+//                r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
+//                callback.onResponse(this, r);
+//            }
+//        };
+//    }
 
     @Override
     public Call<KingdomResponse> getKingdom(int userId) {
@@ -266,4 +259,4 @@ public class MockService implements ApiService {
 //        };
 //    }
 }
-*/
+
