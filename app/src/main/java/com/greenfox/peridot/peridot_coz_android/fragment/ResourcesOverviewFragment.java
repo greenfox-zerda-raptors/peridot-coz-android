@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.ResourceAdapter;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerApiComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import java.util.ArrayList;

@@ -20,7 +20,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerApiComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;

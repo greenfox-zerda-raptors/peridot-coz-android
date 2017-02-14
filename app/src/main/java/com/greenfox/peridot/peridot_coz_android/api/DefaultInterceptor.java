@@ -10,13 +10,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 @Singleton
-public class LoginInterceptor implements Interceptor {
+public class DefaultInterceptor implements Interceptor {
 
     private String authToken;
 
     @Inject
-    public LoginInterceptor(String token) {
-        this.authToken = token;
+    public DefaultInterceptor() {
+
     }
 
     @Override

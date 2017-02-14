@@ -1,4 +1,4 @@
-package com.greenfox.peridot.peridot_coz_android.dagger;
+package com.greenfox.peridot.peridot_coz_android.provider;
 
 import javax.inject.Singleton;
 

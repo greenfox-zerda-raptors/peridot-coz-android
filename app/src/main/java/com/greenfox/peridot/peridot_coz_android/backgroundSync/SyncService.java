@@ -14,7 +14,7 @@ import android.util.Log;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerApiComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 

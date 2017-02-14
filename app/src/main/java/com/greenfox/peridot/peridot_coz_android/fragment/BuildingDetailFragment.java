@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerApiComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import javax.inject.Inject;
 import retrofit2.Call;

@@ -8,12 +8,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 @Singleton
-public class AuthenticationInterceptor implements Interceptor {
+public class AuthorizationInterceptor implements Interceptor {
 
     private String authToken;
 
-    @Inject
-    public AuthenticationInterceptor(String token) {
+
+    public AuthorizationInterceptor(String token) {
         this.authToken = token;
     }
 
