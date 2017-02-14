@@ -148,22 +148,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_kingdom_overview) {
-            showLoadingProgress();
             loadFragment(new KingdomOverviewFragment());
         } else if (id == R.id.nav_buildings) {
-            showLoadingProgress();
             loadFragment(new BuildingsOverviewFragment());
         } else if (id == R.id.nav_troops) {
-            showLoadingProgress();
             loadFragment(new TroopsOverviewFragment());
         } else if (id == R.id.nav_battle) {
-            showLoadingProgress();
             loadFragment(new BattleOverviewFragment());
         } else if (id == R.id.nav_resources) {
-            showLoadingProgress();
             loadFragment(new ResourcesOverviewFragment());
         } else if (id == R.id.nav_user) {
-            showLoadingProgress();
             loadFragment(new UserOverviewFragment());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -175,14 +169,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.show();
         progressDialog.setMessage("loading...");
-        Runnable progressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.cancel();
-            }
-        };
-        Handler pdCanceller = new Handler();
-        pdCanceller.postDelayed(progressRunnable, 2000);
+//        Runnable progressRunnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                progressDialog.cancel();
+//            }
+//        };
+//        Handler pdCanceller = new Handler();
+//        pdCanceller.postDelayed(progressRunnable, 2000);
     }
     
     private void checkSharedPreferencesForUser() {
