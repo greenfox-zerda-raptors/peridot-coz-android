@@ -17,9 +17,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
@@ -32,6 +35,9 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import retrofit2.Call;
@@ -109,6 +115,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
             loadFragment(new BuildingsOverviewFragment());
         }
+    }
+
+    @Override
+    protected void onPause() {
+        saveBuildingCountToSharedPreferences();
+        saveTroopCountToSharedPreferences();
+    }
+
+    private void saveBuildingCountToSharedPreferences(){
+        SharedPreferences buildingCount = getSharedPreferences("buildings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = buildingCount.edit();
+        int buildings = kingdom.getBuildings().size();
+        editor.putInt("buildings", buildings);
+        editor.apply();
+    }
+    private void saveTroopCountToSharedPreferences(){
+        SharedPreferences troopCount = getSharedPreferences("troops", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = troopCount.edit();
+        int troops = kingdom.getTroops().size();
+        editor.putInt("troops", troops);
+        editor.apply();
     }
 
     @Override
