@@ -1,8 +1,6 @@
-package com.greenfox.peridot.peridot_coz_android.dagger;
+package com.greenfox.peridot.peridot_coz_android.provider;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
 
 import dagger.Module;
 import dagger.Provides;
