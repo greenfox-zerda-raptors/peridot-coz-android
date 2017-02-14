@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
+import com.greenfox.peridot.peridot_coz_android.dagger.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -30,7 +30,7 @@ public class BuildingDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View contentView = inflater.inflate(R.layout.building_detail, container, false);
-        DaggerMainActivityComponent.builder().build().inject(this);
+        DaggerApiComponent.builder().build().inject(this);
 
         Bundle bundle = getArguments();
         Building buildingFromPrevFrag = (Building) bundle.getSerializable("building");

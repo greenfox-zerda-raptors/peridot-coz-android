@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.ResourceAdapter;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
+import com.greenfox.peridot.peridot_coz_android.dagger.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class ResourcesOverviewFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DaggerMainActivityComponent.builder().build().inject(this);
+        DaggerApiComponent.builder().build().inject(this);
         View contentView = inflater.inflate(R.layout.resources_overview_layout, container, false);
 
         resourceList = new ArrayList<>();
