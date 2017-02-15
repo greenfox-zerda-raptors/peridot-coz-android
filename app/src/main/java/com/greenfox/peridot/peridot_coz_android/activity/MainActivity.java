@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    String token = "";
     User user;
     Kingdom kingdom;
     @Inject
@@ -56,22 +58,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DaggerMainActivityComponent.builder().build().inject(this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        checkSharedPreferencesForUser();
-        apiService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
+        if(SharedPreferencesTokenEmpty()) {
+            checkSharedPreferencesForUser();
+            apiService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
             @Override
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                 if (response.body().getErrors() == null) {
-                    user = response.body().getUser();
-                    Toast.makeText(getApplicationContext(), "Welcome " + user.getUsername() + "!", Toast.LENGTH_SHORT).show();
+                    token = response.body().getToken();
+                    //temporary toast
+                    Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
+                   /* Toast.makeText(getApplicationContext(), "Welcome " + user.getUsername() + "!", Toast.LENGTH_SHORT).show();*/
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
             }
             @Override
-            public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {
-            }
-        });
+            public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {Log.d("Error", t.getMessage());}
+        });}
+        
         apiService.getKingdom(user.getId()).enqueue(new Callback<KingdomResponse>() {
             @Override
             public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
@@ -180,13 +185,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Handler pdCanceller = new Handler();
         pdCanceller.postDelayed(progressRunnable, 2000);
     }
-
-
+    
     private void checkSharedPreferencesForUser() {
         if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
             Toast.makeText(this, "You have to log in", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
+    }
+
+    private boolean SharedPreferencesTokenEmpty() {
+        return getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("token", "").equals("");
     }
 
     private void logout() {

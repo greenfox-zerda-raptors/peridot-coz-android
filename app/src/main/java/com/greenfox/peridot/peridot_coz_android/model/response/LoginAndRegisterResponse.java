@@ -4,13 +4,18 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 
 public class LoginAndRegisterResponse extends Response {
 
-    User user;
+/*    User user;*/
+    String token;
 
     public LoginAndRegisterResponse() {}
 
-    public LoginAndRegisterResponse(User user) {this.user = user;}
+    public LoginAndRegisterResponse(String token) {this.token = token;}
 
-    public User getUser() {return user;}
+    public String getToken() {return token;}
 
-    public void setUser(User user) {this.user = user;}
+    public void setToken(String token) {this.token = token;}
+
+    /*    public User getUser() {return user;}
+
+    public void setUser(User user) {this.user = user;}*/
 }

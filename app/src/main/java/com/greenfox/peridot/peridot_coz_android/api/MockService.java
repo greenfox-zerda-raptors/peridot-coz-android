@@ -1,3 +1,4 @@
+/*
 package com.greenfox.peridot.peridot_coz_android.api;
 
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
@@ -265,3 +266,4 @@ public class MockService implements ApiService {
 //        };
 //    }
 }
+*/

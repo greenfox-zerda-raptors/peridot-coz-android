@@ -19,9 +19,9 @@ import retrofit2.http.*;
 
 public interface ApiService {
 
-    String ENDPOINT = "http://clash-of-zerda.com";
+    String ENDPOINT = "https://pacific-bastion-75389.herokuapp.com";
 
-    @POST("/login")
+    @POST("/auth")
     Call<LoginAndRegisterResponse> login(LoginRequest loginRequest);
 
     @POST("/register")
