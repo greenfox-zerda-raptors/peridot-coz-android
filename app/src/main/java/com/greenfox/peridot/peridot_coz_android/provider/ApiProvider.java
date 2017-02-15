@@ -26,11 +26,11 @@ public class ApiProvider {
 
     @Provides
     public ApiService provideMockService(){return new MockService();}
+
     @Provides
     public ApiLoginService provideMockLoginService(){
         return new MockLoginService();
     }
-
 
     public ApiLoginService provideLoginApiManager() {return RestApiManager.getLoginApi();}
 

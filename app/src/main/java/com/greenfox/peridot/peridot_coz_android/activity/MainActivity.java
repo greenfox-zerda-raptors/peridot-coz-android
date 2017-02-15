@@ -68,10 +68,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
             @Override
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
-                Log.e("response", response.body().getToken());
                 if (response.body().getErrors() == null) {
                     token = response.body().getToken();
-                    //temporary toast
                     Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
@@ -113,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onPause() {
+        super.onPause();
         CozApp.setApplicationVisible(false);
         saveBuildingCountToSharedPreferences();
         saveTroopCountToSharedPreferences();
@@ -120,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onResume() {
+        super.onResume();
         CozApp.setApplicationVisible(true);
     }
 

@@ -40,7 +40,6 @@ public class MockLoginService implements ApiLoginService {
     }
 
     @Override
-
     public Call<LoginAndRegisterResponse> register(final @Body RegisterRequest registerRequest) {
         return new MockCall<LoginAndRegisterResponse>() {
             @Override
