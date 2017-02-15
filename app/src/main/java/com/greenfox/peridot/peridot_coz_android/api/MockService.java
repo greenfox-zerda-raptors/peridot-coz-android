@@ -75,7 +75,7 @@ public class MockService implements ApiService {
 //    }
 
     @Override
-    public Call<KingdomResponse> getKingdom(int userId) {
+    public Call<KingdomResponse> getKingdom() {
         return new MockCall<KingdomResponse>() {
             @Override
             public void enqueue(Callback<KingdomResponse> callback) {
@@ -86,7 +86,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<TroopsResponse> getTroops(int userId) {
+    public Call<TroopsResponse> getTroops() {
         return new MockCall<TroopsResponse>() {
             @Override
             public void enqueue(Callback<TroopsResponse> callback) {
@@ -97,7 +97,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Troop> getTroopDetail(int userId,final int troopId) {
+    public Call<Troop> getTroopDetail(final int troopId) {
         return new MockCall<Troop>() {
             @Override
             public void enqueue(Callback<Troop> callback) {
@@ -115,7 +115,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<UsersResponse> getUsers(int userId) {
+    public Call<UsersResponse> getUsers() {
         return new MockCall<UsersResponse>() {
             @Override
             public void enqueue(Callback<UsersResponse> callback) {
@@ -129,7 +129,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<BuildingsResponse> getBuildings(int userId) {
+    public Call<BuildingsResponse> getBuildings() {
         return new MockCall<BuildingsResponse>() {
             @Override
             public void enqueue(Callback<BuildingsResponse> callback) {
@@ -140,7 +140,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Building> getDetailsOfBuilding(int userId, final int buildingId) {
+    public Call<Building> getDetailsOfBuilding(final int buildingId) {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
@@ -151,7 +151,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Building> createBuilding(@Path("userId") int userId, @Body final Building building) {
+    public Call<Building> createBuilding(@Body final Building building) {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
@@ -162,7 +162,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId") int buildingId, @Body final Building building) {
+    public Call<Building> upgradeBuilding(@Path("buildingId") int buildingId, @Body final Building building) {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
@@ -173,7 +173,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<ResourceResponse> getResource(@Path("userId") int userId) {
+    public Call<ResourceResponse> getResource() {
         return new MockCall<ResourceResponse>() {
             @Override
             public void enqueue(Callback<ResourceResponse> callback) {
@@ -185,7 +185,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<ResourceResponse> getType(@Path("userId") int userId, @Path("type") String type) {
+    public Call<ResourceResponse> getType(@Path("type") String type) {
         return new MockCall<ResourceResponse>() {
             @Override
             public void enqueue(Callback<ResourceResponse> callback) {
@@ -196,7 +196,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Troop> createTroop(int userId) {
+    public Call<Troop> createTroop() {
         return new MockCall<Troop>() {
             @Override
             public void enqueue(Callback<Troop> callback) {
@@ -207,7 +207,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Troop> upgradeTroop(int userId, int troopId) {
+    public Call<Troop> upgradeTroop(int troopId) {
         return new MockCall<Troop>() {
             @Override
             public void enqueue(Callback<Troop> callback) {
@@ -218,7 +218,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<BuildingsResponse> syncBuildings(@Path("userId") int userId) {
+    public Call<BuildingsResponse> syncBuildings() {
         return new MockCall<BuildingsResponse>() {
             @Override
             public void enqueue(Callback<BuildingsResponse> callback) {
