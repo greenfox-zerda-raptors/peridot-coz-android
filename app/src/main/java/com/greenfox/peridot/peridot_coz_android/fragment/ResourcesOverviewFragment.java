@@ -42,7 +42,7 @@ public class ResourcesOverviewFragment extends Fragment {
                 resourceList);
         resourcesListView.setAdapter(resourceAdapter);
 
-        apiService.getResource(1).enqueue(new Callback<ResourceResponse>() {
+        apiService.getResource().enqueue(new Callback<ResourceResponse>() {
             @Override
             public void onResponse(Call<ResourceResponse> call, Response<ResourceResponse> response) {
                 resourceAdapter.clear();

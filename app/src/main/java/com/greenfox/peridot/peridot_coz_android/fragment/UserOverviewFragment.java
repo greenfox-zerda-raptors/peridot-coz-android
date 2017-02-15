@@ -39,7 +39,7 @@ public class UserOverviewFragment extends Fragment {
         userAdapter = new UserAdapter(container.getContext(), users);
         usersList.setAdapter(userAdapter);
 
-        apiService.getUsers(1).enqueue(new Callback<UsersResponse>() {
+        apiService.getUsers().enqueue(new Callback<UsersResponse>() {
             @Override
             public void onResponse(Call<UsersResponse> call, Response<UsersResponse> response) {
                 userAdapter.clear();

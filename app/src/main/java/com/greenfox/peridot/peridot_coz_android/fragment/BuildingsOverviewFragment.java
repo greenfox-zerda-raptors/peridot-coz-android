@@ -124,7 +124,7 @@ public class BuildingsOverviewFragment extends Fragment {
         final ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
         adapter = new BuildingAdapter(container.getContext(), buildings);
         listView.setAdapter(adapter);
-        apiService.getBuildings(1).enqueue(new Callback<BuildingsResponse>() {
+        apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
             @Override
             public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
                 adapter.clear();
@@ -164,7 +164,7 @@ public class BuildingsOverviewFragment extends Fragment {
     }
 
     private void overrideApi(final Building building) {
-        apiService.createBuilding(1,building).enqueue(new Callback<Building>() {
+        apiService.createBuilding(building).enqueue(new Callback<Building>() {
             @Override
             public void onResponse(Call<Building> call, Response<Building> response) {
                 adapter.add(response.body());

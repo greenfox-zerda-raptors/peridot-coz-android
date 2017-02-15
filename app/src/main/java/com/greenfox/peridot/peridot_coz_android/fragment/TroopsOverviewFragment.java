@@ -39,7 +39,7 @@ public class TroopsOverviewFragment extends Fragment {
         troopAdapter = new TroopAdapter(container.getContext(), troops);
         troopsList.setAdapter(troopAdapter);
 
-        apiService.getTroops(1).enqueue(new Callback<TroopsResponse>() {
+        apiService.getTroops().enqueue(new Callback<TroopsResponse>() {
 
             @Override
             public void onResponse(Call<TroopsResponse> call, Response<TroopsResponse> response) {

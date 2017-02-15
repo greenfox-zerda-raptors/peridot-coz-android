@@ -37,7 +37,7 @@ public class BuildingDetailFragment extends Fragment {
         Building buildingFromPrevFrag = (Building) bundle.getSerializable("building");
 
 
-        apiService.getDetailsOfBuilding(1, buildingFromPrevFrag.getId()).enqueue(new Callback<Building>() {
+        apiService.getDetailsOfBuilding(buildingFromPrevFrag.getId()).enqueue(new Callback<Building>() {
             @Override
             public void onResponse(Call<Building> call, Response<Building> response) {
                 building = response.body();

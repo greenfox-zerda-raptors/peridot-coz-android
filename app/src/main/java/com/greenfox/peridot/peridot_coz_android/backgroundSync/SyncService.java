@@ -59,7 +59,7 @@ public class SyncService extends IntentService{
     }
 
     private void backgroundSync() {
-        apiService.syncBuildings(1).enqueue(new Callback<BuildingsResponse>() {
+        apiService.syncBuildings().enqueue(new Callback<BuildingsResponse>() {
             @Override
             public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
                 SharedPreferences preferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
