@@ -2,7 +2,6 @@ package com.greenfox.peridot.peridot_coz_android.api;
 
 import android.text.TextUtils;
 
-import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -11,40 +10,39 @@ public class RestApiManager {
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
     private static OkHttpClient client;
+    private static ApiLoginService lApiService;
     private static ApiService mApiService;
-    private static Retrofit.Builder builder = new Retrofit.Builder()
-                    .baseUrl(ApiService.ENDPOINT)
-                    .addConverterFactory(GsonConverterFactory.create());
     private static Retrofit retrofit;
 
-    public static ApiService getUserApi() {
+    public static ApiLoginService getLoginApi() {
+        DefaultInterceptor defaultInterceptor = new DefaultInterceptor();
+        httpClient.addInterceptor(defaultInterceptor);
         client = httpClient.build();
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(ApiLoginService.ENDPOINT)
+                .addConverterFactory(GsonConverterFactory.create());
         retrofit = builder
                 .client(client)
                 .build();
-        if (mApiService == null) {
-            mApiService = retrofit.create(ApiService.class);
+        if (lApiService == null) {
+            lApiService = retrofit.create(ApiLoginService.class);
         }
-        return mApiService;
+        return lApiService;
     }
-/*
-    public ApiService getUserApi(ApiService apiService, String username, String password) {
-        if (!TextUtils.isEmpty(username)
-                && !TextUtils.isEmpty(password)) {
-            String authToken = Credentials.basic(username, password);
-            return getUserApi(apiService, authToken);
-        }
-        return getUserApi(apiService, null, null);
-    }
-*/
-    public  ApiService getUserApi(final String authToken) {
+
+    public static ApiService getUserApi(final String authToken) {
         if (!TextUtils.isEmpty(authToken)) {
-            AuthenticationInterceptor authInterceptor = new AuthenticationInterceptor(authToken);
-             if (!client.interceptors().contains(authInterceptor)) {
-                 httpClient.addInterceptor(authInterceptor);
-                 client = httpClient.build();
-                 builder.client(client);
-                 retrofit = builder.build();
+            AuthorizationInterceptor authInterceptor = new AuthorizationInterceptor(authToken);
+            DefaultInterceptor defaultInterceptor = new DefaultInterceptor();
+            Retrofit.Builder builder = new Retrofit.Builder()
+                    .baseUrl(ApiService.ENDPOINT)
+                    .addConverterFactory(GsonConverterFactory.create());
+            if (!client.interceptors().contains(authInterceptor)) {
+                httpClient.addInterceptor(defaultInterceptor);
+                httpClient.addInterceptor(authInterceptor);
+                client = httpClient.build();
+                builder.client(client);
+                retrofit = builder.build();
             }
         }
         return retrofit.create(mApiService.getClass());

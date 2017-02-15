@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,14 +20,11 @@ import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import android.widget.Toast;
-import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.BuildingNewResponse;
 import java.util.ArrayList;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -54,7 +50,7 @@ public class BuildingsOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View contentView = inflater.inflate(R.layout.buildings_overview_layout, container, false);
-        DaggerMainActivityComponent.builder().build().inject(this);
+        DaggerApiComponent.builder().build().inject(this);
         intentFilter = new IntentFilter(SyncService.SYNC_DONE);
         syncReceiver = new BroadcastReceiver() {
             @Override
@@ -127,7 +123,7 @@ public class BuildingsOverviewFragment extends Fragment {
         final ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
         adapter = new BuildingAdapter(container.getContext(), buildings);
         listView.setAdapter(adapter);
-        apiService.getBuildings(1).enqueue(new Callback<BuildingsResponse>() {
+        apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
             @Override
             public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
                 adapter.clear();
@@ -167,7 +163,7 @@ public class BuildingsOverviewFragment extends Fragment {
     }
 
     private void overrideApi(final Building building) {
-        apiService.createBuilding(1,building).enqueue(new Callback<Building>() {
+        apiService.createBuilding(building).enqueue(new Callback<Building>() {
             @Override
             public void onResponse(Call<Building> call, Response<Building> response) {
                 adapter.add(response.body());

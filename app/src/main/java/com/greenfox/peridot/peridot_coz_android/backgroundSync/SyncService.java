@@ -7,16 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.dagger.DaggerMainActivityComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 
@@ -45,7 +43,8 @@ public class SyncService extends IntentService{
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        DaggerMainActivityComponent.builder().build().inject(this);
+        DaggerApiComponent.builder().build().inject(this);
+        Log.e("SyncService", "Sync start");
         Intent syncIntent = new Intent();
         syncIntent.setAction(SYNC_DONE);
         backgroundSync();
@@ -56,7 +55,7 @@ public class SyncService extends IntentService{
     }
 
     private void backgroundSync() {
-        apiService.syncBuildings(1).enqueue(new Callback<BuildingsResponse>() {
+        apiService.syncBuildings().enqueue(new Callback<BuildingsResponse>() {
             @Override
             public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
                 SharedPreferences preferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
