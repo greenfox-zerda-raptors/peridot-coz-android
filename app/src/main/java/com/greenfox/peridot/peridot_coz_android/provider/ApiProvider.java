@@ -23,16 +23,16 @@ public class ApiProvider {
 
     @Inject
     Application mApplication;
-    @Provides
-    public ApiService provideMockService(){return new MockService();}
+
     @Provides
     public ApiLoginService provideMockLoginService(){
         return new MockLoginService();
     }
 
+    @Provides
+    public ApiService provideMockService(){return new MockService();}
 
     public ApiLoginService provideLoginApiManager() {return RestApiManager.getLoginApi();}
-
 
     public ApiService provideRestApiManager() {
         DaggerApplicationComponent.builder().build().inject(this);

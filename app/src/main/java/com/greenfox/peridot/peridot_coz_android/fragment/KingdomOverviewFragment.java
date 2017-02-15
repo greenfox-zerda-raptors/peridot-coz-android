@@ -16,6 +16,7 @@ import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
 
 import javax.inject.Inject;
 
@@ -26,7 +27,7 @@ import retrofit2.Response;
 public class KingdomOverviewFragment extends Fragment {
 
     @Inject
-    ApiService apiService;
+    Services services;
     Kingdom kingdom;
     Button buildingButton, troopButton, resourceButton;
 
@@ -59,7 +60,7 @@ public class KingdomOverviewFragment extends Fragment {
             }
         });
 
-        apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
+        services.apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
             @Override
             public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
                 if (response.body().getErrors() == null) {

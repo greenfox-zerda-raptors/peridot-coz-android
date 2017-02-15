@@ -13,11 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
 
 import javax.inject.Inject;
 
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     Button registerButton;
     TextView dataView;
     @Inject
-    ApiLoginService apiLoginService;
+    Services services;
     User user;
 
     @Override
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         if (isUsernameOrPasswordEmpty()) {
             Toast.makeText(this, "Please fill in username/password", Toast.LENGTH_SHORT).show();
         } else {
-            apiLoginService.login(new LoginRequest(loginUsername.getText().toString(), loginPassword.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
+            services.apiLoginService.login(new LoginRequest(loginUsername.getText().toString(), loginPassword.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
                 @Override
                 public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                     if (response.body().getErrors() != null) {
@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } else {
                         saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(loginUsername.getText().toString(), response.body().getToken());
+                        services.setApiService();
                         Toast.makeText(getApplicationContext(), "Welcome " + loginUsername.getText().toString() + "!", Toast.LENGTH_SHORT).show();
 
                         loginWithCorrectUsernameAndPassword();
