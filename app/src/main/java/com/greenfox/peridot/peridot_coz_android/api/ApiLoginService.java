@@ -16,5 +16,5 @@ public interface ApiLoginService {
     Call<LoginAndRegisterResponse> login(@Body LoginRequest loginRequest);
 
     @POST("/register")
-    Call<LoginAndRegisterResponse> register(RegisterRequest registerRequest);
+    Call<LoginAndRegisterResponse> register(@Body RegisterRequest registerRequest);
 }

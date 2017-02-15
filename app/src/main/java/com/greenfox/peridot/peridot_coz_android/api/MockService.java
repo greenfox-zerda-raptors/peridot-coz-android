@@ -35,47 +35,8 @@ public class MockService implements ApiService {
 
     public MockService() {}
 
-//    @Override
-//    public Call<LoginAndRegisterResponse> login(final LoginRequest loginRequest) {
-//        return new MockCall<LoginAndRegisterResponse>() {
-//            @Override
-//            public void enqueue(Callback<LoginAndRegisterResponse> callback) {
-//                if (loginRequest.getUsername().equals("aaa")
-//                        && loginRequest.getPassword().equals("aaa")) {
-//                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-//                    r.body().setUser(new User(1, "aaa", "aaa's kingdom",0));
-//                    callback.onResponse(this, r);
-//                } else if (!loginRequest.getUsername().equals("aaa")){
-//                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-//                    Error error = new Error();
-//                    error.setUsername("No such user exists");
-//                    r.body().setErrors(error);
-//                    callback.onResponse(this, r);
-//                } else if (!loginRequest.getPassword().equals("aaa")) {
-//                    Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-//                    Error error = new Error();
-//                    error.setPassword("Wrong password");
-//                    r.body().setErrors(error);
-//                    callback.onResponse(this, r);
-//                }
-//            }
-//        };
-//    }
-//
-//    @Override
-//    public Call<LoginAndRegisterResponse> register(final RegisterRequest registerRequest) {
-//        return new MockCall<LoginAndRegisterResponse>() {
-//            @Override
-//            public void enqueue(Callback<LoginAndRegisterResponse> callback) {
-//                Response<LoginAndRegisterResponse> r = Response.success(new LoginAndRegisterResponse());
-//                r.body().setUser(new User(1, "aaa", "aaa's kingdom", 0));
-//                callback.onResponse(this, r);
-//            }
-//        };
-//    }
-
     @Override
-    public Call<KingdomResponse> getKingdom(int userId) {
+    public Call<KingdomResponse> getKingdom() {
         return new MockCall<KingdomResponse>() {
             @Override
             public void enqueue(Callback<KingdomResponse> callback) {

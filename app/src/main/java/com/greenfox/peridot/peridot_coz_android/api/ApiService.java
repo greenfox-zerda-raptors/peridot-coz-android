@@ -22,7 +22,7 @@ public interface ApiService {
     String ENDPOINT = "https://pacific-bastion-75389.herokuapp.com";
 
     @GET("/kingdom/{userId}/")
-    Call<KingdomResponse> getKingdom(@Path("userId") int userId);
+    Call<KingdomResponse> getKingdom();
 
     @GET ("/kingdom/{userId}/troops/")
     Call<TroopsResponse> getTroops(@Path("userId") int userId);
