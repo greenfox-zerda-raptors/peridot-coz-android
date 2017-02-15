@@ -59,9 +59,10 @@ public class RegisterActivity extends AppCompatActivity {
             services.apiLoginService.register(new RegisterRequest(regUsername.getText().toString(), regPassword.getText().toString(), regKingdomName.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
                 @Override
                 public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
-                    saveCorrectUsernameAndPasswordToSharedPreferences();
+                    saveCorrectUsernameAndPasswordToSharedPreferences(regUsername.getText().toString(), response.body().getToken());
                     loginWithCorrectPassword();
-                    Toast.makeText(getApplicationContext(), "Thank you " + regUsername.getText().toString() + ", but we have to use the username in the mockserver, SORRY!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Welcome " + regUsername.getText().toString() + "!", Toast.LENGTH_SHORT).show();
+
                 }
                 @Override
                 public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {
@@ -75,11 +76,11 @@ public class RegisterActivity extends AppCompatActivity {
         finish();
     }
 
-    private void saveCorrectUsernameAndPasswordToSharedPreferences() {
+    private void saveCorrectUsernameAndPasswordToSharedPreferences(String username, String token) {
         SharedPreferences registerData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = registerData.edit();
-        editor.putString("username", "aaa");
-        editor.putString("password", "aaa");
+        editor.putString("username", username);
+        editor.putString("token", token);
         editor.apply();
     }
 

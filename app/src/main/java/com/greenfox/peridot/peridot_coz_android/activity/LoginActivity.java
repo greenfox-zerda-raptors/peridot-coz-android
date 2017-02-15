@@ -13,10 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
 
 import javax.inject.Inject;
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                 || loginPassword.getText().toString().equals("");
     }
 
-    public void getData(View view) {
+    public void getData() {
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String name = loginData.getString("username", "");
         String token = loginData.getString("token", "");
