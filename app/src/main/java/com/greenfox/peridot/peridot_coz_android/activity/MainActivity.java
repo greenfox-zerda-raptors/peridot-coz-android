@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("username", "");
         editor.putString("password", "");
+        editor.putString("token", "");
         editor.apply();
         Toast.makeText(this, "Successful logout", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginActivity.class));
