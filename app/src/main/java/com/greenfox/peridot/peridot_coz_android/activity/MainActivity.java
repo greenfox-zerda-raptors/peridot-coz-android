@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
@@ -28,8 +27,6 @@ import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragme
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
-import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
-import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
@@ -66,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (response.body().getErrors() == null) {
                     token = response.body().getToken();
                     //temporary toast
+                    services.setApiService();
                     Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();

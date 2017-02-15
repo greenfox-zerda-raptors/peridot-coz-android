@@ -1,5 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.activity;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +16,8 @@ import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
+
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Inject
     ApiLoginService apiLoginService;
     @Inject
-    ApiService apiService;
+    Services services;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         if (isUsernameOrPasswordOrKingdomEmpty()) {
             Toast.makeText(this, "Please fill out every field!", Toast.LENGTH_SHORT).show();
         } else {
-            apiLoginService.register(new RegisterRequest(regUsername.getText().toString(), regPassword.getText().toString(), regKingdomName.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
+            services.apiLoginService.register(new RegisterRequest(regUsername.getText().toString(), regPassword.getText().toString(), regKingdomName.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
                 @Override
                 public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                     saveCorrectUsernameAndPasswordToSharedPreferences();
