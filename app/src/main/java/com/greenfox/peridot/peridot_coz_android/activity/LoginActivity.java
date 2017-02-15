@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } else {
                         saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(loginUsername.getText().toString(), response.body().getToken());
+                        Toast.makeText(getApplicationContext(), "Welcome " + loginUsername.getText().toString() + "!", Toast.LENGTH_SHORT).show();
 
                         loginWithCorrectUsernameAndPassword();
                     }
