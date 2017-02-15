@@ -9,7 +9,6 @@
     <!--</permission>-->
     <!--<uses-permission android:name="com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService.SYNC_DONE" />-->
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
