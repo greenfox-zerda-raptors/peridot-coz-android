@@ -11,10 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
-import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,7 +23,7 @@ import retrofit2.Response;
 public class KingdomOverviewFragment extends Fragment {
 
     @Inject
-    ApiService apiService;
+    Services services;
     Kingdom kingdom;
     Button buildingButton, troopButton, resourceButton;
     TextView tvBuildings = (TextView) getView().findViewById(R.id.textview_finished_buildings);
@@ -59,7 +59,7 @@ public class KingdomOverviewFragment extends Fragment {
             }
         });
 
-        apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
+        services.apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
             @Override
             public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
                 if (response.body().getErrors() == null) {

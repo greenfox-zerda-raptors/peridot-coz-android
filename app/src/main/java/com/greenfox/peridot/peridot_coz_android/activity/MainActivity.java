@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
@@ -28,10 +27,10 @@ import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragme
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
-import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
-import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
+
 import javax.inject.Inject;
 
 import retrofit2.Call;
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String token = "";
 
     @Inject
-    ApiLoginService apiLoginService;
+    Services services;
     ProgressDialog progressDialog;
 
     @Override
@@ -56,13 +55,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(SharedPreferencesTokenEmpty()) {
             checkSharedPreferencesForUser();
-            apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
+            services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
             @Override
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                 Log.e("response", response.body().getToken());
                 if (response.body().getErrors() == null) {
                     token = response.body().getToken();
                     //temporary toast
+                    services.setApiService();
                     Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
