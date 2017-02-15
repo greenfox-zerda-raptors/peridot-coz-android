@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), response.body().getErrors().getPassword(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(loginUsername.getText().toString(), loginPassword.getText().toString(), response.body().getToken());
+                        saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(loginUsername.getText().toString(), response.body().getToken());
 
                         loginWithCorrectUsernameAndPassword();
                     }
@@ -95,11 +95,10 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
-    private void saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(String username, String password, String token) {
+    private void saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(String username, String token) {
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = loginData.edit();
         editor.putString("username", username);
-        editor.putString("password", password);
         editor.putString("token", token);
         editor.apply();
     }
@@ -112,8 +111,8 @@ public class LoginActivity extends AppCompatActivity {
     public void getData(View view) {
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String name = loginData.getString("username", "");
-        String pw = loginData.getString("password", "");
-        String msg = "Saved User Name: " + name + "\nSaved Password: " + pw;
+        String token = loginData.getString("token", "");
+        String msg = "Saved User Name: " + name + "\nSaved Token: " + token;
         dataView.setText(msg);
     }
 }

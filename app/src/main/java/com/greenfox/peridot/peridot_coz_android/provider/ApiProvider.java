@@ -23,17 +23,17 @@ public class ApiProvider {
 
     @Inject
     Application mApplication;
-
+    @Provides
     public ApiService provideMockService(){return new MockService();}
-
+    @Provides
     public ApiLoginService provideMockLoginService(){
         return new MockLoginService();
     }
 
-    @Provides
+
     public ApiLoginService provideLoginApiManager() {return RestApiManager.getLoginApi();}
 
-    @Provides
+
     public ApiService provideRestApiManager() {
         DaggerApplicationComponent.builder().build().inject(this);
         SharedPreferences sharedPref = CozApp.getAppContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);

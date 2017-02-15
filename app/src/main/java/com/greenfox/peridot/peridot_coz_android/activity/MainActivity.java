@@ -41,8 +41,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     String token = "";
-    User user;
-    Kingdom kingdom;
+
     @Inject
     ApiLoginService apiLoginService;
     ProgressDialog progressDialog;
@@ -75,22 +74,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {Log.d("Error", t.getMessage());}
         });}
-
-       /* apiService.getKingdom(user.getId()).enqueue(new Callback<KingdomResponse>() {
-            @Override
-            public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
-                if (response.body().getErrors() == null) {
-                    kingdom = response.body().getKingdom();
-                    Toast.makeText(getApplicationContext(), "Welcome in kingdom of " + kingdom.getUser().getKingdom() + "!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Something went wrong, please try to refresh", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<KingdomResponse> call, Throwable t) {
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

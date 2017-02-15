@@ -5,6 +5,7 @@ import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.activity.RegisterActivity;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingDetailFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
@@ -21,6 +22,7 @@ public interface ApiComponent {
     void inject(MainActivity mainActivity);
     void inject(LoginActivity loginActivity);
     void inject(RegisterActivity registerActivity);
+    void inject(KingdomOverviewFragment kingdomOverviewFragment);
     void inject(TroopsOverviewFragment troopsOverviewFragment);
     void inject(BuildingsOverviewFragment buildingsOverviewFragment);
     void inject(SyncService syncService);
