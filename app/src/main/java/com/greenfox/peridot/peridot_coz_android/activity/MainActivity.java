@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Kingdom kingdom;
     @Inject
     ApiLoginService apiLoginService;
-    ProgressDialog progressDialog;
+    ProgressDialog progressDialog = ProgressDialog.show(getApplicationContext(),"", "...loading", false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +64,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     token = response.body().getToken();
                     //temporary toast
                     Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    progressDialog.dismiss();
                 }
             }
 
@@ -184,19 +186,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void showLoadingProgress(){
-        progressDialog = new ProgressDialog(MainActivity.this);
-        progressDialog.show();
-        progressDialog.setMessage("loading...");
-//        Runnable progressRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                progressDialog.cancel();
-//            }
-//        };
-//        Handler pdCanceller = new Handler();
-//        pdCanceller.postDelayed(progressRunnable, 2000);
-    }
+//    public void showLoadingProgress(){
+////        Runnable progressRunnable = new Runnable() {
+////            @Override
+////            public void run() {
+////                progressDialog.cancel();
+////            }
+////        };
+////        Handler pdCanceller = new Handler();
+////        pdCanceller.postDelayed(progressRunnable, 2000);
+//    }
     
     private void checkSharedPreferencesForUser() {
         if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {

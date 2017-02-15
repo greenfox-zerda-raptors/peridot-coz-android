@@ -1,5 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ public class BuildingDetailFragment extends Fragment {
     @Inject
     ApiService apiService;
     private Building building;
+    ProgressDialog progressDialog = ProgressDialog.show(getActivity().getApplicationContext(),"", "...loading", false);
 
     public BuildingDetailFragment() {
         // Required empty public constructor
@@ -41,11 +43,12 @@ public class BuildingDetailFragment extends Fragment {
             @Override
             public void onResponse(Call<Building> call, Response<Building> response) {
                 building = response.body();
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Building> call, Throwable t) {
-
+                progressDialog.dismiss();
             }
         });
 

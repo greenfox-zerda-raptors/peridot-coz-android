@@ -1,5 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +37,7 @@ public class BuildingsOverviewFragment extends Fragment {
     private ArrayList<Building> buildings = new ArrayList<>();
     private BuildingAdapter adapter;
     private int counter = 164;
+    ProgressDialog progressDialog = ProgressDialog.show(getActivity().getApplicationContext(),"", "...loading", false);
    
     IntentFilter intentFilter;
     BroadcastReceiver syncReceiver;
@@ -129,9 +131,11 @@ public class BuildingsOverviewFragment extends Fragment {
             public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
                 adapter.clear();
                 adapter.addAll(response.body().getBuildings());
+                progressDialog.dismiss();
             }
             @Override
             public void onFailure(Call<BuildingsResponse> call, Throwable t) {
+                progressDialog.dismiss();
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -168,11 +172,12 @@ public class BuildingsOverviewFragment extends Fragment {
             @Override
             public void onResponse(Call<Building> call, Response<Building> response) {
                 adapter.add(response.body());
+                progressDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Building> call, Throwable t) {
-
+                progressDialog.dismiss();
             }
         });
     }
