@@ -2,9 +2,9 @@ package com.greenfox.peridot.peridot_coz_android;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 public class CozApp extends Application {
+    private static boolean applicationVisible = true;
     private static Context context;
 
     @Override
@@ -16,8 +16,7 @@ public class CozApp extends Application {
 */
     }
 
-    public static Context getAppContext() {
-        return context;
-    }
-
+    public static void setApplicationVisible(boolean applicationVisible) {CozApp.applicationVisible = applicationVisible;}
+    public static boolean isApplicationVisible() {return applicationVisible;}
+    public static Context getContext() {return context;}
 }

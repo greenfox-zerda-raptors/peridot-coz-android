@@ -35,7 +35,7 @@ public class KingdomOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.kingdom_overview_layout, container, false);
         DaggerApiComponent.builder().build().inject(this);
-        Log.e("kingdomfragment", "default fragmnet start");
+        Log.e("kingdomfragment", "default fragment start");
         buildingButton = (Button) contentView.findViewById(R.id.buildings_button);
         troopButton = (Button) contentView.findViewById(R.id.troops_button);
         resourceButton = (Button) contentView.findViewById(R.id.resources_button);
@@ -69,12 +69,10 @@ public class KingdomOverviewFragment extends Fragment {
                     Toast.makeText(getContext(), "Something went wrong, please try to refresh", Toast.LENGTH_SHORT).show();
                 }
             }
-
             @Override
-            public void onFailure(Call<KingdomResponse> call, Throwable t) {
-            }
+            public void onFailure(Call<KingdomResponse> call, Throwable t) {}
         });
-
+        Log.e("kingdomfragment", "default fragment created");
         return contentView;
     }
 }

@@ -23,6 +23,7 @@ public class ApiProvider {
 
     @Inject
     Application mApplication;
+
     @Provides
     public ApiService provideMockService(){return new MockService();}
     @Provides
@@ -33,11 +34,11 @@ public class ApiProvider {
 
     public ApiLoginService provideLoginApiManager() {return RestApiManager.getLoginApi();}
 
-
     public ApiService provideRestApiManager() {
         DaggerApplicationComponent.builder().build().inject(this);
-        SharedPreferences sharedPref = CozApp.getAppContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = CozApp.getContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String authToken = sharedPref.getString("token", "");
-        return RestApiManager.getUserApi(authToken);}
+        return RestApiManager.getUserApi(authToken);
+    }
 
 }
