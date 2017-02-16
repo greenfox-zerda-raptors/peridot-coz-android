@@ -25,12 +25,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Callback
 
     @Override
     public void onResponse(Call call, Response response) {
-        progressDialog.show();
+        progressDialog.dismiss();
+        onData(call, response);
     }
 
     @Override
     public void onFailure(Call call, Throwable t) {
         progressDialog.dismiss();
+        onError(call, t);
     }
 
     public abstract void onData(Call call, Response response);
