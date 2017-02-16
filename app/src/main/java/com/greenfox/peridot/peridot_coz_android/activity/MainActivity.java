@@ -1,7 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.activity;
 
 import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,14 +35,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     String token = "";
     User user;
     Kingdom kingdom;
     @Inject
     ApiLoginService apiLoginService;
-    ProgressDialog progressDialog = ProgressDialog.show(getApplicationContext(),"", "...loading", false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +62,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     token = response.body().getToken();
                     //temporary toast
                     Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
                 } else {
                     Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    progressDialog.dismiss();
                 }
             }
 
@@ -109,6 +105,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
             loadFragment(new BuildingsOverviewFragment());
         }
+    }
+
+    @Override
+    public void onData(Call call, Response response) {
+
+    }
+
+    @Override
+    public void onError(Call call, Throwable t) {
+
     }
 
     @Override
@@ -185,17 +191,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-//    public void showLoadingProgress(){
-////        Runnable progressRunnable = new Runnable() {
-////            @Override
-////            public void run() {
-////                progressDialog.cancel();
-////            }
-////        };
-////        Handler pdCanceller = new Handler();
-////        pdCanceller.postDelayed(progressRunnable, 2000);
-//    }
     
     private void checkSharedPreferencesForUser() {
         if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
