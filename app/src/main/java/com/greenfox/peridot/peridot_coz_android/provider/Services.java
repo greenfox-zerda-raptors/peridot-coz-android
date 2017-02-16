@@ -5,17 +5,17 @@ import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 
 import javax.inject.Inject;
 
-/**
- * Created by bedij on 2017. 02. 14..
- */
-
 public class Services {
-    @Inject
+
     public ApiService apiService;
-    @Inject
     public ApiLoginService apiLoginService;
 
+    public Services(ApiService apiService, ApiLoginService apiLoginService){
+        this.apiService = apiService;
+        this.apiLoginService = apiLoginService;
+    }
+
     public void setApiService() {
-        this.apiService = new ApiProvider().provideRestApiManager();
+        this.apiService = new ApiProvider().provideApiService();
     }
 }

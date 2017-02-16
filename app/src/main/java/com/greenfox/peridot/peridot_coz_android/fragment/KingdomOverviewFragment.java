@@ -26,10 +26,10 @@ public class KingdomOverviewFragment extends Fragment {
     Services services;
     Kingdom kingdom;
     Button buildingButton, troopButton, resourceButton;
-    TextView tvBuildings = (TextView) getView().findViewById(R.id.textview_finished_buildings);
-    TextView tvResourcesGold = (TextView) getView().findViewById(R.id.textview_gold);
-    TextView tvResourcesFood = (TextView) getView().findViewById(R.id.textview_food);
-    TextView tvTroops = (TextView) getView().findViewById(R.id.textview_finished_troops);
+    TextView tvBuildings;
+    TextView tvResourcesGold;
+    TextView tvResourcesFood;
+    TextView tvTroops;
 
     @Nullable
     @Override
@@ -58,6 +58,11 @@ public class KingdomOverviewFragment extends Fragment {
                 ((MainActivity) getActivity()).loadFragment(new ResourcesOverviewFragment());
             }
         });
+
+        tvBuildings = (TextView) contentView.findViewById(R.id.textview_finished_buildings);
+        tvResourcesGold = (TextView) contentView.findViewById(R.id.textview_gold);
+        tvResourcesFood = (TextView) contentView.findViewById(R.id.textview_food);
+        tvTroops = (TextView) contentView.findViewById(R.id.textview_finished_troops);
 
         services.apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
             @Override

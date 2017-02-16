@@ -19,7 +19,7 @@ public class ApplicationProvider {
 
     @Provides
     public Application getApplication() {
-        return getApplication();
+        return new Application();
     }
 
     @Provides

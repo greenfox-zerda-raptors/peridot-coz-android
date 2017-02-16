@@ -9,6 +9,7 @@ import dagger.Component;
 @Component(modules = {ApiProvider.class})
 public interface ApiComponent {
     void inject(Services services);
+    void inject(ServiceProvider serviceProvider);
 
 
 }

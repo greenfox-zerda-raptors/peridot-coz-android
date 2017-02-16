@@ -19,23 +19,26 @@ import dagger.Provides;
 public class ApiProvider {
 
     public static final boolean MOCK = true;
-
     @Inject
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPref;
 
     @Provides
-    public ApiLoginService provideMockLoginService(){
-        return new MockLoginService();
+    public ApiLoginService provideLoginService() {
+        if (MOCK) {
+            return new MockLoginService();
+        } else {
+            return RestApiManager.getLoginApi();
+        }
     }
 
     @Provides
-    public ApiService provideMockService(){return new MockService();}
-
-    public ApiLoginService provideLoginApiManager() {return RestApiManager.getLoginApi();}
-
-    public ApiService provideRestApiManager() {
-        DaggerApplicationComponent.builder().build().inject(this);
-        String authToken = sharedPreferences.getString("token", "");
-        return RestApiManager.getUserApi(authToken);}
-
+    public ApiService provideApiService() {
+        if (MOCK) {
+            return new MockService();
+        } else {
+            DaggerApplicationComponent.builder().build().inject(this);
+            String authToken = sharedPref.getString("token", "");
+            return RestApiManager.getUserApi(authToken);
+        }
+    }
 }
