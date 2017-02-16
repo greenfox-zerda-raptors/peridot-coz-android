@@ -63,6 +63,11 @@ public class LoginActivity extends AppCompatActivity {
         if (isUsernameOrPasswordEmpty()) {
             Toast.makeText(this, "Please fill in username/password", Toast.LENGTH_SHORT).show();
         } else {
+            if (services.apiLoginService == null){
+                Log.e("apiloginservice loginA", "apiloginservice is null");
+            }else{
+                Log.e("apiloginservice loginA", "apiloginservice is NOT null");
+            }
             services.apiLoginService.login(new LoginRequest(loginUsername.getText().toString(), loginPassword.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
                 @Override
                 public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {

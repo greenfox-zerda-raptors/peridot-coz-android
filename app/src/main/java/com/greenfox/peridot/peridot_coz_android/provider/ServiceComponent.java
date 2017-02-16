@@ -16,9 +16,8 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ServiceProvider.class})
+@Component(modules = ServiceProvider.class)
 public interface ServiceComponent {
-
     void inject(MainActivity mainActivity);
     void inject(LoginActivity loginActivity);
     void inject(RegisterActivity registerActivity);

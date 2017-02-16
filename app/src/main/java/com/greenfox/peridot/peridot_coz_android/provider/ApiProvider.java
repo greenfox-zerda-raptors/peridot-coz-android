@@ -3,6 +3,8 @@ package com.greenfox.peridot.peridot_coz_android.provider;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
@@ -35,6 +37,7 @@ public class ApiProvider {
 
     public ApiService provideRestApiManager() {
         DaggerApplicationComponent.builder().build().inject(this);
+        Log.e("apllication inject", "shared pref was successfully injected");
         String authToken = sharedPreferences.getString("token", "");
         return RestApiManager.getUserApi(authToken);}
 
