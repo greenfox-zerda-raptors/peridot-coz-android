@@ -7,13 +7,9 @@ import com.greenfox.peridot.peridot_coz_android.provider.DaggerApplicationCompon
 
 public class CozApp extends Application {
 
-
     @Override
     public void onCreate() {
         super.onCreate();
-
         DaggerApplicationComponent.builder().applicationProvider(new ApplicationProvider(this)).build();
-
     }
-
 }
