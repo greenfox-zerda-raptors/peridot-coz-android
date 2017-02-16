@@ -13,7 +13,7 @@ import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -35,7 +35,7 @@ public class KingdomOverviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.kingdom_overview_layout, container, false);
-        DaggerApiComponent.builder().build().inject(this);
+        DaggerServiceComponent.builder().build().inject(this);
         buildingButton = (Button) contentView.findViewById(R.id.buildings_button);
         troopButton = (Button) contentView.findViewById(R.id.troops_button);
         resourceButton = (Button) contentView.findViewById(R.id.resources_button);

@@ -21,10 +21,11 @@ import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService;
-import com.greenfox.peridot.peridot_coz_android.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
+
 import java.util.ArrayList;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -40,7 +41,7 @@ public class BuildingsOverviewFragment extends Fragment {
     IntentFilter intentFilter;
     BroadcastReceiver syncReceiver;
     @Inject
-    ApiService apiService;
+    Services services;
     FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab, fakeFab;
     boolean isMainFabOpen;
     Animation mainFabRotateLeft, mainFabRotateRight, appearSmallFab, disappearSmallFab;
@@ -50,7 +51,7 @@ public class BuildingsOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View contentView = inflater.inflate(R.layout.buildings_overview_layout, container, false);
-        DaggerApiComponent.builder().build().inject(this);
+        DaggerServiceComponent.builder().build().inject(this);
         intentFilter = new IntentFilter(SyncService.SYNC_DONE);
         syncReceiver = new BroadcastReceiver() {
             @Override
@@ -124,7 +125,7 @@ public class BuildingsOverviewFragment extends Fragment {
         final ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
         adapter = new BuildingAdapter(container.getContext(), buildings);
         listView.setAdapter(adapter);
-        apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
+        services.apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
             @Override
             public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
                 adapter.clear();
@@ -164,7 +165,7 @@ public class BuildingsOverviewFragment extends Fragment {
     }
 
     private void overrideApi(final Building building) {
-        apiService.createBuilding(building).enqueue(new Callback<Building>() {
+        services.apiService.createBuilding(building).enqueue(new Callback<Building>() {
             @Override
             public void onResponse(Call<Building> call, Response<Building> response) {
                 adapter.add(response.body());

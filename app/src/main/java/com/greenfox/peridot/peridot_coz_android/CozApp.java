@@ -1,23 +1,19 @@
 package com.greenfox.peridot.peridot_coz_android;
 
 import android.app.Application;
-import android.content.Context;
-import android.util.Log;
+
+import com.greenfox.peridot.peridot_coz_android.provider.ApplicationProvider;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerApplicationComponent;
 
 public class CozApp extends Application {
-    private static Context context;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
-        context = getApplicationContext();
-/*
-        DaggerMainActivityComponent.builder().appModule(new ApplicationProvider(this)).build();
-*/
-    }
 
-    public static Context getAppContext() {
-        return context;
+        DaggerApplicationComponent.builder().applicationProvider(new ApplicationProvider(this)).build();
+
     }
 
 }

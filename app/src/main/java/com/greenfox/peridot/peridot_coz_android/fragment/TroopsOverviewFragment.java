@@ -9,10 +9,11 @@ import android.view.ViewGroup;
 import com.greenfox.peridot.peridot_coz_android.R;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
-import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
+
 import java.util.ArrayList;
 import javax.inject.Inject;
 import retrofit2.Call;
@@ -26,12 +27,12 @@ public class TroopsOverviewFragment extends Fragment {
     private ArrayList<Troop> troops = new ArrayList<>();
     private TroopAdapter troopAdapter;
     @Inject
-    ApiService apiService;
+    Services services;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DaggerApiComponent.builder().build().inject(this);
+        DaggerServiceComponent.builder().build().inject(this);
         View contentView = inflater.inflate(R.layout.troops_overview_layout, container, false);
 
         troopsList = (ListView) contentView.findViewById(R.id.troopsList);
@@ -39,7 +40,7 @@ public class TroopsOverviewFragment extends Fragment {
         troopAdapter = new TroopAdapter(container.getContext(), troops);
         troopsList.setAdapter(troopAdapter);
 
-        apiService.getTroops().enqueue(new Callback<TroopsResponse>() {
+        services.apiService.getTroops().enqueue(new Callback<TroopsResponse>() {
 
             @Override
             public void onResponse(Call<TroopsResponse> call, Response<TroopsResponse> response) {

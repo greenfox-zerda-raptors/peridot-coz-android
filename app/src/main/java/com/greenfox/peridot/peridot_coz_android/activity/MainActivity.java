@@ -29,7 +29,7 @@ import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
 
 import javax.inject.Inject;
@@ -42,9 +42,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     String token = "";
 
-//    @Inject
-//    ApiLoginService apiLoginService;
-
     @Inject
     Services services;
     ProgressDialog progressDialog;
@@ -53,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        DaggerServiceComponent.builder().build().inject(this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 

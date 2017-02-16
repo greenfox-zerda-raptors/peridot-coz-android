@@ -13,10 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
 
 import javax.inject.Inject;
@@ -34,19 +33,17 @@ public class LoginActivity extends AppCompatActivity {
     TextView dataView;
     @Inject
     Services services;
-    User user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        DaggerApiComponent.builder().build().inject(this);
         loginUsername = (EditText) findViewById(R.id.loginName);
         loginPassword = (EditText) findViewById(R.id.loginPassword);
         loginButton = (Button) findViewById(R.id.loginButton);
         registerButton = (Button) findViewById(R.id.registerHereButton);
         dataView = (TextView) findViewById(R.id.dataView);
-
+        DaggerServiceComponent.builder().build().inject(this);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

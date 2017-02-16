@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {ApiProvider.class, ServiceProvider.class})
+@Component(modules = {ApiProvider.class})
 public interface ApiComponent {
     void inject(Services services);
 

@@ -21,7 +21,7 @@ public class ApiProvider {
     public static final boolean MOCK = true;
 
     @Inject
-    Application mApplication;
+    SharedPreferences sharedPreferences;
 
     @Provides
     public ApiLoginService provideMockLoginService(){
@@ -35,8 +35,7 @@ public class ApiProvider {
 
     public ApiService provideRestApiManager() {
         DaggerApplicationComponent.builder().build().inject(this);
-        SharedPreferences sharedPref = CozApp.getAppContext().getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        String authToken = sharedPref.getString("token", "");
+        String authToken = sharedPreferences.getString("token", "");
         return RestApiManager.getUserApi(authToken);}
 
 }
