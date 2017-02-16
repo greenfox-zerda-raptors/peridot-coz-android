@@ -17,7 +17,7 @@ public class ApplicationProvider {
         this.mApplication = mApplication;
     }
 
-    @Provides
+//    @Provides
     public Application getApplication() {
         return new Application();
     }
