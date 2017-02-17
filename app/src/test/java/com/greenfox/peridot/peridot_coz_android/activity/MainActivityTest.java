@@ -13,7 +13,6 @@ import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment
 import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
-
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,11 +52,6 @@ public class MainActivityTest {
         Assert.assertEquals(LoginActivity.class.getName(), shadowOf(mainActivity).getNextStartedActivity().getComponent().getClassName());
 
     }
-
-//    @Test
-//    public void testIfUserWelcomed(){
-//        Assert.assertEquals("Welcome aaa!", ShadowToast.getTextOfLatestToast());
-//    }
 
     @Test
     public void testIfLogoutClickedSharedPrefGoesEmpty(){
@@ -124,5 +118,10 @@ public class MainActivityTest {
         Assert.assertEquals(UserOverviewFragment.class, mainActivity.getSupportFragmentManager()
                 .findFragmentById(R.id.content_frame).getClass());
     }
+
+//    @Test
+//    public void testIfUserWelcomed(){
+//        Assert.assertEquals("Welcome aaa!", ShadowToast.getTextOfLatestToast());
+//    }
 
 }
