@@ -1,14 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@android:color/holo_green_dark">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp" >
 
-    <TextView
-        android:text="This will be the BUILDINGS overview."
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/listViewBuilding"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="151dp"
-        android:id="@+id/secondLayout" />
+        android:dividerHeight="15dp">
+    </ListView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/mainFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:clickable="true"
+        app:backgroundTint="@android:color/holo_blue_dark"
+        app:fabSize="normal"
+        android:src="@drawable/ic_build" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/mineFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mainFab"
+        android:layout_alignEnd="@+id/mainFab"
+        android:layout_alignRight="@+id/mainFab"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="7.5dp"
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_bright"
+        app:fabSize="mini"
+        android:src="@drawable/ic_mine" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/farmFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mineFab"
+        android:layout_alignEnd="@+id/mineFab"
+        android:layout_alignRight="@+id/mineFab"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="0dp"
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:fabSize="mini"
+        android:src="@drawable/ic_farm" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/barrackFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/farmFab"
+        android:layout_alignEnd="@+id/farmFab"
+        android:layout_alignRight="@+id/farmFab"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="0dp"
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:fabSize="mini"
+        android:src="@drawable/ic_barracks" />
+
+   <android.support.design.widget.FloatingActionButton
+        android:id="@+id/townhallFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/barrackFab"
+        android:layout_alignEnd="@+id/barrackFab"
+        android:layout_alignRight="@+id/barrackFab"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="0dp"
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:fabSize="mini"
+        android:src="@drawable/ic_townhall" />
+  
+   <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fakeDownloadFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/townhallFab"
+        android:layout_alignEnd="@+id/townhallFab"
+        android:layout_alignRight="@+id/townhallFab"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="0dp"
+        android:clickable="false"
+        android:visibility="invisible"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:fabSize="mini"
+        android:src="@drawable/ic_sync" />
 </RelativeLayout>

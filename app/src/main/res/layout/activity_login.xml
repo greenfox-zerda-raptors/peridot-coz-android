@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
     <EditText
         android:id="@+id/loginName"
@@ -12,7 +13,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:hint="Enter your login name">
+        android:padding="12dp"
+        android:hint="Enter your login name"
+        android:background="#CCFFFFFF">
     </EditText>
 
     <EditText
@@ -22,8 +25,10 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/loginName"
         android:layout_marginBottom="20dp"
+        android:padding="12dp"
         android:hint="Enter your login password"
-        android:inputType="textPassword">
+        android:inputType="textPassword"
+        android:background="#CCFFFFFF">
     </EditText>
 
     <Button

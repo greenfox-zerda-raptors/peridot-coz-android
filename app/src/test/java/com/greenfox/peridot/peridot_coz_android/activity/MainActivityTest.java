@@ -1,30 +1,19 @@
 package com.greenfox.peridot.peridot_coz_android.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
-import android.view.ActionProvider;
-import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 import com.greenfox.peridot.peridot_coz_android.BuildConfig;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
-import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
-import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.Response;
+import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
+
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +22,6 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.fakes.RoboMenuItem;
-import org.robolectric.shadows.ShadowToast;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricTestRunner.class)
@@ -90,9 +78,9 @@ public class MainActivityTest {
         Assert.assertEquals("Your Kingdom", navigationOptions.getMenu().getItem(0).toString());
         Assert.assertEquals("Buildings", navigationOptions.getMenu().getItem(1).toString());
         Assert.assertEquals("Troops", navigationOptions.getMenu().getItem(2).toString());
-        Assert.assertEquals("Battle", navigationOptions.getMenu().getItem(2).getSubMenu().getItem(0).toString());
-        Assert.assertEquals("Resources", navigationOptions.getMenu().getItem(2).getSubMenu().getItem(1).toString());
-        Assert.assertEquals("Leaderboard", navigationOptions.getMenu().getItem(2).getSubMenu().getItem(2).toString());
+        Assert.assertEquals("Battle", navigationOptions.getMenu().getItem(3).toString());
+        Assert.assertEquals("Resources", navigationOptions.getMenu().getItem(4).toString());
+        Assert.assertEquals("Leaderboard", navigationOptions.getMenu().getItem(5).toString());
     }
 
     @Test
@@ -122,4 +110,19 @@ public class MainActivityTest {
         Assert.assertEquals(BattleOverviewFragment.class, mainActivity.getSupportFragmentManager()
                 .findFragmentById(R.id.content_frame).getClass());
     }
+
+    @Test
+    public void clickNavMenuItem5ShouldRedirectToResourcesOverviewFragment() {
+        mainActivity.onNavigationItemSelected(navigationOptions.getMenu().getItem(4));
+        Assert.assertEquals(ResourcesOverviewFragment.class, mainActivity.getSupportFragmentManager()
+                .findFragmentById(R.id.content_frame).getClass());
+    }
+
+    @Test
+    public void clickNavMenuItem6ShouldRedirectToUserOverviewFragment() {
+        mainActivity.onNavigationItemSelected(navigationOptions.getMenu().getItem(5));
+        Assert.assertEquals(UserOverviewFragment.class, mainActivity.getSupportFragmentManager()
+                .findFragmentById(R.id.content_frame).getClass());
+    }
+
 }

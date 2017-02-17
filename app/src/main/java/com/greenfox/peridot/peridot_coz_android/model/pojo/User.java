@@ -1,9 +1,5 @@
 package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
-/**
- * Created by bedij on 2017. 01. 30..
- */
-
 public class User {
 
     int id;
@@ -22,6 +18,10 @@ public class User {
         this.points = points;
     }
 
+    public User(String username) {
+        this.username = username;
+    }
+
     public int getId() {return id;}
 
     public void setId(int id) {this.id = id;}
@@ -37,4 +37,5 @@ public class User {
     public int getPoints() {return points;}
 
     public void setPoints(int points) {this.points = points;}
+
 }

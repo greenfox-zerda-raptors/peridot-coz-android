@@ -1,27 +1,43 @@
 package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
-/**
- * Created by bedij on 2017. 01. 30..
- */
+import java.io.Serializable;
 
-public class Building {
+public class Building implements Serializable {
 
     private int id;
     private String type;
     private int level;
     private int hp;
 
+    public Building(int id, String type) {
+        this.type = type;
+        this.level = 1;
+        this.hp = 100;
+        this.id = id;
+    }
+
+    public Building(String type, int level) {
+        this.type = type;
+        this.level = level;
+        this.hp = 100;
+        this.id ++;
+    }
+
     public Building(String type) {
         this.type = type;
-        this.level = 0;
-        this.hp = 0;
+        this.level = 1;
+        this.hp = 100;
+    }
+
+    public int increaseLevelOfBuilding(){
+        return level++;
     }
 
     public Building() {}
 
     public int getId() {return id;}
 
-    public void setId(int id) {this.id = id;}
+    public void setId(int id) {this.id++;}
 
     public String getType() {return type;}
 
@@ -34,4 +50,5 @@ public class Building {
     public int getHp() {return hp;}
 
     public void setHp(int hp) {this.hp = hp;}
+
 }
