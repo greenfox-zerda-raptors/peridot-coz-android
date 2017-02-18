@@ -37,8 +37,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    String token = "";
-
     @Inject
     Services services;
     ProgressDialog progressDialog;
@@ -62,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
                 if (response.body().getErrors() == null) {
-                    token = response.body().getToken();
+                    String token = response.body().getToken();
                     services.setApiService();
                     Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
                 } else {

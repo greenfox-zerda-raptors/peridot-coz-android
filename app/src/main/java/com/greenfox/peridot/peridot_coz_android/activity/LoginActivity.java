@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } else {
                         saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(loginUsername.getText().toString(), response.body().getToken());
-                        services.setApiService();
+
                         Toast.makeText(getApplicationContext(), "Welcome " + loginUsername.getText().toString() + "!", Toast.LENGTH_SHORT).show();
 
                         loginWithCorrectUsernameAndPassword();
@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString("username", username);
         editor.putString("token", token);
         editor.apply();
+        services.setApiService();
     }
 
     private boolean isUsernameOrPasswordEmpty() {
