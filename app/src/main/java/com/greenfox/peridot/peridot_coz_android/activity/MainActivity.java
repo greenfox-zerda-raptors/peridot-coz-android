@@ -51,11 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(SharedPreferencesTokenEmpty()) {
             checkSharedPreferencesForUser();
-            if (services.apiLoginService == null){
-                Log.e("apiloginservice", "apiloginservice is null");
-            }else{
-                Log.e("apiloginservice", "apiloginservice is NOT null");
-            }
             services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
             @Override
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
@@ -185,7 +180,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.putString("token", "");
         editor.apply();
         Toast.makeText(this, "Successful logout", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, LoginActivity.class));
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 
