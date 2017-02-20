@@ -64,41 +64,31 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onData(Call call, Response response) {
-       LoginAndRegisterResponse loginAndRegisterResponse = (LoginAndRegisterResponse) response;
-       if ((LoginAndRegisterResponse)response.body().
+        LoginAndRegisterResponse loginAndRegisterResponse = (LoginAndRegisterResponse) response.body();
+       if (loginAndRegisterResponse.getErrors() != null){
+           if (loginAndRegisterResponse.getErrors().getUsername() != null ){
+               Toast.makeText(getApplicationContext(), loginAndRegisterResponse.getErrors().getUsername(), Toast.LENGTH_SHORT).show();
+           } else {
+               Toast.makeText(getApplicationContext(), loginAndRegisterResponse.getErrors().getPassword(), Toast.LENGTH_SHORT).show();
+           }
+       } else {
+           saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(loginUsername.getText().toString(), loginPassword.getText().toString(), loginAndRegisterResponse.getToken());
+           loginWithCorrectUsernameAndPassword();
+       }
     }
 
     @Override
     public void onError(Call call, Throwable t) {
-
+        Log.d("Error", t.getMessage());
     }
 
     public void checkIfUsernameAndPasswordAreCorrectsAndLoginIfTheyAre(View view) {
         if (isUsernameOrPasswordEmpty()) {
             Toast.makeText(this, "Please fill in username/password", Toast.LENGTH_SHORT).show();
         } else {
-            apiLoginService.login(new LoginRequest(loginUsername.getText().toString(), loginPassword.getText().toString())).enqueue(this);
-            apiLoginService.login(new LoginRequest().enqueue(new Callback<LoginAndRegisterResponse>() {
-                @Override
-                public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
-                    if (response.body().getErrors() != null) {
-                        if (response.body().getErrors().getUsername() != null) {
-                            Toast.makeText(getApplicationContext(), response.body().getErrors().getUsername(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), response.body().getErrors().getPassword(), Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        saveCorrectUsernameAndPasswordAndTokenToSharedPreferences(loginUsername.getText().toString(), loginPassword.getText().toString(), response.body().getToken());
+            apiLoginService.login(new LoginRequest(loginUsername.getText().toString(), loginPassword.getText().toString())).enqueue(this); {
 
-                        loginWithCorrectUsernameAndPassword();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {
-                    Log.d("Error", t.getMessage());
-                }
-            });
+            }
         }
     }
 
