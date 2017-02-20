@@ -38,10 +38,28 @@ import retrofit2.Response;
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     String token = "";
-    User user;
     Kingdom kingdom;
     @Inject
     ApiLoginService apiLoginService;
+
+    @Override
+    public void onData(Call call, Response response) {
+        LoginAndRegisterResponse loginAndRegisterResponse = (LoginAndRegisterResponse) response.body();
+        Log.e("response", loginAndRegisterResponse.getToken());
+        if (loginAndRegisterResponse.getErrors() == null){
+            token = loginAndRegisterResponse.getToken();
+            //temporary toast
+            Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        }
+    }
+
+    @Override
+    public void onError(Call call, Throwable t) {
+        Log.d("Error", t.getMessage());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,23 +72,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         if(SharedPreferencesTokenEmpty()) {
             checkSharedPreferencesForUser();
-            apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
-            @Override
-            public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
-                Log.e("response", response.body().getToken());
-                if (response.body().getErrors() == null) {
-                    token = response.body().getToken();
-                    //temporary toast
-                    Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                }
+            apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(this); {
             }
+        }
 
-            @Override
-            public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {Log.d("Error", t.getMessage());}
-        });}
 
        /* apiService.getKingdom(user.getId()).enqueue(new Callback<KingdomResponse>() {
             @Override
@@ -107,15 +112,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
-    @Override
-    public void onData(Call call, Response response) {
-
-    }
-
-    @Override
-    public void onError(Call call, Throwable t) {
-
-    }
 
     @Override
     protected void onPause() {

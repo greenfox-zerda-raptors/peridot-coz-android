@@ -34,7 +34,6 @@ public class LoginActivity extends BaseActivity {
     TextView dataView;
     @Inject
     ApiLoginService apiLoginService;
-    User user;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +86,6 @@ public class LoginActivity extends BaseActivity {
             Toast.makeText(this, "Please fill in username/password", Toast.LENGTH_SHORT).show();
         } else {
             apiLoginService.login(new LoginRequest(loginUsername.getText().toString(), loginPassword.getText().toString())).enqueue(this); {
-
             }
         }
     }

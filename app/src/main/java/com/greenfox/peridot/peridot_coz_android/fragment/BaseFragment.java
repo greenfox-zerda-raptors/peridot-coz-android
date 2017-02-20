@@ -18,7 +18,7 @@ import retrofit2.Response;
  * Created by mozgaanna on 16/02/17.
  */
 
-public class BaseFragment extends Fragment implements Callback {
+public abstract class BaseFragment extends Fragment implements Callback {
     ProgressDialog progressDialog;
 
     @Nullable
@@ -31,13 +31,18 @@ public class BaseFragment extends Fragment implements Callback {
 
     @Override
     public void onResponse(Call call, Response response) {
-        progressDialog.show();
+        progressDialog.dismiss();
+        onData(call, response);
     }
 
     @Override
     public void onFailure(Call call, Throwable t) {
         progressDialog.dismiss();
+        onError(call, t);
     }
 
+    public abstract void onData(Call call, Response response);
+
+    public abstract void onError(Call call, Throwable t);
 
 }
