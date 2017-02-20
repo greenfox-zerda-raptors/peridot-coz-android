@@ -51,7 +51,9 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void onData(Call call, Response response) {
-
+        saveCorrectUsernameAndPasswordToSharedPreferences();
+        loginWithCorrectPassword();
+        Toast.makeText(getApplicationContext(), "Thank you " + regUsername.getText().toString() + ", but we have to use the username in the mockserver, SORRY!", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -63,17 +65,8 @@ public class RegisterActivity extends BaseActivity {
         if (isUsernameOrPasswordOrKingdomEmpty()) {
             Toast.makeText(this, "Please fill out every field!", Toast.LENGTH_SHORT).show();
         } else {
-            apiLoginService.register(new RegisterRequest(regUsername.getText().toString(), regPassword.getText().toString(), regKingdomName.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
-                @Override
-                public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
-                    saveCorrectUsernameAndPasswordToSharedPreferences();
-                    loginWithCorrectPassword();
-                    Toast.makeText(getApplicationContext(), "Thank you " + regUsername.getText().toString() + ", but we have to use the username in the mockserver, SORRY!", Toast.LENGTH_LONG).show();
-                }
-                @Override
-                public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {
-                }
-            });
+            apiLoginService.register(new RegisterRequest(regUsername.getText().toString(), regPassword.getText().toString(), regKingdomName.getText().toString())).enqueue(this);{
+            }
         }
     }
 
