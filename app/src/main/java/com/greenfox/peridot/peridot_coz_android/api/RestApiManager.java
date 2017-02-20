@@ -1,7 +1,5 @@
 package com.greenfox.peridot.peridot_coz_android.api;
 
-import android.text.TextUtils;
-
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
