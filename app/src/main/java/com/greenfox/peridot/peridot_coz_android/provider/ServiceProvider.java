@@ -11,14 +11,8 @@ import dagger.Provides;
 @Module
 public class ServiceProvider {
 
-    @Inject
-    public ApiService apiService;
-    @Inject
-    public ApiLoginService apiLoginService;
-
     @Provides
     public Services services(){
-        DaggerApiComponent.builder().build().inject(this);
-        return new Services(apiService, apiLoginService);
+        return new Services();
     }
 }

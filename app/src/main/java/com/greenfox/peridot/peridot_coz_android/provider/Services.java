@@ -2,15 +2,18 @@ package com.greenfox.peridot.peridot_coz_android.provider;
 
 import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
+
 import javax.inject.Inject;
 
 public class Services {
 
+    @Inject
     public ApiService apiService;
+    @Inject
     public ApiLoginService apiLoginService;
-    public Services(ApiService apiService, ApiLoginService apiLoginService){
-        this.apiService = apiService;
-        this.apiLoginService = apiLoginService;
+
+    Services() {
+        DaggerApiComponent.builder().build().inject(this);
     }
 
     public void setApiService() {

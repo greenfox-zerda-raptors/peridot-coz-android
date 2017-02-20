@@ -1,8 +1,11 @@
 package com.greenfox.peridot.peridot_coz_android.provider;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.api.MockLoginService;
@@ -17,9 +20,7 @@ import dagger.Provides;
 @Module
 public class ApiProvider {
 
-    public static final boolean MOCK = true;
-    @Inject
-    SharedPreferences sharedPreferences;
+    public static final boolean MOCK = false;
 
     @Provides
     public ApiLoginService provideLoginService() {
@@ -35,9 +36,7 @@ public class ApiProvider {
         if (MOCK) {
             return new MockService();
         } else {
-            DaggerApplicationComponent.builder().build().inject(this);
-            String authToken = sharedPreferences.getString("token", "");
-            return RestApiManager.getUserApi(authToken);
+            return RestApiManager.getUserApi(CozApp.getApplication().getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("token", ""));
         }
     }
 }

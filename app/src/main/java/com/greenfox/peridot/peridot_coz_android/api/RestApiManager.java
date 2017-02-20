@@ -45,6 +45,6 @@ public class RestApiManager {
                 retrofit = builder.build();
             }
         }
-        return retrofit.create(mApiService.getClass());
+        return retrofit.create(ApiService.class);
     }
 }
