@@ -1,6 +1,8 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -14,14 +16,21 @@ import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.backgroundSync.BuildingsEvent;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.VIBRATOR_SERVICE;
 
 public class BuildingsOverviewFragment extends Fragment {
 
@@ -132,14 +141,30 @@ public class BuildingsOverviewFragment extends Fragment {
             public void onResponse(Call<Building> call, Response<Building> response) {
                 adapter.add(response.body());
             }
-
             @Override
-            public void onFailure(Call<Building> call, Throwable t) {
-
-            }
+            public void onFailure(Call<Building> call, Throwable t) {}
         });
     }
-   private void openAndCloseFabs() {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+    }
+
+    private void openAndCloseFabs() {
         if (isMainFabOpen) {
             mainFab.startAnimation(mainFabRotateLeft);
             mineFab.startAnimation(disappearSmallFab);
@@ -162,5 +187,20 @@ public class BuildingsOverviewFragment extends Fragment {
         barrackFab.setClickable(isMainFabOpen);
         townhallFab.setClickable(isMainFabOpen);
         fakeFab.setClickable(isMainFabOpen);
+   }
+
+    @Subscribe
+    private void onBuildingsEvent(BuildingsEvent buildingsEvent) {
+            apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
+                @Override
+                public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
+                    adapter.clear();
+                    adapter.addAll(response.body().getBuildings());
+                }
+                @Override
+                public void onFailure(Call<BuildingsResponse> call, Throwable t) {}
+            });
+            Vibrator vibrator = (Vibrator) getActivity().getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+            vibrator.vibrate(500);
     }
 }

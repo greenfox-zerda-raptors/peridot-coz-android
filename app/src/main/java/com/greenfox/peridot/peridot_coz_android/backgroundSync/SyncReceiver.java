@@ -14,10 +14,11 @@ import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
-import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
-import java.util.ArrayList;
+
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,71 +33,97 @@ public class SyncReceiver extends BroadcastReceiver {
 
     @Inject
     ApiService apiService;
+    Context context;
     Kingdom syncedKingdom;
     SharedPreferences preferences;
-    NotificationCompat.Builder notificationBuilder;
-    Intent notificationIntent;
+    NotificationManager notificationManager;
+    int differenceBuildings;
+    int differenceTroops;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        this.context = context;
         DaggerApiComponent.builder().build().inject(this);
         preferences = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         syncKingdom();
-        if (!CozApp.isApplicationVisible()) {
-            Log.e("syncreceiver", "i am doing background stuff");
-            checkForChangesAndNotify(context);
-        } else {
-            Log.e("syncreceiver", "i am doing stuff");
-            // TODO update current fragment (bus)
-            // TODO update navbar with numbers (bus)
+//        EventBus.getDefault().post(new NavBarEvent(new int [] {5, 1}));
+        Log.e("asdasdasda","asdasdasd");
+        calculateDifferences();
+        if (differenceBuildings != 0 && differenceTroops != 0) {
+            if (!CozApp.isApplicationVisible()) {
+                Log.e("syncreceiver", "i am doing background stuff");
+                notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                checkForBuildingsAndNotify();
+                checkForTroopsAndNotify();
+            } else {
+                Log.e("syncreceiver", "i am doing stuff");
+                checkForBuildingsAndPostEvent();
+                checkForTroopsAndPostEvent();
+                EventBus.getDefault().post(new NavBarEvent(new int [] {differenceBuildings, differenceTroops}));
+            }
         }
     }
 
-    private void checkForChangesAndNotify(Context context) {
-        if (syncedKingdom.getBuildings().size() != preferences.getInt("buildings",0)) {
-            prepareNotification(context);
-            notificationIntent.putExtra("fragment", "buildings");
-            if (syncedKingdom.getBuildings().size() > preferences.getInt("buildings",0)) {
-                notificationBuilder.setContentTitle(NEW_BUILDINGS)
-                        .setContentText(NEW_BUILDINGS);
-            } else if (syncedKingdom.getBuildings().size() < preferences.getInt("buildings",0)) {
-                notificationBuilder.setContentTitle(KILL_BUILDINGS)
-                        .setContentText(KILL_BUILDINGS);
-            }
-        }
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(123, notificationBuilder.build());
-
-        if (syncedKingdom.getTroops().size() != preferences.getInt("troops",0)) {
-            prepareNotification(context);
-            notificationIntent.putExtra("fragment", "troops");
-            if (syncedKingdom.getTroops().size() > preferences.getInt("troops",0)) {
-                notificationBuilder.setContentTitle(NEW_TROOPS)
-                        .setContentText(NEW_TROOPS);
-            } else if (syncedKingdom.getTroops().size() < preferences.getInt("troops",0)) {
-                notificationBuilder.setContentTitle(KILL_TROOPS)
-                        .setContentText(KILL_TROOPS);
-            }
-        }
-        notificationManager.notify(123, notificationBuilder.build());
+    private void calculateDifferences() {
+        int currentNumberOfBuildings = preferences.getInt("buildings", 0);
+        int currentNumberOfTroops = preferences.getInt("troops", 0);
+        int updatedNumberOfBuildings = syncedKingdom.getBuildings().size();
+        int updatedNumberOfTroops = syncedKingdom.getTroops().size();
+        differenceBuildings = currentNumberOfBuildings - updatedNumberOfBuildings;
+        differenceTroops = currentNumberOfTroops - updatedNumberOfTroops;
     }
 
-    private void prepareNotification (Context context){
-        notificationBuilder = new
+    private void checkForBuildingsAndNotify() {
+        if (differenceBuildings < 0) {
+            sendNotification(Math.abs(differenceBuildings), NEW_BUILDINGS, "buildings");
+        }
+        if (differenceBuildings > 0) {
+            sendNotification(differenceBuildings, KILL_BUILDINGS, "buildings");
+        }
+    }
+
+    private void checkForTroopsAndNotify() {
+        if (differenceTroops < 0) {
+            sendNotification(Math.abs(differenceTroops), NEW_TROOPS, "troops");
+        }
+        if (differenceTroops > 0) {
+            sendNotification(differenceTroops, KILL_TROOPS, "troops");
+        }
+    }
+
+    private void sendNotification(int numberChanged, String content, String fragment){
+        NotificationCompat.Builder notificationBuilder = new
                 NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_castle_black);
+                .setSmallIcon(R.drawable.ic_castle_black)
+                .setContentTitle(numberChanged + content)
+                .setContentText(numberChanged + content);
         Intent notificationIntent = new Intent(context, MainActivity.class);
         notificationIntent.putExtra("notification", "true");
         notificationIntent.putExtra("notificationID", "123");
+        notificationIntent.putExtra("fragment", fragment);
         TaskStackBuilder tStackBuilder = TaskStackBuilder.create(context);
         tStackBuilder.addParentStack(MainActivity.class);
         tStackBuilder.addNextIntent(notificationIntent);
         PendingIntent pendingIntent = tStackBuilder.getPendingIntent(0,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
+        notificationManager.notify(123, notificationBuilder.build());
     }
 
-    public void syncKingdom() {
+    private void checkForBuildingsAndPostEvent() {
+        if (differenceBuildings != 0) {
+            EventBus.getDefault().post(new BuildingsEvent(syncedKingdom.getBuildings()));
+        }
+    }
+
+    private void checkForTroopsAndPostEvent() {
+        if (differenceTroops != 0) {
+            EventBus.getDefault().post(new TroopsEvent(syncedKingdom.getTroops()));
+        }
+    }
+
+    private void syncKingdom() {
         apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
             @Override
             public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {

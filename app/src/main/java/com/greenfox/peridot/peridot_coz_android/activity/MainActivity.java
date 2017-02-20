@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Vibrator;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
+import com.greenfox.peridot.peridot_coz_android.backgroundSync.NavBarEvent;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncReceiver;
 import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
@@ -37,6 +39,10 @@ import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ProgressDialog progressDialog;
     SyncReceiver syncReceiver;
     Kingdom kingdom;
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,15 +110,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             notificationManager.cancel(Integer.valueOf(getIntent().getStringExtra("notificationID")));
         }
         if (getIntent().getStringExtra("fragment")== null) {
+            navigationView.getMenu().getItem(0).setChecked(true);
             loadFragment(new KingdomOverviewFragment());
         } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
+            navigationView.getMenu().getItem(1).setChecked(true);
             loadFragment(new BuildingsOverviewFragment());
+        } else if (getIntent().getStringExtra("fragment").equals("troops")) {
+            navigationView.getMenu().getItem(2).setChecked(true);
+            loadFragment(new TroopsOverviewFragment());
         }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        EventBus.getDefault().unregister(this);
         CozApp.setApplicationVisible(false);
         saveBuildingCountToSharedPreferences();
         saveTroopCountToSharedPreferences();
@@ -120,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
+        EventBus.getDefault().register(this);
         CozApp.setApplicationVisible(true);
     }
 
@@ -174,11 +188,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        item.setChecked(false);
         if (id == R.id.nav_kingdom_overview) {
             loadFragment(new KingdomOverviewFragment());
         } else if (id == R.id.nav_buildings) {
+            item.setTitle("Buildings");
             loadFragment(new BuildingsOverviewFragment());
         } else if (id == R.id.nav_troops) {
+            item.setTitle("Troops");
             loadFragment(new TroopsOverviewFragment());
         } else if (id == R.id.nav_battle) {
             loadFragment(new BattleOverviewFragment());
@@ -240,6 +257,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void setBackgroundSyncTimer() {
         Intent syncIntent = new Intent(this, SyncReceiver.class);
         AlarmManager alarmManager =(AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), 5000, PendingIntent.getBroadcast(this, 1, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+        alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), 10000, PendingIntent.getBroadcast(this, 1, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+    }
+
+    @Subscribe
+    public void onNavBarEvent (NavBarEvent navBarEvent) {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        if (navBarEvent.getNewStuff()[0] != 0) {
+            MenuItem buildingsItem = navigationView.getMenu().getItem(1);
+            buildingsItem.setTitle("Buildings (" + navBarEvent.getNewStuff()[0] + ")");
+            vibrator.vibrate(500);
+        }
+        if (navBarEvent.getNewStuff()[1] != 0) {
+            MenuItem troopsItem = navigationView.getMenu().getItem(2);
+            troopsItem.setTitle("Troops (" + navBarEvent.getNewStuff()[1] + ")");
+            vibrator.vibrate(500);
+        }
     }
 }
