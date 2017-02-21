@@ -48,9 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DaggerServiceComponent.builder().build().inject(this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-
-        if(SharedPreferencesTokenEmpty()) {
-            checkSharedPreferencesForUser();
+        if(SharedPreferencesTokenEmpty() && checkSharedPreferencesForUser()) {
             services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
             @Override
             public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
@@ -161,10 +159,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pdCanceller.postDelayed(progressRunnable, 2000);
     }
     
-    private void checkSharedPreferencesForUser() {
+    private boolean checkSharedPreferencesForUser() {
         if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
             Toast.makeText(this, "You have to log in", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            return false;
+        }else{
+            return true;
         }
     }
 

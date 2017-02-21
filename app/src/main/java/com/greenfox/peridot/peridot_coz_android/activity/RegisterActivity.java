@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,9 +56,9 @@ public class RegisterActivity extends AppCompatActivity {
             services.apiLoginService.register(new RegisterRequest(regUsername.getText().toString(), regPassword.getText().toString(), regKingdomName.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
                 @Override
                 public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
-                    saveCorrectUsernameAndPasswordToSharedPreferences(regUsername.getText().toString(), response.body().getToken());
-                    loginWithCorrectPassword();
-                    Toast.makeText(getApplicationContext(), "Welcome " + regUsername.getText().toString() + "!", Toast.LENGTH_SHORT).show();
+                    if(response.body() == null){ Log.e("registration","ez miert nulla lol");}
+                    saveCorrectUsernameAndPasswordToSharedPreferences(regUsername.getText().toString(),regPassword.getText().toString());
+                    goToLoginWithNewUser();
 
                 }
                 @Override
@@ -67,18 +68,18 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void loginWithCorrectPassword() {
-        Intent intent = new Intent(this, MainActivity.class);
+    private void goToLoginWithNewUser() {
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
     }
 
-    private void saveCorrectUsernameAndPasswordToSharedPreferences(String username, String token) {
+    private void saveCorrectUsernameAndPasswordToSharedPreferences(String username, String password) {
         SharedPreferences registerData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = registerData.edit();
         editor.putString("username", username);
-        editor.putString("token", token);
+        editor.putString("password", password);
         editor.apply();
     }
 

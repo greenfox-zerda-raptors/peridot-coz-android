@@ -110,11 +110,23 @@ public class LoginActivity extends AppCompatActivity {
                 || loginPassword.getText().toString().equals("");
     }
 
-    public void getData() {
+    public void getData(View view) {
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String name = loginData.getString("username", "");
         String token = loginData.getString("token", "");
         String msg = "Saved User Name: " + name + "\nSaved Token: " + token;
         dataView.setText(msg);
     }
+
+    private void deleteSharedPreferences() {
+        SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginData.edit();
+        editor.putString("username", "");
+        editor.putString("password", "");
+        editor.putString("token", "");
+        editor.apply();
+        services.setApiService();
+    }
+
+
 }
