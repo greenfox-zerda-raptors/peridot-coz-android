@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void checkIfUsernameAndPasswordAreCorrectsAndLoginIfTheyAre(View view) {
+        deleteSharedPreferences();
         if (isUsernameOrPasswordEmpty()) {
             Toast.makeText(this, "Please fill in username/password", Toast.LENGTH_SHORT).show();
         } else {

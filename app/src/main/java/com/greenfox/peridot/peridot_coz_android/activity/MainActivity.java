@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {Log.d("Error", t.getMessage());}
-        });}
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             loadFragment(new KingdomOverviewFragment());
         } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
             loadFragment(new BuildingsOverviewFragment());
-        }
+        }}
     }
 
     @Override
