@@ -8,8 +8,10 @@
         android:protectionLevel="dangerous">
     </permission>
     <uses-permission android:name="com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService.SYNC_DONE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".CozApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
