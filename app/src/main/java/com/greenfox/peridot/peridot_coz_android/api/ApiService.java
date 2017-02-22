@@ -2,16 +2,10 @@ package com.greenfox.peridot.peridot_coz_android.api;
 
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
-import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
-import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
-import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.BuildingNewResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
-import com.greenfox.peridot.peridot_coz_android.model.response.UserResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
 
 import retrofit2.Call;

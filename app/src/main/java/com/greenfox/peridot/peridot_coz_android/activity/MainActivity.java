@@ -27,7 +27,7 @@ import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
-import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.LoginResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
 import javax.inject.Inject;
@@ -51,9 +51,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(SharedPreferencesTokenEmpty()) {
             checkSharedPreferencesForUser();
-            services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
+            services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginResponse>() {
             @Override
-            public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.body().getErrors() == null) {
                     String token = response.body().getToken();
                     services.setApiService();
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             @Override
-            public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {Log.d("Error", t.getMessage());}
+            public void onFailure(Call<LoginResponse> call, Throwable t) {Log.d("Error", t.getMessage());}
         });}
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
