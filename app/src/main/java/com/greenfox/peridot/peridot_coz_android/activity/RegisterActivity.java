@@ -10,22 +10,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
-import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.Response;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
 
 import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText regUsername;
     private EditText regPassword;
     private EditText regKingdomName;
+    private EditText regFirstName;
+    private EditText regLastName;
+    private EditText regEmail;
 
     @Inject
     Services services;
@@ -38,6 +42,9 @@ public class RegisterActivity extends AppCompatActivity {
         regUsername = (EditText) findViewById(R.id.regUsername);
         regPassword = (EditText) findViewById(R.id.regPassword);
         regKingdomName = (EditText) findViewById(R.id.regKingdom);
+        regFirstName = (EditText) findViewById(R.id.regFirstName);
+        regLastName = (EditText) findViewById(R.id.regLastName);
+        regEmail = (EditText) findViewById(R.id.regEmail);
         final Button regButton = (Button) findViewById(R.id.regButton);
 
         regButton.setOnClickListener(new View.OnClickListener() {
@@ -50,19 +57,22 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void checkIfFieldsAreNotEmptyThenRegisterIn(View v) {
-        if (isUsernameOrPasswordOrKingdomEmpty()) {
+        if (isAnyRequiredFieldEmpty()) {
             Toast.makeText(this, "Please fill out every field!", Toast.LENGTH_SHORT).show();
         } else {
-            services.apiLoginService.register(new RegisterRequest(regUsername.getText().toString(), regPassword.getText().toString(), regKingdomName.getText().toString())).enqueue(new Callback<LoginAndRegisterResponse>() {
+            services.apiLoginService.register(new RegisterRequest(regUsername.getText().toString(), regPassword.getText().toString(), regKingdomName.getText().toString(), regFirstName.getText().toString(), regLastName.getText().toString(), regEmail.getText().toString())).enqueue(new Callback<Response>() {
+
                 @Override
-                public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
-                    if(response.body() == null){ Log.e("registration","ez miert nulla lol");}
-                    saveCorrectUsernameAndPasswordToSharedPreferences(regUsername.getText().toString(),regPassword.getText().toString());
+                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                    saveCorrectUsernameAndPasswordToSharedPreferences(regUsername.getText().toString(), regPassword.getText().toString());
                     goToLoginWithNewUser();
+                    Toast.makeText(getApplicationContext(), "Welcome " + regUsername.getText().toString() + "!", Toast.LENGTH_SHORT).show();
+
 
                 }
+
                 @Override
-                public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {
+                public void onFailure(Call<Response> call, Throwable t) {
                 }
             });
         }
@@ -83,8 +93,12 @@ public class RegisterActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    private boolean isUsernameOrPasswordOrKingdomEmpty() {
+    private boolean isAnyRequiredFieldEmpty() {
         return regUsername.getText().toString().equals("")
-                || regPassword.getText().toString().equals("") || regKingdomName.getText().toString().equals("");
+                || regPassword.getText().toString().equals("")
+                || regKingdomName.getText().toString().equals("")
+                || regFirstName.getText().toString().equals("")
+                || regLastName.getText().toString().equals("")
+                || regEmail.getText().toString().equals("");
     }
 }
