@@ -33,4 +33,26 @@ public class Kingdom {
     public ArrayList<Troop> getTroops() {return troops;}
 
     public void setTroops(ArrayList<Troop> troops) {this.troops = troops;}
+
+    public int buildingsCount(){
+        return this.getBuildings().size();
+    }
+    public int troopsCount(){
+        return this.getTroops().size();
+    }
+    public int goldCount(){
+        if (this.getResources().get(0).getType() == "gold") {
+            return this.getResources().get(0).getAmount();
+        } else {
+            return this.getResources().get(1).getAmount();
+        }
+    }
+
+    public int foodCount(){
+        if (this.getResources().get(0).getType() == "food") {
+            return this.getResources().get(0).getAmount();
+        } else {
+            return this.getResources().get(1).getAmount();
+        }
+    }
 }

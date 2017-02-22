@@ -29,7 +29,6 @@
                 />
 
             <TextView
-                android:text="17 finished"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textview_finished_buildings"
@@ -78,7 +77,6 @@
                 android:textStyle="bold"
                 android:gravity="left"/>
             <TextView
-                android:text="500 gold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textview_gold"
@@ -87,7 +85,6 @@
                 android:layout_centerInParent="true"
                 android:gravity="left"/>
             <TextView
-                android:text="1200 food"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textview_food"
@@ -135,7 +132,6 @@
                 android:textStyle="bold"
                 android:gravity="left"/>
             <TextView
-                android:text="12 finished"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textview_finished_troops"
