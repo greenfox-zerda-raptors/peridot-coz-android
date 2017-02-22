@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {Log.d("Error", t.getMessage());}
-        });
-
+        });}
+        if (!SharedPreferencesTokenEmpty()){
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
