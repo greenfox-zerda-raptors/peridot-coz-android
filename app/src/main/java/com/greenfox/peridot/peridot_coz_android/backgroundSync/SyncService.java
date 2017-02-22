@@ -13,10 +13,10 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
-import com.greenfox.peridot.peridot_coz_android.api.ApiService;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
 
 import javax.inject.Inject;
 
@@ -27,7 +27,7 @@ import retrofit2.Response;
 public class SyncService extends IntentService{
 
     @Inject
-    ApiService apiService;
+    Services services;
     BuildingsResponse buildings;
     NotificationManager notificationManager;
 
@@ -43,7 +43,7 @@ public class SyncService extends IntentService{
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        DaggerApiComponent.builder().build().inject(this);
+        DaggerServiceComponent.builder().build().inject(this);
         Log.e("SyncService", "Sync start");
         Intent syncIntent = new Intent();
         Bundle bundle = new Bundle();
@@ -59,7 +59,7 @@ public class SyncService extends IntentService{
     }
 
     private void backgroundSync() {
-        apiService.syncBuildings(1).enqueue(new Callback<BuildingsResponse>() {
+        services.apiService.syncBuildings().enqueue(new Callback<BuildingsResponse>() {
             @Override
             public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
                 SharedPreferences preferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
