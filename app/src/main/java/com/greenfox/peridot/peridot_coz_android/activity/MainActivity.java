@@ -26,6 +26,7 @@ import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragme
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Inject
     Services services;
+    Kingdom kingdom;
     ProgressDialog progressDialog;
 
     @Override
@@ -86,6 +88,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             loadFragment(new BuildingsOverviewFragment());
         }}
     }
+  
+      @Override
+    protected void onPause() {
+        saveBuildingCountToSharedPreferences();
+        saveTroopCountToSharedPreferences();
+    }
+
+    private void saveBuildingCountToSharedPreferences(){
+        SharedPreferences buildingCount = getSharedPreferences("buildings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = buildingCount.edit();
+        int buildings = kingdom.getBuildings().size();
+        editor.putInt("buildings", buildings);
+        editor.apply();
+    }
+    private void saveTroopCountToSharedPreferences(){
+        SharedPreferences troopCount = getSharedPreferences("troops", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = troopCount.edit();
+        int troops = kingdom.getTroops().size();
+        editor.putInt("troops", troops);
+        editor.apply();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,22 +147,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_kingdom_overview) {
-            showLoadingProgress();
             loadFragment(new KingdomOverviewFragment());
         } else if (id == R.id.nav_buildings) {
-            showLoadingProgress();
             loadFragment(new BuildingsOverviewFragment());
         } else if (id == R.id.nav_troops) {
-            showLoadingProgress();
             loadFragment(new TroopsOverviewFragment());
         } else if (id == R.id.nav_battle) {
-            showLoadingProgress();
             loadFragment(new BattleOverviewFragment());
         } else if (id == R.id.nav_resources) {
-            showLoadingProgress();
             loadFragment(new ResourcesOverviewFragment());
         } else if (id == R.id.nav_user) {
-            showLoadingProgress();
             loadFragment(new UserOverviewFragment());
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -197,3 +214,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
     }
 }
+
