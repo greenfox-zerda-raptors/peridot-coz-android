@@ -3,7 +3,6 @@ package com.greenfox.peridot.peridot_coz_android.fragment;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,7 @@ import retrofit2.Response;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
-public class TroopsOverviewFragment extends Fragment {
+public class TroopsOverviewFragment extends BaseFragment {
 
     ListView troopsList;
     Troop troop;
@@ -39,19 +38,27 @@ public class TroopsOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         DaggerServiceComponent.builder().build().inject(this);
         View contentView = inflater.inflate(R.layout.troops_overview_layout, container, false);
+
         troopsList = (ListView) contentView.findViewById(R.id.troopsList);
+
         troopAdapter = new TroopAdapter(container.getContext(), troops);
         troopsList.setAdapter(troopAdapter);
-        services.apiService.getTroops().enqueue(new Callback<TroopsResponse>() {
-            @Override
-            public void onResponse(Call<TroopsResponse> call, Response<TroopsResponse> response) {
-                troopAdapter.clear();
-                troopAdapter.addAll(response.body().getTroops());
-            }
-            @Override
-            public void onFailure(Call<TroopsResponse> call, Throwable t) {}
-        });
+
+        services.apiService.getTroops().enqueue(this);
         return contentView;
+    }
+
+    @Override
+    public void onData(Call call, Response response) {
+        TroopsResponse troopsResponse = (TroopsResponse) response.body();
+        troopAdapter.clear();
+        troopAdapter.addAll(troopsResponse.getTroops());
+
+    }
+
+    @Override
+    public void onError(Call call, Throwable t) {
+
     }
 
     @Override
@@ -87,3 +94,4 @@ public class TroopsOverviewFragment extends Fragment {
         vibrator.vibrate(500);
     }
 }
+
