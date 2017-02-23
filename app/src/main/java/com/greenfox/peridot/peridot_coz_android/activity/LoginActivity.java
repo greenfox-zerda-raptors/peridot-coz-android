@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginResponse;
