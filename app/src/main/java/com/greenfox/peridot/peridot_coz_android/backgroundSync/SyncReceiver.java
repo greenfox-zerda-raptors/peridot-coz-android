@@ -15,6 +15,7 @@ import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,20 +45,16 @@ public class SyncReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
-//        DaggerServiceComponent.builder().build().inject(this);
+        DaggerServiceComponent.builder().build().inject(this);
         preferences = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         syncKingdom();
-//        EventBus.getDefault().post(new NavBarEvent(new int [] {5, 1}));
-        Log.e("asdasdasda","asdasdasd");
         calculateDifferences();
         if (differenceBuildings != 0 && differenceTroops != 0) {
             if (!CozApp.isApplicationVisible()) {
-                Log.e("syncreceiver", "i am doing background stuff");
                 notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 checkForBuildingsAndNotify();
                 checkForTroopsAndNotify();
             } else {
-                Log.e("syncreceiver", "i am doing stuff");
                 checkForBuildingsAndPostEvent();
                 checkForTroopsAndPostEvent();
                 EventBus.getDefault().post(new NavBarEvent(new int [] {differenceBuildings, differenceTroops}));

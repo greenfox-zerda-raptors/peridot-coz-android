@@ -1,12 +1,10 @@
 package com.greenfox.peridot.peridot_coz_android.api;
 
 import java.io.IOException;
-import javax.inject.Singleton;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-@Singleton
 public class AuthorizationInterceptor implements Interceptor {
 
     private String authToken;
