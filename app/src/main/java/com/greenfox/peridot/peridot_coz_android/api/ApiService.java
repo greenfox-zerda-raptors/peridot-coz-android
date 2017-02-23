@@ -19,50 +19,44 @@ import retrofit2.http.*;
 
 public interface ApiService {
 
-    String ENDPOINT = "http://clash-of-zerda.com";
+    String ENDPOINT = "https://pacific-bastion-75389.herokuapp.com";
 
-    @POST("/login")
-    Call<LoginAndRegisterResponse> login(LoginRequest loginRequest);
+    @GET("/users")
+    Call<UsersResponse> getUsers();
 
-    @POST("/register")
-    Call<LoginAndRegisterResponse> register(RegisterRequest registerRequest);
+    @GET("/kingdom/")
+    Call<KingdomResponse> getKingdom();
 
-    @GET("/kingdom/{userId}/")
-    Call<KingdomResponse> getKingdom(@Path("userId") int userId);
+    @GET ("/kingdom/troops/")
+    Call<TroopsResponse> getTroops();
 
-    @GET ("/kingdom/{userId}/troops/")
-    Call<TroopsResponse> getTroops(@Path("userId") int userId);
+    @GET ("/kingdom/troops/{troopId}/")
+    Call<Troop> getTroopDetail(@Path("troopId") int troopId);
 
-    @GET ("/kingdom/{userId}/troops/{troopId}/")
-    Call<Troop> getTroopDetail(@Path("userId") int userId, @Path("troopId") int troopId);
+    @POST ("/kingdom/troops/")
+    Call<Troop> createTroop();
 
-    @POST ("/kingdom/{userId}/troops/")
-    Call<Troop> createTroop(@Path("userId") int userId);
+    @PUT ("/kingdom/troops/{troopId}/")
+    Call<Troop> upgradeTroop(@Path("troopId") int troopId);
 
-    @PUT ("/kingdom/{userId}/troops/{troopId}/")
-    Call<Troop> upgradeTroop(@Path("userId") int userId, @Path("troopId") int troopId);
+    @GET("/kingdom/buildings/")
+    Call<BuildingsResponse> getBuildings();
 
-    @GET("/kingdom/{userId}/buildings/")
-    Call<BuildingsResponse> getBuildings(@Path("userId") int userId);
+    @GET("/kingdom/buildings/{buildingId}/")
+    Call<Building> getDetailsOfBuilding(@Path("buildingId")int buildingId);
 
-    @GET("/kingdom/{userId}/buildings/{buildingId}/")
-    Call<Building> getDetailsOfBuilding(@Path("userId")int userId, @Path("buildingId")int buildingId);
+    @POST("/kingdom/buildings/")
+    Call<Building> createBuilding(@Body Building building);
 
-    @POST("/kingdom/{userId}/buildings/")
-    Call<Building> createBuilding(@Path("userId") int userId, @Body Building building);
-
-    @POST("/kingdom/{userId}/buildings/{buildingId}/")
-    Call<Building> upgradeBuilding(@Path("userId") int userId, @Path("buildingId")int buildingId, @Body Building building);
+    @POST("/kingdom/buildings/{buildingId}/")
+    Call<Building> upgradeBuilding(@Path("buildingId")int buildingId, @Body Building building);
   
-    @GET("/kingdom/{userId}/resources/")
-    Call<ResourceResponse> getResource(@Path("userId") int userId);
+    @GET("/kingdom/resources/")
+    Call<ResourceResponse> getResource();
 
-    @GET("/kingdom/{userId}/resources/{type}")
-    Call<ResourceResponse> getType(@Path("userId") int userId, @Path("type") String type);
+    @GET("/kingdom/resources/{type}")
+    Call<ResourceResponse> getType(@Path("type") String type);
   
-    @GET("/kingdom/{userId}/buildings/")
-    Call<BuildingsResponse> syncBuildings(@Path("userId") int userId);
-
-    @GET("/kingdom/{userId}")
-    Call<UsersResponse> getUsers(@Path("userId") int userId);
+    @GET("/kingdom/buildings/")
+    Call<BuildingsResponse> syncBuildings();
 }
