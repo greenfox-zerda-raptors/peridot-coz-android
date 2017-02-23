@@ -66,7 +66,56 @@ public class MockService implements ApiService {
         };
     }
 
+    @Override
+    public Call<TroopsResponse> getTroops() {
+        return new MockCall<TroopsResponse>() {
+            @Override
+            public void enqueue(Callback<TroopsResponse> callback) {
+                Response<TroopsResponse> r = Response.success(new TroopsResponse(troops));
+                callback.onResponse(this, r);
+            }
+        };
+    }
 
+    @Override
+    public Call<Troop> getTroopDetail(final int troopId) {
+        return new MockCall<Troop>() {
+            @Override
+            public void enqueue(Callback<Troop> callback) {
+                Response<Troop> r = null;
+                if (troopId == 1) {
+                    r = Response.success(troop1);
+                } else if (troopId == 2) {
+                    r = Response.success(troop2);
+                } else if (troopId == 3) {
+                    r = Response.success(troop3);
+                }
+                callback.onResponse(this, r);
+            }
+        };
+    }
+
+    @Override
+    public Call<Troop> trainTroop() {
+        return new MockCall<Troop>() {
+            @Override
+            public void enqueue(Callback<Troop> callback) {
+                Response<Troop> r = Response.success(new Troop());
+                callback.onResponse(this, r);
+            }
+        };
+    }
+
+    @Override
+    public Call<Troop> upgradeTroop(@Body final Troop troop) {
+        return new MockCall<Troop>() {
+            @Override
+            public void enqueue(Callback<Troop> callback) {
+                Response<Troop> r = Response.success(new Troop(10, 2, 1));
+                callback.onResponse(this, r);
+            }
+        };
+    }
 
     @Override
     public Call<BuildingsResponse> getBuildings() {
@@ -102,7 +151,7 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Building> upgradeBuilding(@Path("buildingId") int buildingId, @Body final Building building) {
+    public Call<Building> upgradeBuilding(@Body final Building building) {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
@@ -124,62 +173,11 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<ResourceResponse> getType(@Path("type") String type) {
+    public Call<ResourceResponse> getResourceType(@Path("type") String type) {
         return new MockCall<ResourceResponse>() {
             @Override
             public void enqueue(Callback<ResourceResponse> callback) {
                 Response<ResourceResponse> r = Response.success(new ResourceResponse(resources));
-                callback.onResponse(this, r);
-            }
-        };
-    }
-
-    @Override
-    public Call<TroopsResponse> getTroops() {
-        return new MockCall<TroopsResponse>() {
-            @Override
-            public void enqueue(Callback<TroopsResponse> callback) {
-                Response<TroopsResponse> r = Response.success(new TroopsResponse(troops));
-                callback.onResponse(this, r);
-            }
-        };
-    }
-
-    @Override
-    public Call<Troop> getTroopDetail(final int troopId) {
-        return new MockCall<Troop>() {
-            @Override
-            public void enqueue(Callback<Troop> callback) {
-                Response<Troop> r = null;
-                if (troopId == 1) {
-                    r = Response.success(troop1);
-                } else if (troopId == 2) {
-                    r = Response.success(troop2);
-                } else if (troopId == 3) {
-                    r = Response.success(troop3);
-                }
-                callback.onResponse(this, r);
-            }
-        };
-    }
-
-    @Override
-    public Call<Troop> createTroop() {
-        return new MockCall<Troop>() {
-            @Override
-            public void enqueue(Callback<Troop> callback) {
-                Response<Troop> r = Response.success(new Troop());
-                callback.onResponse(this, r);
-            }
-        };
-    }
-
-    @Override
-    public Call<Troop> upgradeTroop(int troopId) {
-        return new MockCall<Troop>() {
-            @Override
-            public void enqueue(Callback<Troop> callback) {
-                Response<Troop> r = Response.success(new Troop(10, 2, 1));
                 callback.onResponse(this, r);
             }
         };

@@ -31,11 +31,11 @@ public interface ApiService {
     @GET ("/kingdom/troops/{troopId}/")
     Call<Troop> getTroopDetail(@Path("troopId") int troopId);
 
-    @POST ("/kingdom/troops/")
-    Call<Troop> createTroop();
+    @POST ("/kingdom/troops/new")
+    Call<Troop> trainTroop();
 
-    @PUT ("/kingdom/troops/{troopId}/")
-    Call<Troop> upgradeTroop(@Path("troopId") int troopId);
+    @POST ("/kingdom/troops/upgrade")
+    Call<Troop> upgradeTroop(@Body Troop troop);
 
     @GET("/kingdom/buildings/")
     Call<BuildingsResponse> getBuildings();
@@ -46,14 +46,14 @@ public interface ApiService {
     @POST("/kingdom/buildings/")
     Call<Building> createBuilding(@Body Building building);
 
-    @POST("/kingdom/buildings/{buildingId}/")
-    Call<Building> upgradeBuilding(@Path("buildingId")int buildingId, @Body Building building);
+    @POST("/kingdom/buildings/upgrade")
+    Call<Building> upgradeBuilding(@Body Building building);
   
     @GET("/kingdom/resources/")
     Call<ResourceResponse> getResource();
 
     @GET("/kingdom/resources/{type}")
-    Call<ResourceResponse> getType(@Path("type") String type);
+    Call<ResourceResponse> getResourceType(@Path("type") String type);
   
     @GET("/kingdom/buildings/")
     Call<BuildingsResponse> syncBuildings();

@@ -73,7 +73,7 @@ public class BuildingsOverviewFragment extends Fragment {
             public void onClick(View v) {
                 Building mine = new Building(counter, "Mine");
                 counter++;
-                overrideApi(mine);
+                createNewBuilding(mine);
             }
         });
         farmFab.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +81,7 @@ public class BuildingsOverviewFragment extends Fragment {
             public void onClick(View v) {
                 Building farm = new Building(counter, "Farm");
                 counter++;
-                overrideApi(farm);
+                createNewBuilding(farm);
             }
         });
         barrackFab.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +89,7 @@ public class BuildingsOverviewFragment extends Fragment {
             public void onClick(View v) {
                 Building barrack = new Building(counter, "Barrack");
                 counter++;
-                overrideApi(barrack);
+                createNewBuilding(barrack);
             }
         });
         townhallFab.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +97,7 @@ public class BuildingsOverviewFragment extends Fragment {
             public void onClick(View v) {
                 Building townhall = new Building(counter, "Townhall");
                 counter++;
-                overrideApi(townhall);
+                createNewBuilding(townhall);
             }
         });
         final ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
@@ -131,7 +131,7 @@ public class BuildingsOverviewFragment extends Fragment {
     return contentView;
 }
 
-    private void overrideApi(final Building building) {
+    private void createNewBuilding(final Building building) { 
         services.apiService.createBuilding(building).enqueue(new Callback<Building>() {
             @Override
             public void onResponse(Call<Building> call, Response<Building> response) {
