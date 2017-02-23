@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.NavBarEvent;
@@ -31,12 +32,16 @@ import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
+
 import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -51,7 +56,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void onData(Call call, Response response) {
         LoginResponse loginResponse = (LoginResponse) response.body();
         Log.e("response", loginResponse.getToken());
-        if (loginResponse.getErrors() == null){
+        if (loginResponse.getErrors() == null) {
             String token = loginResponse.getToken();
             services.setApiService();
             Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
@@ -74,14 +79,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
+
         if (SharedPreferencesTokenEmpty() && checkSharedPreferencesForUser()) {
             services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(this);
-            {
-
-            }
         }
 
         if (!SharedPreferencesTokenEmpty()) {
+            syncReceiver = new SyncReceiver();
+            setBackgroundSyncTimer();
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -95,40 +100,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 notificationManager.cancel(Integer.valueOf(getIntent().getStringExtra("notificationID")));
             }
             if (getIntent().getStringExtra("fragment") == null) {
+                navigationView.getMenu().getItem(0).setChecked(true);
                 loadFragment(new KingdomOverviewFragment());
             } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
+                navigationView.getMenu().getItem(1).setChecked(true);
                 loadFragment(new BuildingsOverviewFragment());
-            }
-        }
-
-        if (SharedPreferencesTokenEmpty() && checkSharedPreferencesForUser()) {
-            services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(this);
-
-            if (!SharedPreferencesTokenEmpty()) {
-                syncReceiver = new SyncReceiver();
-                setBackgroundSyncTimer();
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                        this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-                drawer.setDrawerListener(toggle);
-                toggle.syncState();
-                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-                navigationView.setNavigationItemSelectedListener(this);
-                if (getIntent().getStringExtra("notification") != null) {
-                    NotificationManager notificationManager =
-                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.cancel(Integer.valueOf(getIntent().getStringExtra("notificationID")));
-                }
-                if (getIntent().getStringExtra("fragment") == null) {
-                    navigationView.getMenu().getItem(0).setChecked(true);
-                    loadFragment(new KingdomOverviewFragment());
-                } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
-                    navigationView.getMenu().getItem(1).setChecked(true);
-                    loadFragment(new BuildingsOverviewFragment());
-                } else if (getIntent().getStringExtra("fragment").equals("troops")) {
-                    navigationView.getMenu().getItem(2).setChecked(true);
-                    loadFragment(new TroopsOverviewFragment());
-                }
+            } else if (getIntent().getStringExtra("fragment").equals("troops")) {
+                navigationView.getMenu().getItem(2).setChecked(true);
+                loadFragment(new TroopsOverviewFragment());
             }
         }
     }
