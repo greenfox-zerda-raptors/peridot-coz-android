@@ -19,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BuildingDetailFragment extends Fragment {
+public class BuildingDetailFragment extends BaseFragment {
 
     @Inject
     Services services;
@@ -71,5 +71,15 @@ public class BuildingDetailFragment extends Fragment {
         buildingLevel.setText(String.valueOf("Level " + building.getLevel()));
 
         return contentView;
+    }
+
+    @Override
+    public void onData(Call call, Response response) {
+
+    }
+
+    @Override
+    public void onError(Call call, Throwable t) {
+
     }
 }

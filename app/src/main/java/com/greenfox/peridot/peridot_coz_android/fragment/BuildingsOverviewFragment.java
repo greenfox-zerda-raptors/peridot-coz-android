@@ -32,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BuildingsOverviewFragment extends Fragment {
+public class BuildingsOverviewFragment extends BaseFragment {
 
     private ArrayList<Building> buildings = new ArrayList<>();
     private BuildingAdapter adapter;
@@ -152,6 +152,17 @@ public class BuildingsOverviewFragment extends Fragment {
         }) ;
         return contentView;
     }
+
+    @Override
+    public void onData(Call call, Response response) {
+
+    }
+
+    @Override
+    public void onError(Call call, Throwable t) {
+
+    }
+
     @Override
     public void onPause() {
         super.onPause();
