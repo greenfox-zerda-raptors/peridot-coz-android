@@ -1,6 +1,5 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

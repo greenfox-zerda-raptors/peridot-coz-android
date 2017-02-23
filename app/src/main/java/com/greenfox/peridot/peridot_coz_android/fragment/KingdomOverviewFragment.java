@@ -2,7 +2,6 @@ package com.greenfox.peridot.peridot_coz_android.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class KingdomOverviewFragment extends Fragment {
+public class KingdomOverviewFragment extends BaseFragment {
 
     @Inject
     Services services;
@@ -84,5 +83,15 @@ public class KingdomOverviewFragment extends Fragment {
         });
 
         return contentView;
+    }
+
+    @Override
+    public void onData(Call call, Response response) {
+
+    }
+
+    @Override
+    public void onError(Call call, Throwable t) {
+
     }
 }

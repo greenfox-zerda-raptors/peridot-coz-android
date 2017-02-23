@@ -3,7 +3,6 @@ package com.greenfox.peridot.peridot_coz_android.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,10 @@ import android.widget.Switch;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
 
-public class SettingsFragment extends Fragment {
+import retrofit2.Call;
+import retrofit2.Response;
+
+public class SettingsFragment extends BaseFragment {
 
     Switch enableNotifications;
     Switch enableBackgroundSync;
@@ -51,6 +53,16 @@ public class SettingsFragment extends Fragment {
             }
         });
         return contentView;
+    }
+
+    @Override
+    public void onData(Call call, Response response) {
+
+    }
+
+    @Override
+    public void onError(Call call, Throwable t) {
+
     }
 
     private void modifySharedPreferences(String modifyThis, boolean isEnabled ) {
