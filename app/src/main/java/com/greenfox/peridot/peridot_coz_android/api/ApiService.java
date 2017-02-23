@@ -6,6 +6,7 @@ import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
+import com.greenfox.peridot.peridot_coz_android.model.response.UserResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
 
 import retrofit2.Call;
@@ -15,7 +16,10 @@ public interface ApiService {
 
     String ENDPOINT = "https://pacific-bastion-75389.herokuapp.com";
 
-    @GET("/users")
+    @GET("/search/{username}")
+    Call<UserResponse> searchUser();
+
+    @GET("/realm/leaderboard")
     Call<UsersResponse> getUsers();
 
     @GET("/kingdom/")
