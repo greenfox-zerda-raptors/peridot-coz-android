@@ -40,7 +40,6 @@ public class MockLoginService implements ApiLoginService {
     }
 
     @Override
-
     public Call<com.greenfox.peridot.peridot_coz_android.model.response.Response> register(final @Body RegisterRequest registerRequest) {
         return new MockCall<com.greenfox.peridot.peridot_coz_android.model.response.Response>() {
             @Override
