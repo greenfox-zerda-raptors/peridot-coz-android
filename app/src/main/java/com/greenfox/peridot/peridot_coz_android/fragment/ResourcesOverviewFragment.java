@@ -13,7 +13,6 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
-
 import java.util.ArrayList;
 import javax.inject.Inject;
 import retrofit2.Call;

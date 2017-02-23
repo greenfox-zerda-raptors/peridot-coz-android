@@ -7,7 +7,6 @@ import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
-
 import retrofit2.Call;
 import retrofit2.http.*;
 

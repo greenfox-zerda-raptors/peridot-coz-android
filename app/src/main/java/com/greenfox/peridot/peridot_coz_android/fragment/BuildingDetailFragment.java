@@ -7,14 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
-
 import javax.inject.Inject;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
