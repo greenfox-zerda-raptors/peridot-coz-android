@@ -12,11 +12,9 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
-
 import java.util.ArrayList;
 import javax.inject.Inject;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ResourcesOverviewFragment extends BaseFragment {
@@ -42,24 +40,17 @@ public class ResourcesOverviewFragment extends BaseFragment {
                 resourceList);
         resourcesListView.setAdapter(resourceAdapter);
 
-        services.apiService.getResource().enqueue(new Callback<ResourceResponse>() {
-            @Override
-            public void onResponse(Call<ResourceResponse> call, Response<ResourceResponse> response) {
-                resourceAdapter.clear();
-                resourceAdapter.addAll(response.body().getResources());
-            }
-
-            @Override
-            public void onFailure(Call<ResourceResponse> call, Throwable t) {
-            }
-        });
-
-        return contentView;
+        services.apiService.getResource().enqueue(this);
+        {
+            return contentView;
+        }
     }
 
     @Override
     public void onData(Call call, Response response) {
-
+        ResourceResponse resourceResponse = (ResourceResponse) response.body();
+        resourceAdapter.clear();
+        resourceAdapter.addAll(resourceResponse.getResources());
     }
 
     @Override

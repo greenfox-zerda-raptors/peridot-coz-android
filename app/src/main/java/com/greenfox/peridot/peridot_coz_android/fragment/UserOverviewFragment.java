@@ -12,17 +12,14 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
 import com.greenfox.peridot.peridot_coz_android.model.response.UsersResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
-
 import java.util.ArrayList;
 import javax.inject.Inject;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserOverviewFragment extends BaseFragment {
 
     ListView usersList;
-    User user;
     private ArrayList<User> users = new ArrayList<>();
     private UserAdapter userAdapter;
     @Inject
@@ -39,24 +36,16 @@ public class UserOverviewFragment extends BaseFragment {
         userAdapter = new UserAdapter(container.getContext(), users);
         usersList.setAdapter(userAdapter);
 
-        services.apiService.getUsers().enqueue(new Callback<UsersResponse>() {
-            @Override
-            public void onResponse(Call<UsersResponse> call, Response<UsersResponse> response) {
-                userAdapter.clear();
-                userAdapter.addAll(response.body().getUsers());
-            }
-
-            @Override
-            public void onFailure(Call<UsersResponse> call, Throwable t) {
-
-            }
-        });
-        return contentView;
+        services.apiService.getUsers().enqueue(this); {
+            return contentView;
+        }
     }
 
     @Override
     public void onData(Call call, Response response) {
-
+        UsersResponse usersResponse = (UsersResponse) response.body();
+        userAdapter.clear();
+        userAdapter.addAll(usersResponse.getUsers());
     }
 
     @Override

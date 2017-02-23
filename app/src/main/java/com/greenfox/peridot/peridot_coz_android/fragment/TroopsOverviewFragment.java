@@ -39,21 +39,17 @@ public class TroopsOverviewFragment extends BaseFragment {
         troopAdapter = new TroopAdapter(container.getContext(), troops);
         troopsList.setAdapter(troopAdapter);
 
-        services.apiService.getTroops().enqueue(new Callback<TroopsResponse>() {
-
-            @Override
-            public void onResponse(Call<TroopsResponse> call, Response<TroopsResponse> response) {
-                troopAdapter.clear();
-                troopAdapter.addAll(response.body().getTroops());
-            }
-            @Override
-            public void onFailure(Call<TroopsResponse> call, Throwable t) {
-            }});
-        return contentView;
+        services.apiService.getTroops().enqueue(this);
+        {
+            return contentView;
+        }
     }
 
     @Override
     public void onData(Call call, Response response) {
+        TroopsResponse troopsResponse = (TroopsResponse) response.body();
+        troopAdapter.clear();
+        troopAdapter.addAll(troopsResponse.getTroops());
 
     }
 

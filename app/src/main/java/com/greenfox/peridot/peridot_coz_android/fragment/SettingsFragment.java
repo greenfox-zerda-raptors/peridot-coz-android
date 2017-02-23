@@ -14,7 +14,7 @@ import com.greenfox.peridot.peridot_coz_android.R;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class SettingsFragment extends BaseFragment {
+public class SettingsFragment extends android.support.v4.app.Fragment {
 
     Switch enableNotifications;
     Switch enableBackgroundSync;
@@ -53,16 +53,6 @@ public class SettingsFragment extends BaseFragment {
             }
         });
         return contentView;
-    }
-
-    @Override
-    public void onData(Call call, Response response) {
-
-    }
-
-    @Override
-    public void onError(Call call, Throwable t) {
-
     }
 
     private void modifySharedPreferences(String modifyThis, boolean isEnabled ) {
