@@ -1,5 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
+<<<<<<< HEAD
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+=======
+import android.os.Bundle;
+import android.os.Vibrator;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+>>>>>>> master
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,26 +26,44 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
+<<<<<<< HEAD
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncService;
+=======
+import com.greenfox.peridot.peridot_coz_android.backgroundSync.BuildingsEvent;
+>>>>>>> master
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
+<<<<<<< HEAD
+=======
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+>>>>>>> master
 import java.util.ArrayList;
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+<<<<<<< HEAD
 
 public class BuildingsOverviewFragment extends BaseFragment {
+=======
+import static android.content.Context.VIBRATOR_SERVICE;
+
+public class BuildingsOverviewFragment extends Fragment {
+>>>>>>> master
 
     private ArrayList<Building> buildings = new ArrayList<>();
     private BuildingAdapter adapter;
     private int counter = 164;
+<<<<<<< HEAD
 
     IntentFilter intentFilter;
     BroadcastReceiver syncReceiver;
+=======
+>>>>>>> master
     @Inject
     Services services;
     FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab, fakeFab;
@@ -50,6 +76,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
 
         View contentView = inflater.inflate(R.layout.buildings_overview_layout, container, false);
         DaggerServiceComponent.builder().build().inject(this);
+<<<<<<< HEAD
         intentFilter = new IntentFilter(SyncService.SYNC_DONE);
         syncReceiver = new BroadcastReceiver() {
             @Override
@@ -64,6 +91,8 @@ public class BuildingsOverviewFragment extends BaseFragment {
             }
         };
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(syncReceiver, intentFilter);
+=======
+>>>>>>> master
         mainFab = (FloatingActionButton) contentView.findViewById(R.id.mainFab);
         mineFab = (FloatingActionButton) contentView.findViewById(R.id.mineFab);
         farmFab = (FloatingActionButton) contentView.findViewById(R.id.farmFab);
@@ -84,7 +113,10 @@ public class BuildingsOverviewFragment extends BaseFragment {
         fakeFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 startSyncService(v);
+=======
+>>>>>>> master
                 openAndCloseFabs();
             }
         });
@@ -148,6 +180,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
                         .commit();
             }
         }) ;
+<<<<<<< HEAD
         return contentView;
     }
 
@@ -159,11 +192,32 @@ public class BuildingsOverviewFragment extends BaseFragment {
     @Override
     public void onError(Call call, Throwable t) {
 
+=======
+    return contentView;
+}
+
+    private void overrideApi(final Building building) {
+        services.apiService.createBuilding(building).enqueue(new Callback<Building>() {
+            @Override
+            public void onResponse(Call<Building> call, Response<Building> response) {
+                adapter.add(response.body());
+            }
+            @Override
+            public void onFailure(Call<Building> call, Throwable t) {}
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+>>>>>>> master
     }
 
     @Override
     public void onPause() {
         super.onPause();
+<<<<<<< HEAD
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(syncReceiver);
     }
 
@@ -186,6 +240,17 @@ public class BuildingsOverviewFragment extends BaseFragment {
             }
         });
     }
+=======
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+    }
+
+>>>>>>> master
     private void openAndCloseFabs() {
         if (isMainFabOpen) {
             mainFab.startAnimation(mainFabRotateLeft);
@@ -209,10 +274,28 @@ public class BuildingsOverviewFragment extends BaseFragment {
         barrackFab.setClickable(isMainFabOpen);
         townhallFab.setClickable(isMainFabOpen);
         fakeFab.setClickable(isMainFabOpen);
+<<<<<<< HEAD
     }
 
     private void startSyncService(View v) {
         Intent intent = new Intent(getActivity(), SyncService.class);
         getActivity().startService(intent);
+=======
+   }
+
+    @Subscribe
+    private void onBuildingsEvent(BuildingsEvent buildingsEvent) {
+            services.apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
+                @Override
+                public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
+                    adapter.clear();
+                    adapter.addAll(response.body().getBuildings());
+                }
+                @Override
+                public void onFailure(Call<BuildingsResponse> call, Throwable t) {}
+            });
+            Vibrator vibrator = (Vibrator) getActivity().getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+            vibrator.vibrate(500);
+>>>>>>> master
     }
 }

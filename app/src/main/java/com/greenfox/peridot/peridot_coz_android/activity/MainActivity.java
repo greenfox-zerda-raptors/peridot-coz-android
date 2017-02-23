@@ -1,9 +1,16 @@
 package com.greenfox.peridot.peridot_coz_android.activity;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
+<<<<<<< HEAD
+=======
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
+>>>>>>> master
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Vibrator;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -15,7 +22,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.R;
+import com.greenfox.peridot.peridot_coz_android.backgroundSync.NavBarEvent;
+import com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncReceiver;
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
@@ -25,6 +35,8 @@ import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
@@ -37,6 +49,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     Kingdom kingdom;
     @Inject
     Services services;
+<<<<<<< HEAD
 
     @Override
     public void onData(Call call, Response response) {
@@ -57,6 +70,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Log.d("Error", t.getMessage());
     }
 
+=======
+    ProgressDialog progressDialog;
+    SyncReceiver syncReceiver;
+    Kingdom kingdom;
+>>>>>>> master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +83,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         DaggerServiceComponent.builder().build().inject(this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
+<<<<<<< HEAD
 
 
         if(SharedPreferencesTokenEmpty() && checkSharedPreferencesForUser()) {
@@ -91,22 +110,80 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
                 loadFragment(new BuildingsOverviewFragment());
             }}
+=======
+        if (SharedPreferencesTokenEmpty() && checkSharedPreferencesForUser()) {
+            services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.body().getErrors() == null) {
+                        String token = response.body().getToken();
+                        services.setApiService();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Log.d("Error", t.getMessage());
+                }
+            });
+        }
+        if (!SharedPreferencesTokenEmpty()) {
+            syncReceiver = new SyncReceiver();
+            setBackgroundSyncTimer();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+            if (getIntent().getStringExtra("notification") != null) {
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(Integer.valueOf(getIntent().getStringExtra("notificationID")));
+            }
+            if (getIntent().getStringExtra("fragment") == null) {
+                navigationView.getMenu().getItem(0).setChecked(true);
+                loadFragment(new KingdomOverviewFragment());
+            } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
+                navigationView.getMenu().getItem(1).setChecked(true);
+                loadFragment(new BuildingsOverviewFragment());
+            } else if (getIntent().getStringExtra("fragment").equals("troops")) {
+                navigationView.getMenu().getItem(2).setChecked(true);
+                loadFragment(new TroopsOverviewFragment());
+            }
+        }
+>>>>>>> master
     }
 
     @Override
     protected void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+        CozApp.setApplicationVisible(false);
         saveBuildingCountToSharedPreferences();
         saveTroopCountToSharedPreferences();
     }
 
-    private void saveBuildingCountToSharedPreferences(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+        CozApp.setApplicationVisible(true);
+    }
+
+    private void saveBuildingCountToSharedPreferences() {
         SharedPreferences buildingCount = getSharedPreferences("buildings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = buildingCount.edit();
         int buildings = kingdom.getBuildings().size();
         editor.putInt("buildings", buildings);
         editor.apply();
     }
-    private void saveTroopCountToSharedPreferences(){
+
+    private void saveTroopCountToSharedPreferences() {
         SharedPreferences troopCount = getSharedPreferences("troops", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = troopCount.edit();
         int troops = kingdom.getTroops().size();
@@ -150,11 +227,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        item.setChecked(false);
         if (id == R.id.nav_kingdom_overview) {
             loadFragment(new KingdomOverviewFragment());
         } else if (id == R.id.nav_buildings) {
+            item.setTitle("Buildings");
             loadFragment(new BuildingsOverviewFragment());
         } else if (id == R.id.nav_troops) {
+            item.setTitle("Troops");
             loadFragment(new TroopsOverviewFragment());
         } else if (id == R.id.nav_battle) {
             loadFragment(new BattleOverviewFragment());
@@ -168,12 +248,29 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return true;
     }
 
+<<<<<<< HEAD
+=======
+    public void showLoadingProgress() {
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.show();
+        progressDialog.setMessage("loading...");
+        Runnable progressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.cancel();
+            }
+        };
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 2000);
+    }
+
+>>>>>>> master
     private boolean checkSharedPreferencesForUser() {
         if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
             Toast.makeText(this, "You have to log in", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -202,5 +299,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 .replace(R.id.content_frame, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    public void setBackgroundSyncTimer() {
+        Intent syncIntent = new Intent(this, SyncReceiver.class);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), 10000, PendingIntent.getBroadcast(this, 1, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+    }
+
+    @Subscribe
+    public void onNavBarEvent(NavBarEvent navBarEvent) {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        if (navBarEvent.getNewStuff()[0] != 0) {
+            MenuItem buildingsItem = navigationView.getMenu().getItem(1);
+            buildingsItem.setTitle("Buildings (" + navBarEvent.getNewStuff()[0] + ")");
+            vibrator.vibrate(500);
+        }
+        if (navBarEvent.getNewStuff()[1] != 0) {
+            MenuItem troopsItem = navigationView.getMenu().getItem(2);
+            troopsItem.setTitle("Troops (" + navBarEvent.getNewStuff()[1] + ")");
+            vibrator.vibrate(500);
+        }
     }
 }
