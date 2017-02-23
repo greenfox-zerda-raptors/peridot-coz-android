@@ -62,9 +62,9 @@ public class KingdomOverviewFragment extends BaseFragment {
         tvResourcesFood = (TextView) contentView.findViewById(R.id.textview_food);
         tvTroops = (TextView) contentView.findViewById(R.id.textview_finished_troops);
 
-        services.apiService.getKingdom().enqueue(this); {
-            return contentView;
-        }
+        services.apiService.getKingdom().enqueue(this);
+        return contentView;
+
     }
 
     @Override

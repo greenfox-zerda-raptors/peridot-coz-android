@@ -45,9 +45,7 @@ public class TroopsOverviewFragment extends BaseFragment {
         troopsList.setAdapter(troopAdapter);
 
         services.apiService.getTroops().enqueue(this);
-        {
-            return contentView;
-        }
+        return contentView;
     }
 
     @Override

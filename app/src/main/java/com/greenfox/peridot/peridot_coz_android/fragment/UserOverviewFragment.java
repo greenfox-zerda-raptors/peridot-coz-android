@@ -36,9 +36,8 @@ public class UserOverviewFragment extends BaseFragment {
         userAdapter = new UserAdapter(container.getContext(), users);
         usersList.setAdapter(userAdapter);
 
-        services.apiService.getUsers().enqueue(this); {
-            return contentView;
-        }
+        services.apiService.getUsers().enqueue(this);
+        return contentView;
     }
 
     @Override

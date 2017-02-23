@@ -41,9 +41,7 @@ public class ResourcesOverviewFragment extends BaseFragment {
         resourcesListView.setAdapter(resourceAdapter);
 
         services.apiService.getResource().enqueue(this);
-        {
-            return contentView;
-        }
+        return contentView;
     }
 
     @Override

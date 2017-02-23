@@ -111,7 +111,7 @@ public class LoginActivity extends BaseActivity {
         SharedPreferences loginData = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String name = loginData.getString("username", "");
         String pw = loginData.getString("password", "");
-        String msg = "Saved User Name: " + name + "\nSaved Password: " + pw;
+        String msg = "Saved User Name: " + name ;
         dataView.setText(msg);
     }
 
