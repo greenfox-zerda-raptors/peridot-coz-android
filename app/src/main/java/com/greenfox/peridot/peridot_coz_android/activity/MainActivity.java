@@ -3,19 +3,16 @@ package com.greenfox.peridot.peridot_coz_android.activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -41,16 +38,33 @@ import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
 import javax.inject.Inject;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
     Services services;
-    ProgressDialog progressDialog;
     SyncReceiver syncReceiver;
     Kingdom kingdom;
+
+    @Override
+    public void onData(Call call, Response response) {
+        LoginResponse loginResponse = (LoginResponse) response.body();
+        Log.e("response", loginResponse.getToken());
+        if (loginResponse.getErrors() == null){
+            String token = loginResponse.getToken();
+            services.setApiService();
+            Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        }
+    }
+
+    @Override
+    public void onError(Call call, Throwable t) {
+        Log.d("Error", t.getMessage());
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,28 +73,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DaggerServiceComponent.builder().build().inject(this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        if (SharedPreferencesTokenEmpty() && checkSharedPreferencesForUser()) {
-            services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginResponse>() {
-                @Override
-                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    if (response.body().getErrors() == null) {
-                        String token = response.body().getToken();
-                        services.setApiService();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<LoginResponse> call, Throwable t) {
-                    Log.d("Error", t.getMessage());
-                }
-            });
+        if (SharedPreferencesTokenEmpty() && checkSharedPreferencesForUser()) {
+            services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(this);
+            {
+
+            }
         }
+
         if (!SharedPreferencesTokenEmpty()) {
-            syncReceiver = new SyncReceiver();
-            setBackgroundSyncTimer();
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                     this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -94,14 +95,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 notificationManager.cancel(Integer.valueOf(getIntent().getStringExtra("notificationID")));
             }
             if (getIntent().getStringExtra("fragment") == null) {
-                navigationView.getMenu().getItem(0).setChecked(true);
                 loadFragment(new KingdomOverviewFragment());
             } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
-                navigationView.getMenu().getItem(1).setChecked(true);
                 loadFragment(new BuildingsOverviewFragment());
-            } else if (getIntent().getStringExtra("fragment").equals("troops")) {
-                navigationView.getMenu().getItem(2).setChecked(true);
-                loadFragment(new TroopsOverviewFragment());
+            }
+        }
+
+        if (SharedPreferencesTokenEmpty() && checkSharedPreferencesForUser()) {
+            services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(this);
+
+            if (!SharedPreferencesTokenEmpty()) {
+                syncReceiver = new SyncReceiver();
+                setBackgroundSyncTimer();
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                        this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                drawer.setDrawerListener(toggle);
+                toggle.syncState();
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                navigationView.setNavigationItemSelectedListener(this);
+                if (getIntent().getStringExtra("notification") != null) {
+                    NotificationManager notificationManager =
+                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.cancel(Integer.valueOf(getIntent().getStringExtra("notificationID")));
+                }
+                if (getIntent().getStringExtra("fragment") == null) {
+                    navigationView.getMenu().getItem(0).setChecked(true);
+                    loadFragment(new KingdomOverviewFragment());
+                } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
+                    navigationView.getMenu().getItem(1).setChecked(true);
+                    loadFragment(new BuildingsOverviewFragment());
+                } else if (getIntent().getStringExtra("fragment").equals("troops")) {
+                    navigationView.getMenu().getItem(2).setChecked(true);
+                    loadFragment(new TroopsOverviewFragment());
+                }
             }
         }
     }
@@ -195,20 +222,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void showLoadingProgress() {
-        progressDialog = new ProgressDialog(MainActivity.this);
-        progressDialog.show();
-        progressDialog.setMessage("loading...");
-        Runnable progressRunnable = new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.cancel();
-            }
-        };
-        Handler pdCanceller = new Handler();
-        pdCanceller.postDelayed(progressRunnable, 2000);
-    }
-
     private boolean checkSharedPreferencesForUser() {
         if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
             Toast.makeText(this, "You have to log in", Toast.LENGTH_SHORT).show();
@@ -267,4 +280,3 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 }
-
