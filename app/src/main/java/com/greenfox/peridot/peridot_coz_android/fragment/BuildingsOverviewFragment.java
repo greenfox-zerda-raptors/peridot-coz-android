@@ -1,6 +1,5 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
@@ -15,21 +14,18 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
-import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.BuildingsEvent;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
-
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class BuildingsOverviewFragment extends Fragment {
@@ -38,7 +34,7 @@ public class BuildingsOverviewFragment extends Fragment {
     private BuildingAdapter adapter;
     private int counter = 164;
     @Inject
-    ApiService apiService;
+    Services services;
     FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab, fakeFab;
     boolean isMainFabOpen;
     Animation mainFabRotateLeft, mainFabRotateRight, appearSmallFab, disappearSmallFab;
@@ -48,7 +44,7 @@ public class BuildingsOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View contentView = inflater.inflate(R.layout.buildings_overview_layout, container, false);
-        DaggerApiComponent.builder().build().inject(this);
+        DaggerServiceComponent.builder().build().inject(this);
         mainFab = (FloatingActionButton) contentView.findViewById(R.id.mainFab);
         mineFab = (FloatingActionButton) contentView.findViewById(R.id.mineFab);
         farmFab = (FloatingActionButton) contentView.findViewById(R.id.farmFab);
@@ -107,7 +103,7 @@ public class BuildingsOverviewFragment extends Fragment {
         final ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
         adapter = new BuildingAdapter(container.getContext(), buildings);
         listView.setAdapter(adapter);
-        apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
+        services.apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
             @Override
             public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
                 adapter.clear();
@@ -136,7 +132,7 @@ public class BuildingsOverviewFragment extends Fragment {
 }
 
     private void overrideApi(final Building building) {
-        apiService.createBuilding(building).enqueue(new Callback<Building>() {
+        services.apiService.createBuilding(building).enqueue(new Callback<Building>() {
             @Override
             public void onResponse(Call<Building> call, Response<Building> response) {
                 adapter.add(response.body());
@@ -191,7 +187,7 @@ public class BuildingsOverviewFragment extends Fragment {
 
     @Subscribe
     private void onBuildingsEvent(BuildingsEvent buildingsEvent) {
-            apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
+            services.apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
                 @Override
                 public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
                     adapter.clear();

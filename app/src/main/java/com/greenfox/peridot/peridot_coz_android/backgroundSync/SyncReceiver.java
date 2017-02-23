@@ -15,7 +15,7 @@ import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,7 +32,7 @@ public class SyncReceiver extends BroadcastReceiver {
     public static final String KILL_TROOPS = "Troops Killed In Battle";
 
     @Inject
-    ApiService apiService;
+    Services services;
     Context context;
     Kingdom syncedKingdom;
     SharedPreferences preferences;
@@ -44,7 +44,7 @@ public class SyncReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
-        DaggerApiComponent.builder().build().inject(this);
+//        DaggerServiceComponent.builder().build().inject(this);
         preferences = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         syncKingdom();
 //        EventBus.getDefault().post(new NavBarEvent(new int [] {5, 1}));
@@ -124,7 +124,7 @@ public class SyncReceiver extends BroadcastReceiver {
     }
 
     private void syncKingdom() {
-        apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
+        services.apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
             @Override
             public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
                 syncedKingdom = response.body().getKingdom();

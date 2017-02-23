@@ -8,41 +8,37 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Vibrator;
+import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.R;
-import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.NavBarEvent;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncReceiver;
-import com.greenfox.peridot.peridot_coz_android.api.ApiLoginService;
-import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerApiComponent;
 import com.greenfox.peridot.peridot_coz_android.fragment.BattleOverviewFragment;
-import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.SettingsFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
-import com.greenfox.peridot.peridot_coz_android.model.response.LoginAndRegisterResponse;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
+import com.greenfox.peridot.peridot_coz_android.model.response.LoginResponse;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
+import com.greenfox.peridot.peridot_coz_android.provider.Services;
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,74 +46,63 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    String token = "";
-
     @Inject
-    ApiLoginService apiLoginService;
-    @Inject
-    ApiService apiService;
+    Services services;
     ProgressDialog progressDialog;
     SyncReceiver syncReceiver;
     Kingdom kingdom;
-    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("MainActivity", "main started");
         setContentView(R.layout.activity_main);
-
-        DaggerApiComponent.builder().build().inject(this);
+        DaggerServiceComponent.builder().build().inject(this);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
-        if(SharedPreferencesTokenEmpty()) {
-            checkSharedPreferencesForUser();
-            apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginAndRegisterResponse>() {
-            @Override
-            public void onResponse(Call<LoginAndRegisterResponse> call, Response<LoginAndRegisterResponse> response) {
-                if (response.body().getErrors() == null) {
-                    token = response.body().getToken();
-                    Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        if (SharedPreferencesTokenEmpty() && checkSharedPreferencesForUser()) {
+            services.apiLoginService.login(new LoginRequest(getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", ""), getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("password", ""))).enqueue(new Callback<LoginResponse>() {
+                @Override
+                public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                    if (response.body().getErrors() == null) {
+                        String token = response.body().getToken();
+                        services.setApiService();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    }
                 }
-            }
-            @Override
-            public void onFailure(Call<LoginAndRegisterResponse> call, Throwable t) {Log.d("Error", t.getMessage());}
-        });}
-        apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
-            @Override
-            public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
-                kingdom = response.body().getKingdom();
-            }
-            @Override
-            public void onFailure(Call<KingdomResponse> call, Throwable t) {
-            }
-        });
-        syncReceiver = new SyncReceiver();
-        setBackgroundSyncTimer();
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        if (getIntent().getStringExtra("notification") != null) {
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.cancel(Integer.valueOf(getIntent().getStringExtra("notificationID")));
+
+                @Override
+                public void onFailure(Call<LoginResponse> call, Throwable t) {
+                    Log.d("Error", t.getMessage());
+                }
+            });
         }
-        if (getIntent().getStringExtra("fragment")== null) {
-            navigationView.getMenu().getItem(0).setChecked(true);
-            loadFragment(new KingdomOverviewFragment());
-        } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
-            navigationView.getMenu().getItem(1).setChecked(true);
-            loadFragment(new BuildingsOverviewFragment());
-        } else if (getIntent().getStringExtra("fragment").equals("troops")) {
-            navigationView.getMenu().getItem(2).setChecked(true);
-            loadFragment(new TroopsOverviewFragment());
+        if (!SharedPreferencesTokenEmpty()) {
+            syncReceiver = new SyncReceiver();
+            setBackgroundSyncTimer();
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+            if (getIntent().getStringExtra("notification") != null) {
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.cancel(Integer.valueOf(getIntent().getStringExtra("notificationID")));
+            }
+            if (getIntent().getStringExtra("fragment") == null) {
+                navigationView.getMenu().getItem(0).setChecked(true);
+                loadFragment(new KingdomOverviewFragment());
+            } else if (getIntent().getStringExtra("fragment").equals("buildings")) {
+                navigationView.getMenu().getItem(1).setChecked(true);
+                loadFragment(new BuildingsOverviewFragment());
+            } else if (getIntent().getStringExtra("fragment").equals("troops")) {
+                navigationView.getMenu().getItem(2).setChecked(true);
+                loadFragment(new TroopsOverviewFragment());
+            }
         }
     }
 
@@ -137,14 +122,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         CozApp.setApplicationVisible(true);
     }
 
-    private void saveBuildingCountToSharedPreferences(){
+    private void saveBuildingCountToSharedPreferences() {
         SharedPreferences buildingCount = getSharedPreferences("buildings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = buildingCount.edit();
         int buildings = kingdom.getBuildings().size();
         editor.putInt("buildings", buildings);
         editor.apply();
     }
-    private void saveTroopCountToSharedPreferences(){
+
+    private void saveTroopCountToSharedPreferences() {
         SharedPreferences troopCount = getSharedPreferences("troops", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = troopCount.edit();
         int troops = kingdom.getTroops().size();
@@ -209,24 +195,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void showLoadingProgress(){
+    public void showLoadingProgress() {
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.show();
         progressDialog.setMessage("loading...");
-//        Runnable progressRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                progressDialog.cancel();
-//            }
-//        };
-//        Handler pdCanceller = new Handler();
-//        pdCanceller.postDelayed(progressRunnable, 2000);
+        Runnable progressRunnable = new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.cancel();
+            }
+        };
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 2000);
     }
-    
-    private void checkSharedPreferencesForUser() {
+
+    private boolean checkSharedPreferencesForUser() {
         if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
             Toast.makeText(this, "You have to log in", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -242,7 +231,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.putString("token", "");
         editor.apply();
         Toast.makeText(this, "Successful logout", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, LoginActivity.class));
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 
@@ -256,12 +247,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void setBackgroundSyncTimer() {
         Intent syncIntent = new Intent(this, SyncReceiver.class);
-        AlarmManager alarmManager =(AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), 10000, PendingIntent.getBroadcast(this, 1, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT));
     }
 
     @Subscribe
-    public void onNavBarEvent (NavBarEvent navBarEvent) {
+    public void onNavBarEvent(NavBarEvent navBarEvent) {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         if (navBarEvent.getNewStuff()[0] != 0) {
@@ -276,3 +267,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 }
+
