@@ -1,7 +1,6 @@
 package com.greenfox.peridot.peridot_coz_android.api;
 
 import java.io.IOException;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -11,7 +10,6 @@ import okhttp3.Response;
 public class AuthorizationInterceptor implements Interceptor {
 
     private String authToken;
-
 
     public AuthorizationInterceptor(String token) {
         this.authToken = token;

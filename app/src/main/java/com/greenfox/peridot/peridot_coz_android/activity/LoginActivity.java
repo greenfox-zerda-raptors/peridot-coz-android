@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         if (isUsernameOrPasswordEmpty()) {
             Toast.makeText(this, "Please fill in username/password", Toast.LENGTH_SHORT).show();
         } else {
-            services.apiLoginService.login(new LoginRequest(loginUsername.getText().toString(), loginPassword.getText().toString())).enqueue(new Callback<LoginResponse>() {
+            services.apiLoginService.login(new LoginRequest(loginPassword.getText().toString(), loginUsername.getText().toString())).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.body().getErrors() != null) {
