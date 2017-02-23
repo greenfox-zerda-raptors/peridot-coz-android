@@ -16,7 +16,6 @@ import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
 import javax.inject.Inject;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class KingdomOverviewFragment extends BaseFragment {
@@ -63,31 +62,23 @@ public class KingdomOverviewFragment extends BaseFragment {
         tvResourcesFood = (TextView) contentView.findViewById(R.id.textview_food);
         tvTroops = (TextView) contentView.findViewById(R.id.textview_finished_troops);
 
-        services.apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
-            @Override
-            public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
-                if (response.body().getErrors() == null) {
-                    kingdom = response.body().getKingdom();
-                    tvBuildings.setText(String.valueOf(kingdom.buildingsCount() + " finished"));
-                    tvResourcesGold.setText(String.valueOf(kingdom.goldCount() + " gold"));
-                    tvResourcesFood.setText(String.valueOf(kingdom.foodCount() + " food"));
-                    tvTroops.setText(String.valueOf(kingdom.troopsCount() + " finished"));
-                } else {
-                    Toast.makeText(getContext(), "Something went wrong, please try to refresh", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<KingdomResponse> call, Throwable t) {
-            }
-        });
-
-        return contentView;
+        services.apiService.getKingdom().enqueue(this); {
+            return contentView;
+        }
     }
 
     @Override
     public void onData(Call call, Response response) {
-
+        KingdomResponse kingdomResponse = (KingdomResponse) response.body();
+        if (kingdomResponse.getErrors() == null) {
+            kingdom = kingdomResponse.getKingdom();
+            tvBuildings.setText(String.valueOf(kingdom.buildingsCount() + " finished"));
+            tvResourcesGold.setText(String.valueOf(kingdom.goldCount() + " gold"));
+            tvResourcesFood.setText(String.valueOf(kingdom.foodCount() + " food"));
+            tvTroops.setText(String.valueOf(kingdom.troopsCount() + " finished"));
+        } else {
+            Toast.makeText(getContext(), "Something went wrong, please try to refresh", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
