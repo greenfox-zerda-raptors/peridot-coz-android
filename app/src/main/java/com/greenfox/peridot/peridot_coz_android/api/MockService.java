@@ -27,7 +27,7 @@ public class MockService implements ApiService {
     private static final String TAG = "MockService";
     private Building building = new Building("Townhall");
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building(1,"Townhall"), new Building(2,"Farm"), new Building(3,"Farm"),new Building(4,"Mine"),new Building(5,"Mine"),new Building(6,"Barrack"),new Building(7,"Barrack"),new Building(8,"Farm"),new Building(9,"Mine"), new Building(10,"Townhall") ));
-    private ArrayList<User> users = new ArrayList<>(Arrays.asList(new User("Anna")));
+    private ArrayList<User> users = new ArrayList<>(Arrays.asList(new User("Anna"), new User("Balint"), new User("Bea"),new User("Szilvi")));
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings),new Resource("gold", 20, buildings)));
     private Troop troop1 = new Troop(5, 5, 5);
     private Troop troop2 = new Troop(10, 8, 2);
@@ -46,9 +46,6 @@ public class MockService implements ApiService {
         return new MockCall<UsersResponse>() {
             @Override
             public void enqueue(Callback<UsersResponse> callback) {
-                users.add(new User("Balint"));
-                users.add(new User("Bea"));
-                users.add(new User("Szilvi"));
                 Response<UsersResponse> r = Response.success(new UsersResponse(users));
                 callback.onResponse(this, r);
             }
@@ -111,7 +108,7 @@ public class MockService implements ApiService {
         return new MockCall<Troop>() {
             @Override
             public void enqueue(Callback<Troop> callback) {
-                Response<Troop> r = Response.success(new Troop(10, 2, 1));
+                Response<Troop> r = Response.success(troop.upgradeTroop(troop));
                 callback.onResponse(this, r);
             }
         };
