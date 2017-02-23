@@ -1,6 +1,7 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
-import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
-import com.greenfox.peridot.peridot_coz_android.provider.Services;
-import javax.inject.Inject;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class BuildingDetailFragment extends BaseFragment {
+public class BuildingDetailFragment extends Fragment {
 
-    @Inject
-    Services services;
     private Building building;
 
     public BuildingDetailFragment() {
@@ -29,24 +22,9 @@ public class BuildingDetailFragment extends BaseFragment {
                              Bundle savedInstanceState) {
 
         View contentView = inflater.inflate(R.layout.building_detail, container, false);
-        DaggerServiceComponent.builder().build().inject(this);
 
         Bundle bundle = getArguments();
-        Building buildingFromPrevFrag = (Building) bundle.getSerializable("building");
-
-
-        services.apiService.getDetailsOfBuilding(buildingFromPrevFrag.getId()).enqueue(new Callback<Building>() {
-            @Override
-            public void onResponse(Call<Building> call, Response<Building> response) {
-                building = response.body();
-
-            }
-
-            @Override
-            public void onFailure(Call<Building> call, Throwable t) {
-
-            }
-        });
+        building = (Building) bundle.getSerializable("building");
 
         ImageView buildingImage = (ImageView) contentView.findViewById(R.id.detailBuildingImage);
         TextView buildingType = (TextView) contentView.findViewById(R.id.buildingName);
@@ -69,13 +47,4 @@ public class BuildingDetailFragment extends BaseFragment {
         return contentView;
     }
 
-    @Override
-    public void onData(Call call, Response response) {
-
-    }
-
-    @Override
-    public void onError(Call call, Throwable t) {
-
-    }
 }
