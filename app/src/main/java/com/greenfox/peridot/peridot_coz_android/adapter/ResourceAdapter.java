@@ -27,12 +27,10 @@ public class ResourceAdapter extends ArrayAdapter<Resource> {
         ImageView resourceImage = (ImageView) convertView.findViewById(R.id.resourceImage);
         TextView type = (TextView) convertView.findViewById(R.id.type);
         TextView amount = (TextView) convertView.findViewById(R.id.amount);
-        TextView buildings = (TextView) convertView.findViewById(R.id.buildings);
         if (resource.getType().equals("gold")) {resourceImage.setImageResource(R.drawable.gold);}
         if (resource.getType().equals("food")) {resourceImage.setImageResource(R.drawable.food);}
-        type.setText(resource.getType());
+        type.setText(Character.toUpperCase(resource.getType().charAt(0)) + resource.getType().substring(1));
         amount.setText(String.valueOf(resource.getAmount()));
-        buildings.setText(listTheBuildings());
 
         return convertView;
     }

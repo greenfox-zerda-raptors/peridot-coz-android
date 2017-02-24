@@ -24,18 +24,24 @@
 
         <TextView
             android:id="@+id/tvHP"
+            android:textSize="14sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="20dp" />
 
         <TextView
             android:id="@+id/tvAP"
+            android:textSize="14sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="20dp" />
 
         <TextView
             android:id="@+id/tvDP"
+            android:textSize="14sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
