@@ -39,6 +39,7 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class BuildingsOverviewFragment extends BaseFragment {
 
     private BuildingAdapter adapter;
+    private Building upgradedBuilding;
     private int counter = 164;
     @Inject
     Services services;
@@ -118,9 +119,10 @@ public class BuildingsOverviewFragment extends BaseFragment {
                         .replace(R.id.content_frame, frag)
                         .addToBackStack(null)
                         .commit();
-                }
-            });
+            }
+        });
 
+        saveBuildingCountToSharedPreferences();
         return contentView;
     }
 
@@ -147,6 +149,14 @@ public class BuildingsOverviewFragment extends BaseFragment {
 
             }
         });
+
+    }
+
+    private void upgradeChosenBuilding(final Building building) {
+        Bundle bundle = getArguments();
+        upgradedBuilding = (Building) bundle.getSerializable("upgradebuilding");
+        adapter.remove(building);
+        adapter.add(upgradedBuilding);
     }
 
 

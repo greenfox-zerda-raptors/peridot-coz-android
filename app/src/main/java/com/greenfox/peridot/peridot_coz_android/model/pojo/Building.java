@@ -29,8 +29,9 @@ public class Building implements Serializable {
         this.hp = 100;
     }
 
-    public int increaseLevelOfBuilding(){
-        return level++;
+    public Building upgradeBuilding(Building building){
+        building.level++;
+        return building;
     }
 
     public Building() {}

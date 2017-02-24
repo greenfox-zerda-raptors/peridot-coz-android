@@ -30,7 +30,6 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class TroopsOverviewFragment extends BaseFragment {
 
     ListView troopsList;
-    private ArrayList<Troop> troops = new ArrayList<>();
     private TroopAdapter troopAdapter;
     @Inject
     Services services;
