@@ -11,9 +11,6 @@ import android.widget.Switch;
 import android.widget.Toast;
 import com.greenfox.peridot.peridot_coz_android.R;
 
-import retrofit2.Call;
-import retrofit2.Response;
-
 public class SettingsFragment extends android.support.v4.app.Fragment {
 
     Switch enableNotifications;
