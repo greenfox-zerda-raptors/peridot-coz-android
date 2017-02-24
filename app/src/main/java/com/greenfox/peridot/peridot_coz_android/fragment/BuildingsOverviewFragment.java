@@ -42,7 +42,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
     private int counter = 164;
     @Inject
     Services services;
-    FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab, fakeFab;
+    FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab;
     boolean isMainFabOpen;
     Animation mainFabRotateLeft, mainFabRotateRight, appearSmallFab, disappearSmallFab;
 
@@ -58,8 +58,8 @@ public class BuildingsOverviewFragment extends BaseFragment {
         barrackFab = (FloatingActionButton) contentView.findViewById(R.id.barrackFab);
         townhallFab = (FloatingActionButton) contentView.findViewById(R.id.townhallFab);
         isMainFabOpen = false;
-        mainFabRotateLeft = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_main_fab_left);
-        mainFabRotateRight = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_main_fab_right);
+        mainFabRotateRight = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_main_fab_left);
+        mainFabRotateLeft = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_main_fab_right);
         appearSmallFab = AnimationUtils.loadAnimation(getContext(), R.anim.appear_small_fab);
         disappearSmallFab = AnimationUtils.loadAnimation(getContext(), R.anim.disappear_small_fab);
         mainFab.setOnClickListener(new View.OnClickListener() {
@@ -177,7 +177,6 @@ public class BuildingsOverviewFragment extends BaseFragment {
             farmFab.startAnimation(disappearSmallFab);
             barrackFab.startAnimation(disappearSmallFab);
             townhallFab.startAnimation(disappearSmallFab);
-            fakeFab.startAnimation(disappearSmallFab);
             isMainFabOpen = false;
         } else {
             mainFab.startAnimation(mainFabRotateRight);
@@ -185,14 +184,12 @@ public class BuildingsOverviewFragment extends BaseFragment {
             farmFab.startAnimation(appearSmallFab);
             barrackFab.startAnimation(appearSmallFab);
             townhallFab.startAnimation(appearSmallFab);
-            fakeFab.startAnimation(appearSmallFab);
             isMainFabOpen = true;
         }
         mineFab.setClickable(isMainFabOpen);
         farmFab.setClickable(isMainFabOpen);
         barrackFab.setClickable(isMainFabOpen);
         townhallFab.setClickable(isMainFabOpen);
-        fakeFab.setClickable(isMainFabOpen);
     }
 
     @Subscribe
