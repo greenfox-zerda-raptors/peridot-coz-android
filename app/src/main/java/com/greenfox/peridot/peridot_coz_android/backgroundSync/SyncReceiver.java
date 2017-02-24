@@ -120,13 +120,13 @@ public class SyncReceiver extends BroadcastReceiver {
     }
 
     private void syncKingdom() {
-        services.apiService.getKingdom().enqueue(new Callback<KingdomResponse>() {
+        services.apiService.getKingdom().enqueue(new Callback<Kingdom>() {
             @Override
-            public void onResponse(Call<KingdomResponse> call, Response<KingdomResponse> response) {
-                syncedKingdom = response.body().getKingdom();
+            public void onResponse(Call<Kingdom> call, Response<Kingdom> response) {
+                syncedKingdom = response.body();
             }
             @Override
-            public void onFailure(Call<KingdomResponse> call, Throwable t) {}
+            public void onFailure(Call<Kingdom> call, Throwable t) {}
         });
     }
 }

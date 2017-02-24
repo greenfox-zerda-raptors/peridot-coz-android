@@ -5,6 +5,7 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Resource;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.User;
+import com.greenfox.peridot.peridot_coz_android.model.request.BuildingRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
@@ -53,11 +54,11 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<KingdomResponse> getKingdom() {
-        return new MockCall<KingdomResponse>() {
+    public Call<Kingdom> getKingdom() {
+        return new MockCall<Kingdom>() {
             @Override
-            public void enqueue(Callback<KingdomResponse> callback) {
-                Response<KingdomResponse> r = Response.success(new KingdomResponse(new Kingdom(user, buildings, resources, troops)));
+            public void enqueue(Callback<Kingdom> callback) {
+                Response<Kingdom> r = Response.success(new Kingdom(user, buildings, resources, troops));
                 callback.onResponse(this, r);
             }
         };
@@ -137,11 +138,11 @@ public class MockService implements ApiService {
     }
 
     @Override
-    public Call<Building> createBuilding(@Body final Building building) {
+    public Call<Building> createBuilding(@Body final BuildingRequest building) {
         return new MockCall<Building>() {
             @Override
             public void enqueue(Callback<Building> callback) {
-                Response<Building> r = Response.success(building);
+                Response<Building> r = Response.success(new Building(building.getType()));
                 callback.onResponse(this, r);
             }
         };

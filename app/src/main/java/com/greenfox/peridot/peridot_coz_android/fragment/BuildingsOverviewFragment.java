@@ -19,6 +19,7 @@ import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.BuildingsEvent;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
+import com.greenfox.peridot.peridot_coz_android.model.request.BuildingRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
@@ -72,33 +73,29 @@ public class BuildingsOverviewFragment extends BaseFragment {
         mineFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Building mine = new Building(counter, "Mine");
                 counter++;
-                createNewBuilding(mine);
+                createNewBuilding("mine");
             }
         });
         farmFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Building farm = new Building(counter, "Farm");
                 counter++;
-                createNewBuilding(farm);
+                createNewBuilding("farm");
             }
         });
         barrackFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Building barrack = new Building(counter, "Barrack");
                 counter++;
-                createNewBuilding(barrack);
+                createNewBuilding("barrack");
             }
         });
         townhallFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Building townhall = new Building(counter, "Townhall");
                 counter++;
-                createNewBuilding(townhall);
+                createNewBuilding("townhall");
             }
         });
         final ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
@@ -135,13 +132,12 @@ public class BuildingsOverviewFragment extends BaseFragment {
     public void onError(Call call, Throwable t) {
     }
 
-    private void createNewBuilding(final Building building) {
-        services.apiService.createBuilding(building).enqueue(new Callback<Building>() {
+    private void createNewBuilding(String building) {
+        services.apiService.createBuilding(new BuildingRequest(building)).enqueue(new Callback<Building>() {
             @Override
             public void onResponse(Call<Building> call, Response<Building> response) {
                 adapter.add(response.body());
             }
-
             @Override
             public void onFailure(Call<Building> call, Throwable t) {
 
