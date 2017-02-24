@@ -5,11 +5,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.R;
+
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
@@ -30,6 +34,8 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class TroopsOverviewFragment extends BaseFragment {
 
     ListView troopsList;
+    FloatingActionButton troopFab;
+    Animation mainFabRotateLeft, mainFabRotateRight;
     private ArrayList<Troop> troops = new ArrayList<>();
     private TroopAdapter troopAdapter;
     @Inject
@@ -44,8 +50,14 @@ public class TroopsOverviewFragment extends BaseFragment {
         View contentView = inflater.inflate(R.layout.troops_overview_layout, container, false);
 
         troopsList = (ListView) contentView.findViewById(R.id.troopsList);
-
-        troopAdapter = new TroopAdapter(container.getContext(), new ArrayList<Troop>());
+        troopFab = (FloatingActionButton) contentView.findViewById(R.id.troopsFab);
+        troopFab.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            createTroop();
+                                        }
+                                    });
+                troopAdapter = new TroopAdapter(container.getContext(), new ArrayList<Troop>());
         troopsList.setAdapter(troopAdapter);
         services.apiService.getTroops().enqueue(this);
         troopsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,7 +75,6 @@ public class TroopsOverviewFragment extends BaseFragment {
                         .commit();
             }
         }) ;
-        saveTroopCountToSharedPreferences();
         return contentView;
     }
 
@@ -72,7 +83,6 @@ public class TroopsOverviewFragment extends BaseFragment {
         TroopsResponse troopsResponse = (TroopsResponse) response.body();
         troopAdapter.clear();
         troopAdapter.addAll(troopsResponse.getTroops());
-
     }
 
     @Override
@@ -84,7 +94,6 @@ public class TroopsOverviewFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        saveTroopCountToSharedPreferences();
     }
 
     @Override
@@ -121,6 +130,18 @@ public class TroopsOverviewFragment extends BaseFragment {
         SharedPreferences.Editor editor = troopCount.edit();
         editor.putInt("troops", troopAdapter.getCount());
         editor.apply();
+    }
+
+    public void createTroop() {
+        services.apiService.trainTroop().enqueue(new Callback<Troop>() {
+            @Override
+            public void onResponse(Call<Troop> call, Response<Troop> response) {
+                troopAdapter.add(response.body());
+            }
+            @Override
+            public void onFailure(Call<Troop> call, Throwable t) {
+            }
+        });
     }
 }
 

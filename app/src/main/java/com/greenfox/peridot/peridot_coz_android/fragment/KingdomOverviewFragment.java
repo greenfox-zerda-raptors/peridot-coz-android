@@ -64,11 +64,7 @@ public class KingdomOverviewFragment extends BaseFragment<KingdomResponse> {
         tvResourcesGold = (TextView) contentView.findViewById(R.id.textview_gold);
         tvResourcesFood = (TextView) contentView.findViewById(R.id.textview_food);
         tvTroops = (TextView) contentView.findViewById(R.id.textview_finished_troops);
-
         services.apiService.getKingdom().enqueue(this);
-        saveBuildingCountToSharedPreferences();
-        saveTroopCountToSharedPreferences();
-
         return contentView;
 
     }
@@ -76,8 +72,6 @@ public class KingdomOverviewFragment extends BaseFragment<KingdomResponse> {
     @Override
     public void onResume() {
         super.onResume();
-        saveBuildingCountToSharedPreferences();
-        saveTroopCountToSharedPreferences();
     }
 
     @Override
@@ -99,7 +93,8 @@ public class KingdomOverviewFragment extends BaseFragment<KingdomResponse> {
         KingdomResponse kingdomResponse = (KingdomResponse) response.body();
         if (kingdomResponse.getErrors() == null) {
             kingdom = kingdomResponse.getKingdom();
-            tvBuildings.setText(String.valueOf(kingdom.buildingsCount() + " finished"));
+            String buildingscount = String.valueOf(kingdom.buildingsCount()) + "finished";
+            tvBuildings.setText(buildingscount);
             tvResourcesGold.setText(String.valueOf(kingdom.goldCount() + " gold"));
             tvResourcesFood.setText(String.valueOf(kingdom.foodCount() + " food"));
             tvTroops.setText(String.valueOf(kingdom.troopsCount() + " finished"));

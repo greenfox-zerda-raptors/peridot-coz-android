@@ -161,7 +161,6 @@ public class BuildingsOverviewFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        saveBuildingCountToSharedPreferences();
     }
 
     @Override
