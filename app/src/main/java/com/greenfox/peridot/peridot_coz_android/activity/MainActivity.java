@@ -47,25 +47,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     SyncReceiver syncReceiver;
 
     @Override
-    public void onData(Call call, Response response) {
-        LoginResponse loginResponse = (LoginResponse) response.body();
-        Log.e("response", loginResponse.getToken());
-        if (loginResponse.getErrors() == null){
-            String token = loginResponse.getToken();
-            services.setApiService();
-            Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        }
-    }
-
-    @Override
-    public void onError(Call call, Throwable t) {
-        Log.d("Error", t.getMessage());
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -201,6 +182,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onData(Call call, Response response) {
+        LoginResponse loginResponse = (LoginResponse) response.body();
+        if (loginResponse.getErrors() == null){
+            String token = loginResponse.getToken();
+            services.setApiService();
+            Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        }
+    }
+
+    @Override
+    public void onError(Call call, Throwable t) {
+        Log.d("Error", t.getMessage());
     }
 
     private boolean checkSharedPreferencesForUser() {
