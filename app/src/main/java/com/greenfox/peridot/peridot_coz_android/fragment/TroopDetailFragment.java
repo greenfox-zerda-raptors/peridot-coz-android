@@ -34,31 +34,33 @@ public class TroopDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View contentView = inflater.inflate(R.layout.building_detail, container, false);
+        View contentView = inflater.inflate(R.layout.troop_detail, container, false);
         DaggerServiceComponent.builder().build().inject(this);
 
         Bundle bundle = getArguments();
-        Building buildingFromPrevFrag = (Building) bundle.getSerializable("building");
+        Troop troopFromPrevFrag = (Troop) bundle.getSerializable("troop");
 
 
-        services.apiService.getDetailsOfBuilding(buildingFromPrevFrag.getId()).enqueue(new Callback<Building>() {
+        services.apiService.getTroopDetail(troopFromPrevFrag.getId()).enqueue(new Callback<Troop>() {
             @Override
-            public void onResponse(Call<Building> call, Response<Building> response) {
-                building = response.body();
+            public void onResponse(Call<Troop> call, Response<Troop> response) {
+                troop = response.body();
             }
 
             @Override
-            public void onFailure(Call<Building> call, Throwable t) {
+            public void onFailure(Call<Troop> call, Throwable t) {
 
             }
         });
 
-        ImageView buildingImage = (ImageView) contentView.findViewById(R.id.detailBuildingImage);
-        TextView buildingType = (TextView) contentView.findViewById(R.id.buildingName);
-        TextView buildingLevel = (TextView) contentView.findViewById(R.id.buildingLevel);
+        ImageView troopImage = (ImageView) contentView.findViewById(R.id.detailTroopImage);
+        TextView troopHP = (TextView) contentView.findViewById(R.id.troopHP);
+        TextView troopDP = (TextView) contentView.findViewById(R.id.troopDP);
+        TextView troopAP = (TextView) contentView.findViewById(R.id.troopAP);
         troopImage.setImageResource(R.drawable.troop);
-        buildingType.setText(String.valueOf(building.getType()));
-        buildingLevel.setText(String.valueOf("Level " + building.getLevel()));
+        troopHP.setText(String.valueOf("HP: " + troop.getHp()));
+        troopDP.setText(String.valueOf("DP: " + troop.getDefensePower()));
+        troopAP.setText(String.valueOf("AP: " + troop.getAttackPower()));
 
         return contentView;
     }

@@ -186,7 +186,7 @@ public class BuildingsOverviewFragment extends Fragment {
    }
 
     @Subscribe
-    private void onBuildingsEvent(BuildingsEvent buildingsEvent) {
+    public void onBuildingsEvent(BuildingsEvent buildingsEvent) {
             services.apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
                 @Override
                 public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {

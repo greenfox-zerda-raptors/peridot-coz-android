@@ -89,7 +89,7 @@ public class TroopsOverviewFragment extends Fragment {
     }
 
     @Subscribe
-    private void onTroopsEvent(TroopsEvent troopsEvent) {
+    public void onTroopsEvent(TroopsEvent troopsEvent) {
         services.apiService.getTroops().enqueue(new Callback<TroopsResponse>() {
             @Override
             public void onResponse(Call<TroopsResponse> call, Response<TroopsResponse> response) {

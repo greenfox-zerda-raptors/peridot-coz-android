@@ -12,13 +12,11 @@ import android.util.Log;
 import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
-import com.greenfox.peridot.peridot_coz_android.api.ApiService;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
+import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
-
 import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +42,7 @@ public class SyncReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
-//        DaggerServiceComponent.builder().build().inject(this);
+        DaggerServiceComponent.builder().build().inject(this);
         preferences = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         syncKingdom();
 //        EventBus.getDefault().post(new NavBarEvent(new int [] {5, 1}));

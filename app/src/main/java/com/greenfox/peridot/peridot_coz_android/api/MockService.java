@@ -28,9 +28,9 @@ public class MockService implements ApiService {
     private ArrayList<Building> buildings = new ArrayList<>(Arrays.asList(new Building(1,"Townhall"), new Building(2,"Farm"), new Building(3,"Farm"),new Building(4,"Mine"),new Building(5,"Mine"),new Building(6,"Barrack"),new Building(7,"Barrack"),new Building(8,"Farm"),new Building(9,"Mine"), new Building(10,"Townhall") ));
     private ArrayList<User> users = new ArrayList<>(Arrays.asList(new User("Anna")));
     private ArrayList<Resource> resources = new ArrayList<>(Arrays.asList(new Resource("food", 10, buildings),new Resource("gold", 20, buildings)));
-    private Troop troop1 = new Troop(5, 5, 5);
-    private Troop troop2 = new Troop(10, 8, 2);
-    private Troop troop3 = new Troop(20, 3, 7);
+    private Troop troop1 = new Troop(1, 5, 5, 5);
+    private Troop troop2 = new Troop(2, 10, 8, 2);
+    private Troop troop3 = new Troop(3, 20, 3, 7);
     private ArrayList<Troop> troops = new ArrayList<>(Arrays.asList(troop1, troop2, troop3));
 
     public MockService() {}
