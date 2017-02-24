@@ -1,5 +1,7 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +13,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.R;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.BuildingsEvent;
@@ -18,18 +22,22 @@ import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
 import com.greenfox.peridot.peridot_coz_android.provider.Services;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
+
 import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class BuildingsOverviewFragment extends BaseFragment {
 
-    private ArrayList<Building> buildings = new ArrayList<>();
     private BuildingAdapter adapter;
     private int counter = 164;
     @Inject
@@ -43,6 +51,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.buildings_overview_layout, container, false);
         DaggerServiceComponent.builder().build().inject(this);
+
         mainFab = (FloatingActionButton) contentView.findViewById(R.id.mainFab);
         mineFab = (FloatingActionButton) contentView.findViewById(R.id.mineFab);
         farmFab = (FloatingActionButton) contentView.findViewById(R.id.farmFab);
@@ -93,7 +102,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
             }
         });
         final ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
-        adapter = new BuildingAdapter(container.getContext(), buildings);
+        adapter = new BuildingAdapter(container.getContext(), new ArrayList<Building>());
         listView.setAdapter(adapter);
         services.apiService.getBuildings().enqueue(this);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -115,17 +124,28 @@ public class BuildingsOverviewFragment extends BaseFragment {
     }
 
     @Override
-    public void onData (Call call, Response response){
-        Building building = (Building) response.body();
-        adapter.add(building);
+    public void onData(Call call, Response response) {
+        BuildingsResponse building = (BuildingsResponse) response.body();
+        adapter.clear();
+        adapter.addAll(building.getBuildings());
     }
 
     @Override
-    public void onError (Call call, Throwable t){
+    public void onError(Call call, Throwable t) {
     }
 
     private void createNewBuilding(final Building building) {
-        services.apiService.createBuilding(building).enqueue(this);
+        services.apiService.createBuilding(building).enqueue(new Callback<Building>() {
+            @Override
+            public void onResponse(Call<Building> call, Response<Building> response) {
+                adapter.add(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Building> call, Throwable t) {
+
+            }
+        });
     }
 
 
@@ -133,18 +153,21 @@ public class BuildingsOverviewFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+        saveBuildingCountToSharedPreferences();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        saveBuildingCountToSharedPreferences();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         EventBus.getDefault().unregister(this);
+        saveBuildingCountToSharedPreferences();
     }
 
     private void openAndCloseFabs() {
@@ -174,17 +197,26 @@ public class BuildingsOverviewFragment extends BaseFragment {
 
     @Subscribe
     public void onBuildingsEvent(BuildingsEvent buildingsEvent) {
-            services.apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
-                @Override
-                public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
-                    adapter.clear();
-                    adapter.addAll(response.body().getBuildings());
-                }
-                @Override
-                public void onFailure(Call<BuildingsResponse> call, Throwable t) {}
-            });
-            Vibrator vibrator = (Vibrator) getActivity().getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-            vibrator.vibrate(500);
+        services.apiService.getBuildings().enqueue(new Callback<BuildingsResponse>() {
+            @Override
+            public void onResponse(Call<BuildingsResponse> call, Response<BuildingsResponse> response) {
+                adapter.clear();
+                adapter.addAll(response.body().getBuildings());
+            }
 
+            @Override
+            public void onFailure(Call<BuildingsResponse> call, Throwable t) {
+            }
+        });
+        Vibrator vibrator = (Vibrator) getActivity().getApplicationContext().getSystemService(VIBRATOR_SERVICE);
+        vibrator.vibrate(500);
+
+    }
+
+    private void saveBuildingCountToSharedPreferences() {
+        SharedPreferences buildingCount = CozApp.getApplication().getSharedPreferences("buildings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = buildingCount.edit();
+        editor.putInt("buildings", adapter.getCount());
+        editor.apply();
     }
 }

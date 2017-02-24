@@ -17,10 +17,9 @@ import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class ResourcesOverviewFragment extends BaseFragment {
+public class ResourcesOverviewFragment extends BaseFragment<ResourceResponse> {
 
     ResourceAdapter resourceAdapter;
-    ArrayList<Resource> resourceList;
     ListView resourcesListView;
     @Inject
     Services services;
@@ -31,13 +30,11 @@ public class ResourcesOverviewFragment extends BaseFragment {
         DaggerServiceComponent.builder().build().inject(this);
         View contentView = inflater.inflate(R.layout.resources_overview_layout, container, false);
 
-        resourceList = new ArrayList<>();
-
         resourcesListView = (ListView) contentView.findViewById(R.id.resourcesListView);
 
         resourceAdapter = new ResourceAdapter(
                 getContext(),
-                resourceList);
+                new ArrayList<Resource>());
         resourcesListView.setAdapter(resourceAdapter);
 
         services.apiService.getResource().enqueue(this);
