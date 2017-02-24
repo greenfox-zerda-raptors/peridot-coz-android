@@ -1,28 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:weightSum="1"
+    android:background="#CCFFFFFF">
 
-    <TextView
-    android:textStyle="bold"
-    android:text="username"
-    android:textSize="25dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginLeft="30dp"
-    android:id="@+id/userName" />
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/userImage"
+        android:src="@drawable/user_crown"/>
 
-    <TextView
-    android:textStyle="bold"
-    android:text="points"
-    android:textSize="25dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_below="@+id/userName"
-    android:layout_marginLeft="30dp"
-    android:id="@+id/points" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:layout_weight="0.99">
+
+        <TextView
+                android:textStyle="bold"
+                android:text="username"
+                android:textSize="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/userName" />
+
+        <TextView
+                android:textStyle="bold"
+                android:text="points"
+                android:textSize="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/userName"
+                android:layout_marginLeft="30dp"
+                android:id="@+id/points"
+                />
+
+    </LinearLayout>
 
 </LinearLayout>
