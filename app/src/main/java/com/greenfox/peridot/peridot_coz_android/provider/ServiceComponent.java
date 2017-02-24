@@ -9,6 +9,7 @@ import com.greenfox.peridot.peridot_coz_android.fragment.BuildingDetailFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.KingdomOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.ResourcesOverviewFragment;
+import com.greenfox.peridot.peridot_coz_android.fragment.TroopDetailFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.TroopsOverviewFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.UserOverviewFragment;
 
@@ -28,6 +29,7 @@ public interface ServiceComponent {
     void inject(SyncReceiver syncReceiver);
     void inject(BuildingDetailFragment buildingDetailFragment);
     void inject(BuildingAdapter buildingAdapter);
+    void inject(TroopDetailFragment buildingDetailFragment);
     void inject(ResourcesOverviewFragment resourcesOverviewFragment);
     void inject(UserOverviewFragment userOverviewFragment);
 }

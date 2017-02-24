@@ -8,9 +8,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.R;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.TroopsEvent;
@@ -25,7 +25,6 @@ import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static android.content.Context.VIBRATOR_SERVICE;
 
 public class TroopsOverviewFragment extends BaseFragment {
@@ -34,6 +33,7 @@ public class TroopsOverviewFragment extends BaseFragment {
     private TroopAdapter troopAdapter;
     @Inject
     Services services;
+    private int counter = 50;
 
     @Nullable
     @Override
@@ -46,8 +46,22 @@ public class TroopsOverviewFragment extends BaseFragment {
 
         troopAdapter = new TroopAdapter(container.getContext(), new ArrayList<Troop>());
         troopsList.setAdapter(troopAdapter);
-
         services.apiService.getTroops().enqueue(this);
+        troopsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundles = new Bundle();
+                Troop troop = (Troop) troopsList.getAdapter().getItem(position);
+                bundles.putSerializable("troop", troop);
+                TroopDetailFragment frag = new TroopDetailFragment();
+                frag.setArguments(bundles);
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, frag)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        }) ;
         saveTroopCountToSharedPreferences();
         return contentView;
     }
@@ -104,7 +118,7 @@ public class TroopsOverviewFragment extends BaseFragment {
     private void saveTroopCountToSharedPreferences() {
         SharedPreferences troopCount = CozApp.getApplication().getSharedPreferences("troops", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = troopCount.edit();
-        editor.putInt("buildings", troopAdapter.getCount());
+        editor.putInt("troops", troopAdapter.getCount());
         editor.apply();
     }
 }

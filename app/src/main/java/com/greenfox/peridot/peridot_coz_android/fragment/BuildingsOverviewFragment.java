@@ -59,8 +59,8 @@ public class BuildingsOverviewFragment extends BaseFragment {
         barrackFab = (FloatingActionButton) contentView.findViewById(R.id.barrackFab);
         townhallFab = (FloatingActionButton) contentView.findViewById(R.id.townhallFab);
         isMainFabOpen = false;
-        mainFabRotateLeft = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_main_fab_left);
-        mainFabRotateRight = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_main_fab_right);
+        mainFabRotateRight = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_main_fab_left);
+        mainFabRotateLeft = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_main_fab_right);
         appearSmallFab = AnimationUtils.loadAnimation(getContext(), R.anim.appear_small_fab);
         disappearSmallFab = AnimationUtils.loadAnimation(getContext(), R.anim.disappear_small_fab);
         mainFab.setOnClickListener(new View.OnClickListener() {
@@ -119,14 +119,11 @@ public class BuildingsOverviewFragment extends BaseFragment {
                         .replace(R.id.content_frame, frag)
                         .addToBackStack(null)
                         .commit();
-
             }
         });
 
         saveBuildingCountToSharedPreferences();
         return contentView;
-
-
     }
 
     @Override

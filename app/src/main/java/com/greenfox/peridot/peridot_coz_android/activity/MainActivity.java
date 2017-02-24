@@ -52,25 +52,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     SyncReceiver syncReceiver;
 
     @Override
-    public void onData(Call call, Response response) {
-        LoginResponse loginResponse = (LoginResponse) response.body();
-        Log.e("response", loginResponse.getToken());
-        if (loginResponse.getErrors() == null) {
-            String token = loginResponse.getToken();
-            services.setApiService();
-            Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        }
-    }
-
-    @Override
-    public void onError(Call call, Throwable t) {
-        Log.d("Error", t.getMessage());
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -182,6 +163,24 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return true;
     }
 
+    @Override
+    public void onData(Call call, Response response) {
+        LoginResponse loginResponse = (LoginResponse) response.body();
+        if (loginResponse.getErrors() == null){
+            String token = loginResponse.getToken();
+            services.setApiService();
+            Toast.makeText(getApplicationContext(), "Welcome " + token + "!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "Something went wrong, please log in again", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        }
+    }
+
+    @Override
+    public void onError(Call call, Throwable t) {
+        Log.d("Error", t.getMessage());
+    }
+
     private boolean checkSharedPreferencesForUser() {
         if (getSharedPreferences("userInfo", Context.MODE_PRIVATE).getString("username", "").equals("")) {
             Toast.makeText(this, "You have to log in", Toast.LENGTH_SHORT).show();
@@ -221,7 +220,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void setBackgroundSyncTimer() {
         Intent syncIntent = new Intent(this, SyncReceiver.class);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), 10000, PendingIntent.getBroadcast(this, 1, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+        alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), 30 * 1000, PendingIntent.getBroadcast(this, 1, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT));
     }
 
     @Subscribe
