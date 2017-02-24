@@ -80,6 +80,7 @@ public class LoginActivity extends BaseActivity {
         if (isUsernameOrPasswordEmpty()) {
             Toast.makeText(this, "Please fill in username/password", Toast.LENGTH_SHORT).show();
         } else {
+
             services.apiLoginService.login(new LoginRequest(loginUsername.getText().toString(), loginPassword.getText().toString())).enqueue(this); {
             }
         }
