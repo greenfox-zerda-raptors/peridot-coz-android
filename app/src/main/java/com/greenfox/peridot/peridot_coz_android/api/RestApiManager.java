@@ -1,16 +1,19 @@
 package com.greenfox.peridot.peridot_coz_android.api;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiManager {
 
     private static OkHttpClient client;
+    private static HttpLoggingInterceptor loggerInterceptor = new HttpLoggingInterceptor();
 
     public static OkHttpClient.Builder setHttpClient(){
         DefaultInterceptor defaultInterceptor = new DefaultInterceptor();
-        return new OkHttpClient.Builder().addInterceptor(defaultInterceptor);
+        return new OkHttpClient.Builder()
+                .addInterceptor(defaultInterceptor);
     }
 
     public static Retrofit setRetrofit(OkHttpClient client) {
@@ -22,7 +25,10 @@ public class RestApiManager {
     }
 
     public static ApiLoginService getLoginApi() {
-        client = setHttpClient().build();
+        loggerInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        client = setHttpClient()
+                .addInterceptor(loggerInterceptor)
+                .build();
         return setRetrofit(client).create(ApiLoginService.class);
     }
 

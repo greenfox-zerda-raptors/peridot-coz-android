@@ -7,8 +7,6 @@ import okhttp3.Response;
 
 public class DefaultInterceptor implements Interceptor {
 
-    private String authToken;
-
     public DefaultInterceptor() {}
 
     @Override
@@ -21,8 +19,4 @@ public class DefaultInterceptor implements Interceptor {
         Request authorisedRequest = builder.build();
         return chain.proceed(authorisedRequest);
     }
-
-    public String getAuthToken() {return authToken;}
-
-    public void setAuthToken(String authToken) {this.authToken = authToken;}
 }
