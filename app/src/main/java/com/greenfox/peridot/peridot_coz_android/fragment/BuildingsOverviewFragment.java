@@ -120,6 +120,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
                         .commit();
                 }
             });
+
         return contentView;
     }
 
