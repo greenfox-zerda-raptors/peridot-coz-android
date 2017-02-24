@@ -241,7 +241,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public void setBackgroundSyncTimer() {
         Intent syncIntent = new Intent(this, SyncReceiver.class);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), 10000, PendingIntent.getBroadcast(this, 1, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+        alarmManager.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis(), 30 * 1000, PendingIntent.getBroadcast(this, 1, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT));
     }
 
     @Subscribe
