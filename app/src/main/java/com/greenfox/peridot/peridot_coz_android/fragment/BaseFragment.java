@@ -15,7 +15,7 @@ import retrofit2.Response;
  * Created by mozgaanna on 16/02/17.
  */
 
-public abstract class BaseFragment extends Fragment implements Callback {
+public abstract class BaseFragment<T extends com.greenfox.peridot.peridot_coz_android.model.response.Response> extends Fragment implements Callback<T> {
     ProgressDialog progressDialog;
 
     @Nullable
@@ -28,7 +28,8 @@ public abstract class BaseFragment extends Fragment implements Callback {
 
     @Override
     public void onResponse(Call call, Response response) {
-        progressDialog.dismiss();
+        if(progressDialog != null){
+        progressDialog.dismiss();}
         onData(call, response);
     }
 

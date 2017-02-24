@@ -1,11 +1,15 @@
 package com.greenfox.peridot.peridot_coz_android.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.greenfox.peridot.peridot_coz_android.CozApp;
 import com.greenfox.peridot.peridot_coz_android.R;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
@@ -27,8 +31,6 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class TroopsOverviewFragment extends BaseFragment {
 
     ListView troopsList;
-    Troop troop;
-    private ArrayList<Troop> troops = new ArrayList<>();
     private TroopAdapter troopAdapter;
     @Inject
     Services services;
@@ -37,14 +39,16 @@ public class TroopsOverviewFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         DaggerServiceComponent.builder().build().inject(this);
+
         View contentView = inflater.inflate(R.layout.troops_overview_layout, container, false);
 
         troopsList = (ListView) contentView.findViewById(R.id.troopsList);
 
-        troopAdapter = new TroopAdapter(container.getContext(), troops);
+        troopAdapter = new TroopAdapter(container.getContext(), new ArrayList<Troop>());
         troopsList.setAdapter(troopAdapter);
 
         services.apiService.getTroops().enqueue(this);
+        saveTroopCountToSharedPreferences();
         return contentView;
     }
 
@@ -65,22 +69,25 @@ public class TroopsOverviewFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        saveTroopCountToSharedPreferences();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+        saveTroopCountToSharedPreferences();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         EventBus.getDefault().unregister(this);
+        saveTroopCountToSharedPreferences();
     }
 
     @Subscribe
-    private void onTroopsEvent(TroopsEvent troopsEvent) {
+    public void onTroopsEvent(TroopsEvent troopsEvent) {
         services.apiService.getTroops().enqueue(new Callback<TroopsResponse>() {
             @Override
             public void onResponse(Call<TroopsResponse> call, Response<TroopsResponse> response) {
@@ -92,6 +99,13 @@ public class TroopsOverviewFragment extends BaseFragment {
         });
         Vibrator vibrator = (Vibrator) getActivity().getApplicationContext().getSystemService(VIBRATOR_SERVICE);
         vibrator.vibrate(500);
+    }
+
+    private void saveTroopCountToSharedPreferences() {
+        SharedPreferences troopCount = CozApp.getApplication().getSharedPreferences("troops", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = troopCount.edit();
+        editor.putInt("buildings", troopAdapter.getCount());
+        editor.apply();
     }
 }
 

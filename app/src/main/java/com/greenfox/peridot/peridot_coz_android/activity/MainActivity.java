@@ -45,7 +45,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Inject
     Services services;
     SyncReceiver syncReceiver;
-    Kingdom kingdom;
 
     @Override
     public void onData(Call call, Response response) {
@@ -138,8 +137,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onPause();
         EventBus.getDefault().unregister(this);
         CozApp.setApplicationVisible(false);
-        saveBuildingCountToSharedPreferences();
-        saveTroopCountToSharedPreferences();
     }
 
     @Override
@@ -147,22 +144,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onResume();
         EventBus.getDefault().register(this);
         CozApp.setApplicationVisible(true);
-    }
-
-    private void saveBuildingCountToSharedPreferences() {
-        SharedPreferences buildingCount = getSharedPreferences("buildings", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = buildingCount.edit();
-        int buildings = kingdom.getBuildings().size();
-        editor.putInt("buildings", buildings);
-        editor.apply();
-    }
-
-    private void saveTroopCountToSharedPreferences() {
-        SharedPreferences troopCount = getSharedPreferences("troops", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = troopCount.edit();
-        int troops = kingdom.getTroops().size();
-        editor.putInt("troops", troops);
-        editor.apply();
     }
 
     @Override
