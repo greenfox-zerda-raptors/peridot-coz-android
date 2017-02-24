@@ -24,7 +24,7 @@
         <TextView
                 android:textStyle="bold"
                 android:text="username"
-                android:textSize="25dp"
+                android:textSize="16sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -35,7 +35,7 @@
         <TextView
                 android:textStyle="bold"
                 android:text="points"
-                android:textSize="25dp"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
