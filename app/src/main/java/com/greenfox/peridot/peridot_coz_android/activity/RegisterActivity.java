@@ -88,7 +88,8 @@ public class RegisterActivity extends BaseActivity {
 
     private boolean isUsernameOrPasswordOrKingdomEmpty() {
         return regUsername.getText().toString().equals("")
-                || regPassword.getText().toString().equals("") || regKingdomName.getText().toString().equals("")
+                || regPassword.getText().toString().equals("")
+                || regKingdomName.getText().toString().equals("")
                 || regKingdomName.getText().toString().equals("")
                 || regFirstName.getText().toString().equals("")
                 || regLastName.getText().toString().equals("")

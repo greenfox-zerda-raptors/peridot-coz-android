@@ -4,17 +4,17 @@ public class RegisterRequest {
 
     String username;
     String password;
-    String kingdomName;
-    String firstName;
-    String lastName;
+    String kingdomname;
+    String firstname;
+    String lastname;
     String email;
 
-    public RegisterRequest(String username, String password, String kingdomName, String firstName, String lastName, String email) {
+    public RegisterRequest(String username, String password, String kingdomname, String firstname, String lastname, String email) {
         this.username = username;
         this.password = password;
-        this.kingdomName = kingdomName;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.kingdomname = kingdomname;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
     }
 
@@ -28,17 +28,17 @@ public class RegisterRequest {
 
     public void setPassword(String password) {this.password = password;}
 
-    public String getKingdomName() {return kingdomName;}
+    public String getKingdomname() {return kingdomname;}
 
-    public void setKingdomName(String kingdomName) {this.kingdomName = kingdomName;}
+    public void setKingdomname(String kingdomname) {this.kingdomname = kingdomname;}
 
-    public String getFirstName() {return firstName;}
+    public String getFirstname() {return firstname;}
 
-    public void setFirstName(String firstName) {this.firstName = firstName;}
+    public void setFirstname(String firstname) {this.firstname = firstname;}
 
-    public String getLastName() {return lastName;}
+    public String getLastname() {return lastname;}
 
-    public void setLastName(String lastName) {this.lastName = lastName;}
+    public void setLastname(String lastname) {this.lastname = lastname;}
 
     public String getEmail() {return email;}
 

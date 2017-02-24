@@ -38,7 +38,7 @@
         android:background="#CCFFFFFF"/>
     
     <EditText
-        android:hint="Enter your firstname"
+        android:text="testFirstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/regFirstName"
@@ -48,7 +48,7 @@
         android:background="#CCFFFFFF"/>
 
     <EditText
-        android:hint="Enter your lastname"
+        android:text="testLastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/regLastName"
@@ -58,7 +58,7 @@
         android:background="#CCFFFFFF"/>
 
     <EditText
-        android:hint="Enter your email adress"
+        android:text="test@gmail.com"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/regEmail"

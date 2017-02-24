@@ -13,7 +13,7 @@ import dagger.Provides;
 @Module
 public class ApiProvider {
 
-    public static final boolean MOCK = false;
+    public static final boolean MOCK = true;
 
     @Provides
     public ApiLoginService provideLoginService() {

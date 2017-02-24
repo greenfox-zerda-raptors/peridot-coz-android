@@ -12,8 +12,10 @@ public class RestApiManager {
 
     public static OkHttpClient.Builder setHttpClient(){
         DefaultInterceptor defaultInterceptor = new DefaultInterceptor();
+        loggerInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return new OkHttpClient.Builder()
-                .addInterceptor(defaultInterceptor);
+                .addInterceptor(defaultInterceptor)
+                .addInterceptor(loggerInterceptor);
     }
 
     public static Retrofit setRetrofit(OkHttpClient client) {
@@ -25,10 +27,7 @@ public class RestApiManager {
     }
 
     public static ApiLoginService getLoginApi() {
-        loggerInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        client = setHttpClient()
-                .addInterceptor(loggerInterceptor)
-                .build();
+        client = setHttpClient().build();
         return setRetrofit(client).create(ApiLoginService.class);
     }
 
