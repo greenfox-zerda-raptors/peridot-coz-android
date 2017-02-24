@@ -1,8 +1,10 @@
 package com.greenfox.peridot.peridot_coz_android.model.pojo;
 
+import com.greenfox.peridot.peridot_coz_android.model.response.Response;
+
 import java.util.ArrayList;
 
-public class Kingdom {
+public class Kingdom extends Response {
 
     private User user;
     private ArrayList<Building> buildings;

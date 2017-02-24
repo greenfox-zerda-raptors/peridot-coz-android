@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class KingdomOverviewFragment extends BaseFragment<KingdomResponse> {
+public class KingdomOverviewFragment extends BaseFragment<Kingdom> {
 
     @Inject
     Services services;
@@ -66,9 +66,6 @@ public class KingdomOverviewFragment extends BaseFragment<KingdomResponse> {
         tvTroops = (TextView) contentView.findViewById(R.id.textview_finished_troops);
 
         services.apiService.getKingdom().enqueue(this);
-        saveBuildingCountToSharedPreferences();
-        saveTroopCountToSharedPreferences();
-
         return contentView;
 
     }
@@ -76,8 +73,6 @@ public class KingdomOverviewFragment extends BaseFragment<KingdomResponse> {
     @Override
     public void onResume() {
         super.onResume();
-        saveBuildingCountToSharedPreferences();
-        saveTroopCountToSharedPreferences();
     }
 
     @Override
@@ -96,24 +91,19 @@ public class KingdomOverviewFragment extends BaseFragment<KingdomResponse> {
 
     @Override
     public void onData(Call call, Response response) {
-        KingdomResponse kingdomResponse = (KingdomResponse) response.body();
-        if (kingdomResponse.getErrors() == null) {
-            kingdom = kingdomResponse.getKingdom();
-            tvBuildings.setText(String.valueOf(kingdom.buildingsCount() + " finished"));
-            tvResourcesGold.setText(String.valueOf(kingdom.goldCount() + " gold"));
-            tvResourcesFood.setText(String.valueOf(kingdom.foodCount() + " food"));
-            tvTroops.setText(String.valueOf(kingdom.troopsCount() + " finished"));
+        kingdom = (Kingdom) response.body();
+        if (kingdom.getErrors() == null) {
+            tvBuildings.setText((String.valueOf(kingdom.buildingsCount()) + " finished"));
+            tvResourcesGold.setText((String.valueOf(kingdom.goldCount()) + " gold"));
+            tvResourcesFood.setText((String.valueOf(kingdom.foodCount()) + " food"));
+            tvTroops.setText((String.valueOf(kingdom.troopsCount()) + " finished"));
         } else {
             Toast.makeText(getContext(), "Something went wrong, please try to refresh", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
-    public void onError(Call call, Throwable t) {
-
-    }
-
-
+    public void onError(Call call, Throwable t) {}
 
     private void saveBuildingCountToSharedPreferences() {
         SharedPreferences buildingCount = CozApp.getApplication().getSharedPreferences("buildings", Context.MODE_PRIVATE);

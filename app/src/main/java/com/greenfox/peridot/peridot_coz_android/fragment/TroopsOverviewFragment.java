@@ -84,7 +84,6 @@ public class TroopsOverviewFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
-        saveTroopCountToSharedPreferences();
     }
 
     @Override

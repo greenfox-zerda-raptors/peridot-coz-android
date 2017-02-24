@@ -28,10 +28,10 @@ public class BuildingAdapter extends ArrayAdapter<Building> {
         ImageView buildingImage = (ImageView) convertView.findViewById(R.id.buildingImage);
         TextView buildingType = (TextView) convertView.findViewById(R.id.buildingName);
         TextView buildingLevel = (TextView) convertView.findViewById(R.id.buildingLevel);
-        if (building.getType().equals("Townhall")) {buildingImage.setImageResource(R.drawable.town);}
-        if (building.getType().equals("Farm")) {buildingImage.setImageResource(R.drawable.farm);}
-        if (building.getType().equals("Mine")) {buildingImage.setImageResource(R.drawable.mine);}
-        if (building.getType().equals("Barrack")) {buildingImage.setImageResource(R.drawable.barrack);}
+        if (building.getType().equals("townhall")) {buildingImage.setImageResource(R.drawable.town);}
+        if (building.getType().equals("farm")) {buildingImage.setImageResource(R.drawable.farm);}
+        if (building.getType().equals("mine")) {buildingImage.setImageResource(R.drawable.mine);}
+        if (building.getType().equals("barrack")) {buildingImage.setImageResource(R.drawable.barrack);}
         buildingType.setText(String.valueOf(building.getType() + " " + (position+1)));
         buildingLevel.setText(String.valueOf("Level " + building.getLevel()));
 

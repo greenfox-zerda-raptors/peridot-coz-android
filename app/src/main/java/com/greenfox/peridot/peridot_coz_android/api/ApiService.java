@@ -1,7 +1,9 @@
 package com.greenfox.peridot.peridot_coz_android.api;
 
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Kingdom;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
+import com.greenfox.peridot.peridot_coz_android.model.request.BuildingRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.BuildingsResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.KingdomResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.ResourceResponse;
@@ -22,7 +24,7 @@ public interface ApiService {
     Call<UsersResponse> getUsers();
 
     @GET("/kingdom/")
-    Call<KingdomResponse> getKingdom();
+    Call<Kingdom> getKingdom();
 
     @GET ("/kingdom/troops/")
     Call<TroopsResponse> getTroops();
@@ -43,7 +45,7 @@ public interface ApiService {
     Call<Building> getDetailsOfBuilding(@Path("buildingId")int buildingId);
 
     @POST("/kingdom/buildings/")
-    Call<Building> createBuilding(@Body Building building);
+    Call<Building> createBuilding(@Body BuildingRequest building);
 
     @POST("/kingdom/buildings/upgrade")
     Call<Building> upgradeBuilding(@Body Building building);
