@@ -52,7 +52,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void onData(Call call, retrofit2.Response response) {
-        saveCorrectUsernameAndPasswordToSharedPreferences(regPassword.getText().toString(), regUsername.getText().toString());
+        saveCorrectUsernameAndPasswordToSharedPreferences(regUsername.getText().toString(), regPassword.getText().toString());
         goToLoginWithNewUser();
         Toast.makeText(getApplicationContext(), "Welcome " + regUsername.getText().toString() + "!", Toast.LENGTH_SHORT).show();
     }
