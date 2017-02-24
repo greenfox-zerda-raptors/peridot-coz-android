@@ -105,26 +105,22 @@ public class BuildingsOverviewFragment extends BaseFragment {
         adapter = new BuildingAdapter(container.getContext(), new ArrayList<Building>());
         listView.setAdapter(adapter);
         services.apiService.getBuildings().enqueue(this);
-        {
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Bundle bundles = new Bundle();
-                    Building building = (Building) listView.getAdapter().getItem(position);
-                    bundles.putSerializable("building", building);
-                    BuildingDetailFragment frag = new BuildingDetailFragment();
-                    frag.setArguments(bundles);
-                    getFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.content_frame, frag)
-                            .addToBackStack(null)
-                            .commit();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundles = new Bundle();
+                Building building = (Building) listView.getAdapter().getItem(position);
+                bundles.putSerializable("building", building);
+                BuildingDetailFragment frag = new BuildingDetailFragment();
+                frag.setArguments(bundles);
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, frag)
+                        .addToBackStack(null)
+                        .commit();
                 }
             });
-            saveBuildingCountToSharedPreferences();
-            return contentView;
-        }
-
+        return contentView;
     }
 
     @Override
