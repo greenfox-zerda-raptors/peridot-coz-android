@@ -65,7 +65,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
             public void onClick(View v) {
                 Building mine = new Building(counter, "Mine");
                 counter++;
-                overrideApi(mine);
+                createNewBuilding(mine);
             }
         });
         farmFab.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +73,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
             public void onClick(View v) {
                 Building farm = new Building(counter, "Farm");
                 counter++;
-                overrideApi(farm);
+                createNewBuilding(farm);
             }
         });
         barrackFab.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +81,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
             public void onClick(View v) {
                 Building barrack = new Building(counter, "Barrack");
                 counter++;
-                overrideApi(barrack);
+                createNewBuilding(barrack);
             }
         });
         townhallFab.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +89,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
             public void onClick(View v) {
                 Building townhall = new Building(counter, "Townhall");
                 counter++;
-                overrideApi(townhall);
+                createNewBuilding(townhall);
             }
         });
         final ListView listView = (ListView) contentView.findViewById(R.id.listViewBuilding);
@@ -105,7 +105,6 @@ public class BuildingsOverviewFragment extends BaseFragment {
                     BuildingDetailFragment frag = new BuildingDetailFragment();
                     frag.setArguments(bundles);
                     getFragmentManager()
-
                             .beginTransaction()
                             .replace(R.id.content_frame, frag)
                             .addToBackStack(null)
@@ -114,6 +113,7 @@ public class BuildingsOverviewFragment extends BaseFragment {
             });
             return contentView;
         }
+
     }
 
     @Override
@@ -126,9 +126,10 @@ public class BuildingsOverviewFragment extends BaseFragment {
     public void onError (Call call, Throwable t){
     }
 
-    private void overrideApi(final Building building) {
+    private void createNewBuilding(final Building building) {
         services.apiService.createBuilding(building).enqueue(this);
     }
+
 
     @Override
     public void onPause() {
