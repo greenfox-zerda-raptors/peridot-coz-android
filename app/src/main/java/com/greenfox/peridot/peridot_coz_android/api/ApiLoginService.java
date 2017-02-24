@@ -4,7 +4,6 @@ import com.greenfox.peridot.peridot_coz_android.model.request.LoginRequest;
 import com.greenfox.peridot.peridot_coz_android.model.request.RegisterRequest;
 import com.greenfox.peridot.peridot_coz_android.model.response.LoginResponse;
 import com.greenfox.peridot.peridot_coz_android.model.response.Response;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;

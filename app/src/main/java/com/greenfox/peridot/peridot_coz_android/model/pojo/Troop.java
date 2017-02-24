@@ -24,6 +24,12 @@ public class Troop implements Serializable {
 
     public Troop() {}
 
+    public Troop upgradeTroop(Troop troop){
+        troop.defensePower++;
+        troop.attackPower++;
+        return troop;
+    }
+
     public int getHp() {return hp;}
 
     public void setHp(int hp) {this.hp = hp;}

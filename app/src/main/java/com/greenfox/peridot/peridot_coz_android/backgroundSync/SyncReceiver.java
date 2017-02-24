@@ -45,17 +45,13 @@ public class SyncReceiver extends BroadcastReceiver {
         DaggerServiceComponent.builder().build().inject(this);
         preferences = context.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         syncKingdom();
-//        EventBus.getDefault().post(new NavBarEvent(new int [] {5, 1}));
-        Log.e("asdasdasda","asdasdasd");
         calculateDifferences();
         if (differenceBuildings != 0 && differenceTroops != 0) {
             if (!CozApp.isApplicationVisible()) {
-                Log.e("syncreceiver", "i am doing background stuff");
                 notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 checkForBuildingsAndNotify();
                 checkForTroopsAndNotify();
             } else {
-                Log.e("syncreceiver", "i am doing stuff");
                 checkForBuildingsAndPostEvent();
                 checkForTroopsAndPostEvent();
                 EventBus.getDefault().post(new NavBarEvent(new int [] {differenceBuildings, differenceTroops}));
