@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.greenfox.peridot.peridot_coz_android.R;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.TroopsEvent;
@@ -28,11 +29,11 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class TroopsOverviewFragment extends Fragment {
 
     ListView troopsList;
-    Troop troop;
     private ArrayList<Troop> troops = new ArrayList<>();
     private TroopAdapter troopAdapter;
     @Inject
     Services services;
+    private int counter = 50;
 
     @Nullable
     @Override
@@ -51,6 +52,21 @@ public class TroopsOverviewFragment extends Fragment {
             @Override
             public void onFailure(Call<TroopsResponse> call, Throwable t) {}
         });
+        troopsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundles = new Bundle();
+                Troop troop = (Troop) troopsList.getAdapter().getItem(position);
+                bundles.putSerializable("troop", troop);
+                TroopDetailFragment frag = new TroopDetailFragment();
+                frag.setArguments(bundles);
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, frag)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        }) ;
         return contentView;
     }
 
