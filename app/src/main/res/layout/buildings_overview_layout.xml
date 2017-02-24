@@ -85,19 +85,5 @@
         app:backgroundTint="@android:color/holo_blue_light"
         app:fabSize="mini"
         android:src="@drawable/ic_townhall" />
-  
-   <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fakeDownloadFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/townhallFab"
-        android:layout_alignEnd="@+id/townhallFab"
-        android:layout_alignRight="@+id/townhallFab"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="0dp"
-        android:clickable="false"
-        android:visibility="invisible"
-        app:backgroundTint="@android:color/holo_blue_light"
-        app:fabSize="mini"
-        android:src="@drawable/ic_sync" />
+    
 </RelativeLayout>

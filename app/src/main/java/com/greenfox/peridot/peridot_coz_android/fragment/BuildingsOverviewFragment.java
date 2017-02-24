@@ -39,10 +39,11 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class BuildingsOverviewFragment extends BaseFragment {
 
     private BuildingAdapter adapter;
+    private Building upgradedBuilding;
     private int counter = 164;
     @Inject
     Services services;
-    FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab, fakeFab;
+    FloatingActionButton mainFab, mineFab, farmFab, barrackFab, townhallFab;
     boolean isMainFabOpen;
     Animation mainFabRotateLeft, mainFabRotateRight, appearSmallFab, disappearSmallFab;
 
@@ -105,25 +106,26 @@ public class BuildingsOverviewFragment extends BaseFragment {
         adapter = new BuildingAdapter(container.getContext(), new ArrayList<Building>());
         listView.setAdapter(adapter);
         services.apiService.getBuildings().enqueue(this);
-        {
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Bundle bundles = new Bundle();
-                    Building building = (Building) listView.getAdapter().getItem(position);
-                    bundles.putSerializable("building", building);
-                    BuildingDetailFragment frag = new BuildingDetailFragment();
-                    frag.setArguments(bundles);
-                    getFragmentManager()
-                            .beginTransaction()
-                            .replace(R.id.content_frame, frag)
-                            .addToBackStack(null)
-                            .commit();
-                }
-            });
-            saveBuildingCountToSharedPreferences();
-            return contentView;
-        }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundles = new Bundle();
+                Building building = (Building) listView.getAdapter().getItem(position);
+                bundles.putSerializable("building", building);
+                BuildingDetailFragment frag = new BuildingDetailFragment();
+                frag.setArguments(bundles);
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, frag)
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });
+
+        saveBuildingCountToSharedPreferences();
+        return contentView;
+
 
     }
 
@@ -150,6 +152,14 @@ public class BuildingsOverviewFragment extends BaseFragment {
 
             }
         });
+
+    }
+
+    private void upgradeChosenBuilding(final Building building) {
+        Bundle bundle = getArguments();
+        upgradedBuilding = (Building) bundle.getSerializable("upgradebuilding");
+        adapter.remove(building);
+        adapter.add(upgradedBuilding);
     }
 
 
@@ -181,7 +191,6 @@ public class BuildingsOverviewFragment extends BaseFragment {
             farmFab.startAnimation(disappearSmallFab);
             barrackFab.startAnimation(disappearSmallFab);
             townhallFab.startAnimation(disappearSmallFab);
-            fakeFab.startAnimation(disappearSmallFab);
             isMainFabOpen = false;
         } else {
             mainFab.startAnimation(mainFabRotateRight);
@@ -189,14 +198,12 @@ public class BuildingsOverviewFragment extends BaseFragment {
             farmFab.startAnimation(appearSmallFab);
             barrackFab.startAnimation(appearSmallFab);
             townhallFab.startAnimation(appearSmallFab);
-            fakeFab.startAnimation(appearSmallFab);
             isMainFabOpen = true;
         }
         mineFab.setClickable(isMainFabOpen);
         farmFab.setClickable(isMainFabOpen);
         barrackFab.setClickable(isMainFabOpen);
         townhallFab.setClickable(isMainFabOpen);
-        fakeFab.setClickable(isMainFabOpen);
     }
 
     @Subscribe

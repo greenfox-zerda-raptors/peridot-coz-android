@@ -57,7 +57,7 @@ public class SyncReceiver extends BroadcastReceiver {
             } else {
                 checkForBuildingsAndPostEvent();
                 checkForTroopsAndPostEvent();
-                EventBus.getDefault().post(new NavBarEvent(new int [] {differenceBuildings, differenceTroops}));
+                EventBus.getDefault().post(new NavBarEvent(new int [] {Math.abs(differenceBuildings), Math.abs(differenceTroops)}));
             }
         }
     }
