@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.TroopsEvent;
+import com.greenfox.peridot.peridot_coz_android.model.pojo.Building;
 import com.greenfox.peridot.peridot_coz_android.model.pojo.Troop;
 import com.greenfox.peridot.peridot_coz_android.model.response.TroopsResponse;
 import com.greenfox.peridot.peridot_coz_android.provider.DaggerServiceComponent;
@@ -30,6 +31,7 @@ import static android.content.Context.VIBRATOR_SERVICE;
 public class TroopsOverviewFragment extends BaseFragment {
 
     ListView troopsList;
+    Troop upgradeTroop;
     private TroopAdapter troopAdapter;
     @Inject
     Services services;
@@ -64,6 +66,13 @@ public class TroopsOverviewFragment extends BaseFragment {
         }) ;
         saveTroopCountToSharedPreferences();
         return contentView;
+    }
+
+    private void upgradeChosenTroop(final Troop troop) {
+        Bundle bundle = getArguments();
+        upgradeTroop = (Troop) bundle.getSerializable("upgradetroop");
+        troopAdapter.remove(troop);
+        troopAdapter.add(upgradeTroop);
     }
 
     @Override

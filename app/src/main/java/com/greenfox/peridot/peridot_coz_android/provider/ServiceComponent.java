@@ -4,6 +4,7 @@ import com.greenfox.peridot.peridot_coz_android.activity.LoginActivity;
 import com.greenfox.peridot.peridot_coz_android.activity.MainActivity;
 import com.greenfox.peridot.peridot_coz_android.activity.RegisterActivity;
 import com.greenfox.peridot.peridot_coz_android.adapter.BuildingAdapter;
+import com.greenfox.peridot.peridot_coz_android.adapter.TroopAdapter;
 import com.greenfox.peridot.peridot_coz_android.backgroundSync.SyncReceiver;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingDetailFragment;
 import com.greenfox.peridot.peridot_coz_android.fragment.BuildingsOverviewFragment;
@@ -29,6 +30,7 @@ public interface ServiceComponent {
     void inject(SyncReceiver syncReceiver);
     void inject(BuildingDetailFragment buildingDetailFragment);
     void inject(BuildingAdapter buildingAdapter);
+    void inject(TroopAdapter troopAdapter);
     void inject(TroopDetailFragment buildingDetailFragment);
     void inject(ResourcesOverviewFragment resourcesOverviewFragment);
     void inject(UserOverviewFragment userOverviewFragment);
